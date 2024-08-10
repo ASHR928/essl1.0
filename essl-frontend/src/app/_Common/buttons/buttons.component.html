@@ -1,0 +1,20 @@
+@if (edit) {
+<a #edit id="EDIT" (click)="Edit()" style="color: green;">
+    <i class="bi bi-pencil-fill"></i>
+</a>
+}
+@if (delete) {
+<a #delete id="DELETE" (click)="Delete()" style="color: red; margin-left: 20px;">
+    <i class="bi bi-trash"></i>
+</a>
+}
+@if (view) {
+<a #view id="VIEW" (click)="View()" style="color: darkblue; margin-left: 20px;">
+    <i class="bi bi-eye"></i>
+</a>
+}
+@if (calendar) {
+<a #calendar id="CALENDAR" (click)="Calendar()" style="color: yellowgreen; margin-left: 20px;">
+    <i class="bi bi-calendar3"></i>
+</a>
+}

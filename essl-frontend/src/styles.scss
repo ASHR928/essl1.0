@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
+@import 'ngx-toastr/toastr';
+
+html, body { height: 100%; }
+
+mat-form-field {
+    width: 100%;
+  }
+  
+  header {
+    height: 100%;
+    width: 100%;
+    color: #F17922;
+    padding: 0px 0px 0px 6px;
+
+    h1 {
+        margin-top: 10px;
+    }
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
+.ag-header-cell-text {
+  color: #42A5F5;
+}
+
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 1.5em;
+}
+
+li {
+  margin: 1.5em 0;
+  padding: 0;
+}
+
+b { /* used for event dates/times */
+  margin-right: 3px;
+}
+
+.demo-app-sidebar-section {
+  padding: 2em;
+}
+
+.demo-app-main {
+  flex-grow: 1;
+  padding: 3em;
+}

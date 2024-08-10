@@ -1,0 +1,6 @@
+@if (editButton.edit) {
+    <button mat-raised-button color="{{color}}" (click)="AddNewItem()">{{ editButton.text }}</button> <br><br>
+ }
+
+<ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" [ngClass]="theme" [pagination]="pagination" [paginationPageSizeSelector]="pageSizeSelector" [paginationPageSize]="pageSize" [ngStyle]="{ 'height': height }" (gridReady)="onGridReady($event)" (rowClicked)="openPopup($event)">
+</ag-grid-angular>

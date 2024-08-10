@@ -1,0 +1,14 @@
+[
+    {
+        "loginType": 1,
+        "title": "Admin"
+    },
+    {
+        "loginType": 2,
+        "title": "HR"
+    },
+    {
+        "loginType": 3,
+        "title": "Employee"
+    }
+]

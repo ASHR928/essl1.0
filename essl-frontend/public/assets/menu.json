@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Admin",
+        "redirect": "admin"
+    },
+    {
+        "id": 2,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Employee List",
+        "redirect": "emplist"
+    },
+    {
+        "id": 3,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Employee Roaster",
+        "redirect": "emproster"
+    },
+    {
+        "id": 4,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Update Roaster",
+        "redirect": "updateroster"
+    }
+]

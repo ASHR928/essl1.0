@@ -1,0 +1,97 @@
+/* side-menu.component.css */
+.sidenav-container {
+    height: 100%;
+
+    .bar-header {
+        height: 100%;
+        background-color: #42A5F5;
+        margin-left: -16px;
+    }
+}
+
+.sidenav {
+    width: 250px;
+    /* Adjust the width as needed */
+    background-color: transparent;
+    /* Dark background color */
+    color: #eceff1;
+    /* Text color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sidenav a {
+    text-decoration: none;
+    color: #eceff1;
+    /* Link text color */
+}
+
+.sidenav a:hover {
+    background-color: transparent;
+    /* Hover background color */
+}
+
+.mat-toolbar {
+    background-color: #42A5F5;
+    /* Toolbar background color */
+    color: #eceff1;
+    /* Toolbar text color */
+}
+
+.mat-toolbar-row {
+    justify-content: center;
+}
+
+section {
+    margin: 30px;
+}
+
+i {
+    font-size: 30px;
+    color: black;
+    padding-left: 10px;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+::ng-deep .mat-mdc-menu-content {
+    background-color: #42A5F5 !important;
+}
+
+span {
+    font-size: 12px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+mat-sidenav {
+    background-image: linear-gradient(to right, #42A5F5, #FFF4EA);
+    color: #fff;
+}
+
+.header_one {
+    width: 100%;
+    text-align: left;
+    color: black;
+}
+
+.header_two {
+    width: 100%;
+    text-align: right;
+    color: black;
+}
+
+.settings {
+    text-decoration: none !important;
+    color: white;
+}
+
+.img {
+    border-radius: 50%;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    cursor: pointer;
+  }

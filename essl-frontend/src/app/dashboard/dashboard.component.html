@@ -1,0 +1,62 @@
+<!-- side-menu.component.html -->
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" style="background-color: #FFF4EA;">
+        <mat-toolbar color="primary">
+            <div class="bar-header">
+                <img src="../../assets/logo/logo.png" style="height: 72px;" alt="">
+                <span class="text-right">
+                    <i class="bi bi-person-circle" [matMenuTriggerFor]="menu" style="color: #4758B8;"></i>
+                    <!-- <span [matMenuTriggerFor]="menu" style="color: #A8385D; font-size: 1.0rem; text-align: center; cursor: pointer;" class="email">{{login.firstName.toUpperCase()}}</span> -->
+                    <mat-menu #menu="matMenu">
+                        <span style="color: white; font-size: 0.8rem;"></span>
+                        <button mat-menu-item (click)="logout()" style="color: white !important;">Logout</button>
+                    </mat-menu>
+                </span>
+            </div>
+        </mat-toolbar>
+        <mat-nav-list>
+            @for (menu of MenuList; track $index) {
+                <a mat-list-item id="{{menu.id}}" mat-list-item [routerLink]="['/', 'dashboard', menu.redirect]" [queryParams]="{ type: menu.loginType, unique: menu.id }"> <span>{{ menu.name }}</span></a>
+            }
+            <!-- <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'dashboard', 'admin']"> <span>Admin</span></a>
+            <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'dashboard', 'emplist']"> <span>Employee List</span></a>
+            <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'dashboard', 'emproster']"> <span>Employee Roster</span></a>
+            <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'dashboard', 'updateroster']"> <span>Update Roster</span></a> -->
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content">
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <div class="header_one">
+                ESSL
+            </div>
+            <div class="header_two">
+                 <span style="cursor: pointer; color: #42A5F5; font-size: 15px;" [matMenuTriggerFor]="menu1"></span>
+                <mat-menu #menu1="matMenu">
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <a [routerLink]="['/', 'dashboard', 'profile']" class="settings">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/" class="settings">Settings</a>
+                        </li>
+                        <li>
+                            <a href="/" class="settings">Help</a>
+                        </li>
+                        <li>
+                            <a (click)="logout()" style="color: white !important; cursor: pointer;">Logout</a>
+                        </li>
+                    </ul>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+
+        <!-- Your main content goes here -->
+        <section>
+            <router-outlet></router-outlet>
+        </section>
+    </mat-sidenav-content>
+</mat-sidenav-container>
