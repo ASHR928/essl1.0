@@ -56,8 +56,8 @@ export class EmployeeService {
     );
   }
 
-  putSwapEmployees(body: any) {
-    return this.http.put(Url.LocalUrl + 'rosters/swap/', body).pipe(
+  putSwapEmployees(id1: any, id2: any) {
+    return this.http.put(Url.LocalUrl + 'rosters/swap/' + id1 + '/' + id2, null).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);

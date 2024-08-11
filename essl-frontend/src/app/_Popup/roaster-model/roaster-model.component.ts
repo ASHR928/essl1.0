@@ -7,6 +7,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../_Material/material/material.module';
 import { CommonService } from '../../_Resolver/common.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'roaster-model',
@@ -27,6 +28,7 @@ export class RoasterModelComponent implements OnInit {
   employeeList: any[] = [];
   rowDataSecond: any[] = [];
   rowDataGet: any[] = [];
+  empId2: number = 0;
 
   allrows = {
     Emp_ID: "",
@@ -46,7 +48,7 @@ export class RoasterModelComponent implements OnInit {
     { field: 'End_Date', headerName: 'Roaster Valid Till', filter: 'text', width: 200 }
   ];
 
-  constructor(private employeeService: EmployeeService, private commonService: CommonService) {}
+  constructor(private employeeService: EmployeeService, private commonService: CommonService, public dialogRef: MatDialogRef<RoasterModelComponent>) {}
 
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe((data: any) => {
@@ -57,14 +59,21 @@ export class RoasterModelComponent implements OnInit {
     });
 
     this.employeeService.getRosters().subscribe((data: any) => {
-      console.log(data);
       this.rowDataGet = data;
     });
   }
 
   getId(item: any) {
     this.rowDataSecond = this.rowDataGet.filter((data => {
+      this.empId2 = item.target.value;
       return data.Emp_ID == item.target.value;
     }));
+  }
+
+  SwapRow() {
+    this.employeeService.putSwapEmployees(this.commonService.commonData.Emp_ID, this.empId2).subscribe((data: any) => {
+      alert('Employee successfully swap..');
+      this.dialogRef.close();
+    });
   }
 }
