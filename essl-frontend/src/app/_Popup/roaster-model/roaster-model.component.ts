@@ -29,6 +29,7 @@ export class RoasterModelComponent implements OnInit {
   rowDataSecond: any[] = [];
   rowDataGet: any[] = [];
   empId2: number = 0;
+  theme = 'ag-theme-quartz';
 
   allrows = {
     Emp_ID: "",
