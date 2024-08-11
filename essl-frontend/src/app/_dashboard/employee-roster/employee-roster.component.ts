@@ -43,6 +43,7 @@ export class EmployeeRosterComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
+    const data = this.empService.isEmployeeId;
 
     this.employeeService.getRosters().subscribe((res: any) => {
       this.rowData = res;
