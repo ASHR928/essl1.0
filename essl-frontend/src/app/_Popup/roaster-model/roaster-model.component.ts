@@ -40,12 +40,12 @@ export class RoasterModelComponent implements OnInit {
   };
 
   colDefs: any[] = [
-    { field: 'Emp_ID', headerName: 'Employee ID', filter: 'text', width: 180 },
-    { field: "Weekly_Off1", headerName: 'Weekly Off1', filter: 'text', width: 160 },
-    { field: 'Weekly_Off2', headerName: "Weekly Off2", filter: 'text', width: 160 },
-    { field: 'Shift_ID', headerName: 'Shift ID', filter: 'text', width: 120 },
-    { field: 'Start_Date', headerName: 'Roaster Valid From', filter: 'text', width: 200 },
-    { field: 'End_Date', headerName: 'Roaster Valid Till', filter: 'text', width: 200 }
+    { field: 'Emp_ID', headerName: 'Employee ID', width: 180 },
+    { field: "Weekly_Off1", headerName: 'Weekly Off1', width: 160 },
+    { field: 'Weekly_Off2', headerName: "Weekly Off2", width: 160 },
+    { field: 'Shift_ID', headerName: 'Shift ID', width: 120 },
+    { field: 'Start_Date', headerName: 'Roaster Valid From', width: 200 },
+    { field: 'End_Date', headerName: 'Roaster Valid Till', width: 200 }
   ];
 
   constructor(private employeeService: EmployeeService, private commonService: CommonService, public dialogRef: MatDialogRef<RoasterModelComponent>) {}
