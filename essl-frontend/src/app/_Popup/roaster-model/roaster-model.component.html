@@ -1,5 +1,19 @@
 <div class='demo-app-main'>
     <h4>Roaster Swap</h4>
     <h2>Employee to be Swap</h2> <br>
-    <common-grid [rowData]="rowData" [colDefs]="colDefs" [allrows]="allrows" [heightWidth]="{ height: '90%', width: '90%' }"></common-grid>
+    <!-- <common-grid [rowData]="rowData" [colDefs]="colDefs" [allrows]="allrows" [heightWidth]="{ height: '90%', width: '90%' }"></common-grid> -->
+    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" style="height: 500px;">
+    </ag-grid-angular>
+
+    <mat-form-field>
+        <mat-label>Cars</mat-label>
+        <select matNativeControl required>
+            @for (item of employeeList; track $index) {
+                <option value="{{item.Emp_ID}}">{{item.Emp_ID}}</option>
+            }
+        </select>
+    </mat-form-field>
+
+    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" style="height: 500px;">
+    </ag-grid-angular>
 </div>

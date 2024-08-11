@@ -7,6 +7,7 @@ import { EmployeeRosterComponent } from './_dashboard/employee-roster/employee-r
 import { UpdateRosterComponent } from './_dashboard/update-roster/update-roster.component';
 import { ButtonsComponent } from './_Common/buttons/buttons.component';
 import { buttonResolver } from './_Resolver/button.resolver';
+import { employeeResolver } from './_Resolver/employee.resolver';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -14,7 +15,9 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, children: [
         { path: 'admin', component: AdminComponent },
         { path: 'emplist', component: EmployeeListComponent },
-        { path: 'emproster', component: EmployeeRosterComponent },
+        { path: 'emproster', component: EmployeeRosterComponent, resolve: [
+            { 'emproster': employeeResolver }
+        ] },
         { path: 'updateroster', component: UpdateRosterComponent },
         { path: 'button', component: ButtonsComponent, resolve: [
             { 'button': buttonResolver }

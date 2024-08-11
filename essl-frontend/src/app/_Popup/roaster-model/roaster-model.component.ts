@@ -3,20 +3,27 @@ import { HttpModule } from '../../_Http/http/http.module';
 import { CommonGridComponent } from '../../_Common/common-grid/common-grid.component';
 import { EmployeeService } from '../../_Services/employee.service';
 import { ServicesModule } from '../../_Modules/services/services.module';
+import { AgGridAngular } from 'ag-grid-angular';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../_Material/material/material.module';
 
 @Component({
   selector: 'roaster-model',
   standalone: true,
   imports: [
     HttpModule,
+    AgGridAngular,
+    CommonModule,
     CommonGridComponent,
-    ServicesModule
+    ServicesModule,
+    MaterialModule
   ],
   templateUrl: './roaster-model.component.html',
   styleUrl: './roaster-model.component.scss'
 })
 export class RoasterModelComponent implements OnInit {
   rowData: any[] = [];
+  employeeList: any[] = [];
 
   allrows = {
     Emp_ID: "",
@@ -39,6 +46,9 @@ export class RoasterModelComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
+    this.employeeService.getEmployees().subscribe((data: any) => {
+      this.employeeList = data;
+    });
     this.employeeService.getRosters().subscribe((data: any) => {
       this.rowData = data;
     });
