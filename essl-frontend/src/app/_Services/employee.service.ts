@@ -42,12 +42,8 @@ export class EmployeeService {
     );
   }
 
-  postBulkEmployees(body: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data'
-    });
-    
-    return this.http.post(Url.LocalUrl + 'rosters/bulk-insert', body, { headers }).pipe(
+  postBulkEmployees(body: any) {   
+    return this.http.post(Url.LocalUrl + 'rosters/bulk-insert', body).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);

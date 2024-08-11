@@ -26,8 +26,9 @@ export class UpdateRosterComponent {
       if (fileEntry.fileEntry.isFile) {
         const file = fileEntry.fileEntry as FileSystemFileEntry;
         file.file((fileToUpload: File) => {
-          formData.append('files', fileToUpload, fileToUpload.name);
-          this.employeeService.postBulkEmployees(fileToUpload).subscribe(res => {
+          //formData.append('file',fileToUpload);
+          formData.append('file', fileToUpload, fileToUpload.name);
+          this.employeeService.postBulkEmployees(formData).subscribe(res => {
             this.messageService.successMsg('Data successfully uploaded');
           });
         });
