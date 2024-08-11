@@ -4,7 +4,6 @@ import { ServicesModule } from '../../_Modules/services/services.module';
 import { ButtonsComponent } from '../../_Common/buttons/buttons.component';
 import { ButtonService } from '../../_Resolver/button.service';
 import { EmployeeService } from '../../_Services/employee.service';
-import { EmpService } from '../../_Resolver/emp.service';
 
 @Component({
   selector: 'app-employee-roster',
@@ -39,11 +38,10 @@ export class EmployeeRosterComponent implements OnInit {
     { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
   ];
 
-  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private empService: EmpService) {}
+  constructor(private buttonService: ButtonService, private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
     this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
-    const data = this.empService.isEmployeeId;
 
     this.employeeService.getRosters().subscribe((res: any) => {
       this.rowData = res;

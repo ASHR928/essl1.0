@@ -6,6 +6,7 @@ import { ServicesModule } from '../../_Modules/services/services.module';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../_Material/material/material.module';
+import { CommonService } from '../../_Resolver/common.service';
 
 @Component({
   selector: 'roaster-model',
@@ -24,6 +25,8 @@ import { MaterialModule } from '../../_Material/material/material.module';
 export class RoasterModelComponent implements OnInit {
   rowData: any[] = [];
   employeeList: any[] = [];
+  rowDataSecond: any[] = [];
+  rowDataGet: any[] = [];
 
   allrows = {
     Emp_ID: "",
@@ -43,14 +46,25 @@ export class RoasterModelComponent implements OnInit {
     { field: 'End_Date', headerName: 'Roaster Valid Till', filter: 'text', width: 200 }
   ];
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, private commonService: CommonService) {}
 
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe((data: any) => {
       this.employeeList = data;
     });
-    this.employeeService.getRosters().subscribe((data: any) => {
+    this.employeeService.getEmpDetailsById(this.commonService.commonData.Emp_ID).subscribe((data: any) => {
       this.rowData = data;
     });
+
+    this.employeeService.getRosters().subscribe((data: any) => {
+      console.log(data);
+      this.rowDataGet = data;
+    });
+  }
+
+  getId(item: any) {
+    this.rowDataSecond = this.rowDataGet.filter((data => {
+      return data.Emp_ID == item.target.value;
+    }));
   }
 }

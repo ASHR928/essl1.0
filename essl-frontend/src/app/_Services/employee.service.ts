@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, retry, Subject } from 'rxjs';
+import { catchError, retry, Subject, toArray } from 'rxjs';
 import { Url } from '../_setUrl/url';
 
 @Injectable({
@@ -23,6 +23,7 @@ export class EmployeeService {
 
   getEmpDetailsById(empId: any) {
     return this.http.get(Url.LocalUrl + 'rosters/' + empId).pipe(
+      toArray(),
       retry(3),
       catchError(error => {
         this.err.next(error);

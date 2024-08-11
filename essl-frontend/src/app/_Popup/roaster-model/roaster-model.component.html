@@ -6,14 +6,14 @@
     </ag-grid-angular>
 
     <mat-form-field>
-        <mat-label>Cars</mat-label>
-        <select matNativeControl required>
+        <mat-label>Select Employee ID</mat-label>
+        <select matNativeControl required (change)="getId($event)">
             @for (item of employeeList; track $index) {
                 <option value="{{item.Emp_ID}}">{{item.Emp_ID}}</option>
             }
         </select>
     </mat-form-field>
 
-    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" style="height: 500px;">
+    <ag-grid-angular [rowData]="rowDataSecond" [columnDefs]="colDefs" style="height: 500px;">
     </ag-grid-angular>
 </div>

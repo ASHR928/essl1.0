@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpService {
+export class CommonService {
   private _empData: any;
 
   constructor() { }
 
-  public set isEmployeeId(obj: any) {
+  public set commonData(obj: any) {
     this._empData = obj;
   }
 
-  get isEmployeeId() {
+  get commonData() {
     return this._empData;
   }
 }

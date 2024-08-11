@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AgGridAngular } from 'ag-grid-angular';
 import { GridApi } from 'ag-grid-community';
 import { OperatorModelComponent } from '../operator-model/operator-model.component';
+import { CommonService } from '../../_Resolver/common.service';
 
 @Component({
   selector: 'common-grid',
@@ -21,7 +22,7 @@ import { OperatorModelComponent } from '../operator-model/operator-model.compone
   styleUrl: './common-grid.component.scss'
 })
 export class CommonGridComponent implements OnInit {
-  constructor(private messageService: MessagesService, public dialog: MatDialog) { }
+  constructor(private messageService: MessagesService, private commonService: CommonService, public dialog: MatDialog) { }
 
   gridApi!: GridApi;
   @Input('rowData') rowData: any = [];
@@ -55,6 +56,8 @@ export class CommonGridComponent implements OnInit {
 
   openPopup(data: any) {
     if (this.showPopup) {
+      this.commonService.commonData = data.data;
+      
       const dialogRef = this.dialog.open(OperatorModelComponent, {
         height: this.heightWidth.height,
         width: this.heightWidth.width
