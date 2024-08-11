@@ -15,7 +15,7 @@ export const routes: Routes = [
         { path: 'admin', component: AdminComponent },
         { path: 'emplist', component: EmployeeListComponent },
         { path: 'emproster', component: EmployeeRosterComponent, resolve: [
-            { 'emproster': employeeResolver }
+            { 'empList': employeeResolver }
         ] },
         { path: 'updateroster', component: UpdateRosterComponent },
         { path: 'button', component: ButtonsComponent }
