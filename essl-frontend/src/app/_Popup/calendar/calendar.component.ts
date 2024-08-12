@@ -31,11 +31,11 @@ export class CalendarComponent {
       this.leave = [];
     }
 
-    // const lst = [
-    //   { key: data.value, title: data.triggerValue, date: '2024-08-24' },
-    //   { key: data.value, title: data.triggerValue, date: '2024-08-15' }
-    // ];
-    this.leave.push({ key: data.value, title: data.triggerValue, date: '2024-08-24' });
+    const lst = [
+      { key: data.value, title: data.triggerValue, date: '2024-08-24' },
+      { key: data.value, title: data.triggerValue, date: '2024-08-15' }
+    ];
+    this.leave = lst;
     // localStorage.setItem('leave', JSON.stringify(this.leave));
   }
 
