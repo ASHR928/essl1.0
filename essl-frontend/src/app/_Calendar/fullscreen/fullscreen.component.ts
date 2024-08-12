@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -41,6 +41,7 @@ export class FullscreenComponent implements OnInit {
     }
   ];
   calendarVisible = true;
+  calendarApi?: CalendarApi;
   calendarOptions: CalendarOptions = {
     plugins: [
       interactionPlugin,
@@ -83,17 +84,18 @@ export class FullscreenComponent implements OnInit {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
-    const calendarApi = selectInfo.view.calendar;
+    this.calendarApi = selectInfo.view.calendar;
 
-    calendarApi.unselect(); // clear date selection
+    this.calendarApi.unselect(); // clear date selection
 
     if (title) {
-      calendarApi.addEvent({
+      this.calendarApi.addEvent({
         id: this.createEventId(),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
-        allDay: selectInfo.allDay
+        allDay: selectInfo.allDay,
+        mydate: null
       });
     }
   }
@@ -101,6 +103,16 @@ export class FullscreenComponent implements OnInit {
   handleEventClick(clickInfo: EventClickArg) {
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       clickInfo.event.remove();
+    } else {
+      const selectedEventId = clickInfo.event.id;
+
+      if (this.calendarApi) {
+        const event = this.calendarApi.getEventById(selectedEventId);
+        
+        if (event) {
+          event.setProp('title', 'Updated Title');
+        }
+      }
     }
   }
 
