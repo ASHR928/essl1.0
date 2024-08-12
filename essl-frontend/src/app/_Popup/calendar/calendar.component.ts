@@ -30,7 +30,12 @@ export class CalendarComponent {
     if (this.leave.length > 0) {
       this.leave = [];
     }
-    this.leave.push({ key: data.value, title: data.triggerValue });
+
+    const lst = [
+      { key: data.value, title: data.triggerValue, date: '2024-08-24' },
+      { key: data.value, title: data.triggerValue, date: '2024-08-15' }
+    ];
+    this.leave.push(lst);
     // localStorage.setItem('leave', JSON.stringify(this.leave));
   }
 

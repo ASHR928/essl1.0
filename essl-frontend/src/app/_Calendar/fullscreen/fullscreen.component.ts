@@ -149,6 +149,9 @@ export class FullscreenComponent implements OnInit {
 
         if (event) {
           event.setProp('title', data[0].title);
+          event.setStart(data[0].date);
+
+          console.log(event);
         }
       }
     });
