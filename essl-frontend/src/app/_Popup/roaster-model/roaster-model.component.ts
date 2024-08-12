@@ -66,8 +66,8 @@ export class RoasterModelComponent implements OnInit {
 
   getId(item: any) {
     this.rowDataSecond = this.rowDataGet.filter((data => {
-      this.empId2 = item.target.value;
-      return data.Emp_ID == item.target.value;
+      this.empId2 = item.triggerValue;
+      return data.Emp_ID == item.triggerValue;
     }));
   }
 

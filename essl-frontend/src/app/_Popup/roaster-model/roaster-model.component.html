@@ -7,11 +7,11 @@
 
     <mat-form-field>
         <mat-label>Select Employee ID</mat-label>
-        <select matNativeControl required (change)="getId($event)">
+        <mat-select #emp matNativeControl required (selectionChange)="getId(emp)">
             @for (item of employeeList; track $index) {
-                <option value="{{item.Emp_ID}}">{{item.Emp_ID}}</option>
+                <mat-option value="{{item.Emp_ID}}">{{item.Emp_ID}}</mat-option>
             }
-        </select>
+        </mat-select>
     </mat-form-field>
 
     <ag-grid-angular [rowData]="rowDataSecond" [ngClass]="theme" [columnDefs]="colDefs" style="height: 100px;">
