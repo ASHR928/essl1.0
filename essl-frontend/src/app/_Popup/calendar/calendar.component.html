@@ -1,0 +1,18 @@
+
+<div class='demo-app-main'>
+    <h5>Edit Status for {{currentDate|date: 'dd-MM-yyyy'}}</h5> <br>
+
+    <mat-form-field>
+        <mat-label>Select Employee ID</mat-label>
+        <select matNativeControl required (change)="getId($event)">
+            @for (item of leaveStatus; track $index) {
+                <option value="{{item.key}}">{{item.value}}</option>
+            }
+        </select>
+    </mat-form-field>
+    <br>
+    <div style="text-align: right;">
+        <button mat-flat-button>Cancel</button>
+        <button mat-flat-button color="primary">Save</button>
+    </div>
+</div>

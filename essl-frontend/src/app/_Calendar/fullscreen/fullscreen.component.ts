@@ -6,6 +6,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { EventInput } from '@fullcalendar/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 
 @Component({
   selector: 'fullscreen',
@@ -65,8 +67,13 @@ export class FullscreenComponent implements OnInit {
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
   };
-  constructor() {
+  heightWidth = { height: 'auto', width: 'auto' };
 
+  constructor(public dialog: MatDialog) {
+
+  }
+
+  ngOnInit(): void {
   }
 
   createEventId() {
@@ -83,22 +90,25 @@ export class FullscreenComponent implements OnInit {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
-    this.calendarApi = selectInfo.view.calendar;
-
-    this.calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      this.calendarApi.addEvent({
-        id: this.createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-        mydate: null
-      });
-    }
+    this.openPopup();
   }
+  // handleDateSelect(selectInfo: DateSelectArg) {
+  //   const title = prompt('Please enter a new title for your event');
+  //   this.calendarApi = selectInfo.view.calendar;
+
+  //   this.calendarApi.unselect(); // clear date selection
+
+  //   if (title) {
+  //     this.calendarApi.addEvent({
+  //       id: this.createEventId(),
+  //       title,
+  //       start: selectInfo.startStr,
+  //       end: selectInfo.endStr,
+  //       allDay: selectInfo.allDay,
+  //       mydate: null
+  //     });
+  //   }
+  // }
 
   handleEventClick(clickInfo: EventClickArg) {
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
@@ -120,6 +130,10 @@ export class FullscreenComponent implements OnInit {
     console.log(events);
   }
 
-  ngOnInit(): void {
+  openPopup() {
+    const dialogRef = this.dialog.open(CalendarComponent, {
+      height: this.heightWidth.height,
+      width: this.heightWidth.width
+    });
   }
 }
