@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, NO_ERRORS_SCHEMA, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessagesService } from '../../_Toastr/messages.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -37,6 +37,7 @@ export class CommonGridComponent implements OnInit {
   @Input('color') color = 'primary';
   @Input('showPopup') showPopup = false;
   @Input('heightWidth') heightWidth = { height: '0px', width: '0px' };
+  @Output() status: EventEmitter<any> = new EventEmitter<any>();
 
   defaultRow: any;
 
@@ -61,6 +62,10 @@ export class CommonGridComponent implements OnInit {
       const dialogRef = this.dialog.open(OperatorModelComponent, {
         height: this.heightWidth.height,
         width: this.heightWidth.width
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.status.emit(true);
       });
     }
   }
