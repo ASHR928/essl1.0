@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -8,6 +8,7 @@ import listPlugin from '@fullcalendar/list';
 import { EventInput } from '@fullcalendar/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
+import { CommonService } from '../../_Resolver/common.service';
 
 @Component({
   selector: 'fullscreen',
@@ -59,11 +60,12 @@ export class FullscreenComponent implements OnInit {
   };
   heightWidth = { height: 'auto', width: 'auto' };
 
-  constructor(public dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(public dialog: MatDialog, private commonService: CommonService) {
 
   }
 
   ngOnInit(): void {
+    console.log(this.commonService.commonData);
   }
 
   createEventId() {
@@ -142,8 +144,6 @@ export class FullscreenComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((data) => {
-      console.log(data);
-      console.log(this.calendarApi);
       if (this.calendarApi) {
         let event = this.calendarApi.getEventById(this.globalEventId);
 
