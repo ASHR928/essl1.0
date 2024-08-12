@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -21,6 +21,7 @@ import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 export class FullscreenComponent implements OnInit {
   param = '';
   eventGuid = 0;
+  globalEventId = '0';
   leave: any[] = [];
   TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
@@ -29,18 +30,6 @@ export class FullscreenComponent implements OnInit {
       id: this.createEventId(),
       title: 'All-day event',
       start: this.TODAY_STR
-    },
-    {
-      id: this.createEventId(),
-      title: 'Timed event',
-      start: this.TODAY_STR + 'T00:00:00',
-      end: this.TODAY_STR + 'T03:00:00'
-    },
-    {
-      id: this.createEventId(),
-      title: 'Timed event',
-      start: this.TODAY_STR + 'T12:00:00',
-      end: this.TODAY_STR + 'T15:00:00'
     }
   ];
   calendarVisible = true;
@@ -70,25 +59,11 @@ export class FullscreenComponent implements OnInit {
   };
   heightWidth = { height: 'auto', width: 'auto' };
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('leave')) {
-      const leaveData = localStorage.getItem('leave');
-
-      if (leaveData) {
-        this.leave = JSON.parse(leaveData);
-        
-        if (this.calendarApi) {
-          this.calendarApi.addEvent({
-            id: this.createEventId(),
-            title: this.leave[0].value,
-          });
-        }
-      }
-    }
   }
 
   createEventId() {
@@ -130,25 +105,45 @@ export class FullscreenComponent implements OnInit {
       clickInfo.event.remove();
     } else {
       const selectedEventId = clickInfo.event.id;
+      this.globalEventId = selectedEventId;
 
       if (this.calendarApi) {
         const event = this.calendarApi.getEventById(selectedEventId);
-        
+
         if (event) {
-          event.setProp('title', 'Updated Title');
+          if (localStorage.getItem('leave')) {
+            const leaveData = localStorage.getItem('leave');
+
+            if (leaveData) {
+              if (this.leave.length <= 0) {
+                this.leave = JSON.parse(leaveData);
+                event.setProp('title', this.leave[0].title);
+              }
+              this.openPopup();
+            }
+          }
         }
       }
     }
   }
 
   handleEvents(events: EventApi[]) {
-    console.log(events);
   }
 
   openPopup() {
     const dialogRef = this.dialog.open(CalendarComponent, {
       height: this.heightWidth.height,
       width: this.heightWidth.width
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if(this.calendarApi) {
+        let event = this.calendarApi.getEventById(this.globalEventId);
+
+        if (event) {
+          event.setProp('title', data[0].title);
+        }
+      }
     });
   }
 }
