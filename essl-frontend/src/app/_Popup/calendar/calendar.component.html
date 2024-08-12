@@ -4,11 +4,11 @@
 
     <mat-form-field>
         <mat-label>Select Employee ID</mat-label>
-        <select matNativeControl required (change)="getId($event)">
+        <mat-select #item matNativeControl required (selectionChange)="getId(item)">
             @for (item of leaveStatus; track $index) {
-                <option value="{{item.key}}">{{item.value}}</option>
+                <mat-option value="{{item.key}}">{{item.value}}</mat-option>
             }
-        </select>
+        </mat-select>
     </mat-form-field>
     <br>
     <div style="text-align: right;">

@@ -21,6 +21,7 @@ import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 export class FullscreenComponent implements OnInit {
   param = '';
   eventGuid = 0;
+  leave: any[] = [];
   TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
   INITIAL_EVENTS: EventInput[] = [
@@ -74,6 +75,20 @@ export class FullscreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('leave')) {
+      const leaveData = localStorage.getItem('leave');
+
+      if (leaveData) {
+        this.leave = JSON.parse(leaveData);
+        
+        if (this.calendarApi) {
+          this.calendarApi.addEvent({
+            id: this.createEventId(),
+            title: this.leave[0].value,
+          });
+        }
+      }
+    }
   }
 
   createEventId() {
@@ -99,14 +114,14 @@ export class FullscreenComponent implements OnInit {
   //   this.calendarApi.unselect(); // clear date selection
 
   //   if (title) {
-  //     this.calendarApi.addEvent({
-  //       id: this.createEventId(),
-  //       title,
-  //       start: selectInfo.startStr,
-  //       end: selectInfo.endStr,
-  //       allDay: selectInfo.allDay,
-  //       mydate: null
-  //     });
+      // this.calendarApi.addEvent({
+      //   id: this.createEventId(),
+      //   title,
+      //   start: selectInfo.startStr,
+      //   end: selectInfo.endStr,
+      //   allDay: selectInfo.allDay,
+      //   mydate: null
+      // });
   //   }
   // }
 

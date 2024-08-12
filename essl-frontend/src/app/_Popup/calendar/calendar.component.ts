@@ -14,13 +14,20 @@ import { MaterialModule } from '../../_Material/material/material.module';
 })
 export class CalendarComponent {
   currentDate: Date = new Date();
+  leave: any[] = [];
 
   leaveStatus = [
     { key: '1', value: 'Present' },
-    { key: '1', value: 'Absent' },
-    { key: '1', value: 'Sick Leave' },
-    { key: '1', value: 'Casual Leave' }
+    { key: '2', value: 'Absent' },
+    { key: '3', value: 'Sick Leave' },
+    { key: '4', value: 'Casual Leave' }
   ];
 
-  getId(data: any) {}
+  getId(data: any) {
+    if (this.leave.length > 0) {
+      this.leave = [];
+    }
+    this.leave.push({ key: data.value, title: data.triggerValue });
+    localStorage.setItem('leave', JSON.stringify(this.leave));
+  }
 }
