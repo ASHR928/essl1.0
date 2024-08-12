@@ -53,8 +53,6 @@ export class EmployeeRosterComponent implements OnInit {
   }
 
   changeStatus(value: any) {
-    console.log(value);
-
     if (value) {
       this.loadData();
     }
