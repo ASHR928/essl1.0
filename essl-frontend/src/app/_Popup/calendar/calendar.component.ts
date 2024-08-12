@@ -31,7 +31,7 @@ export class CalendarComponent {
       this.leave = [];
     }
     this.leave.push({ key: data.value, title: data.triggerValue });
-    localStorage.setItem('leave', JSON.stringify(this.leave));
+    // localStorage.setItem('leave', JSON.stringify(this.leave));
   }
 
   cancel() {

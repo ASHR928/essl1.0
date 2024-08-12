@@ -53,7 +53,7 @@ export class FullscreenComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-    select: this.handleDateSelect.bind(this),
+    // select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
   };
@@ -82,49 +82,53 @@ export class FullscreenComponent implements OnInit {
   // handleDateSelect(selectInfo: DateSelectArg) {
   //   this.openPopup();
   // }
-  handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
-    this.calendarApi = selectInfo.view.calendar;
+  // handleDateSelect(selectInfo: DateSelectArg) {
+  //   const title = prompt('Please enter a new title for your event');
+  //   this.calendarApi = selectInfo.view.calendar;
+  //   console.log(this.calendarApi);
+  //   this.calendarApi.unselect(); // clear date selection
 
-    this.calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      this.calendarApi.addEvent({
-        id: this.createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-        mydate: null
-      });
-    }
-  }
+  //   if (title) {
+  //     this.calendarApi.addEvent({
+  //       id: this.createEventId(),
+  //       title,
+  //       start: selectInfo.startStr,
+  //       end: selectInfo.endStr,
+  //       allDay: selectInfo.allDay,
+  //       mydate: null
+  //     });
+  //   }
+  // }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    } else {
-      const selectedEventId = clickInfo.event.id;
-      this.globalEventId = selectedEventId;
+    const selectedEventId = clickInfo.event.id;
+    this.globalEventId = selectedEventId;
+    this.openPopup();
+    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //   clickInfo.event.remove();
+    // } else {
+    //   const selectedEventId = clickInfo.event.id;
+    //   this.globalEventId = selectedEventId;
+    //   this.openPopup();
 
-      if (this.calendarApi) {
-        const event = this.calendarApi.getEventById(selectedEventId);
+    //   if (this.calendarApi) {
+    //     const event = this.calendarApi.getEventById(selectedEventId);
 
-        if (event) {
-          if (localStorage.getItem('leave')) {
-            const leaveData = localStorage.getItem('leave');
+    //     if (event) {
+    //       if (localStorage.getItem('leave')) {
+    //         const leaveData = localStorage.getItem('leave');
 
-            if (leaveData) {
-              if (this.leave.length <= 0) {
-                this.leave = JSON.parse(leaveData);
-                event.setProp('title', this.leave[0].title);
-              }
-              this.openPopup();
-            }
-          }
-        }
-      }
-    }
+    //         if (leaveData) {
+    //           if (this.leave.length <= 0) {
+    //             this.leave = JSON.parse(leaveData);
+    //             event.setProp('title', this.leave[0].title);
+    //           }
+    //           this.openPopup();
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   handleEvents(events: EventApi[]) {
@@ -137,7 +141,9 @@ export class FullscreenComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((data) => {
-      if(this.calendarApi) {
+      console.log(data);
+      console.log(this.calendarApi);
+      if (this.calendarApi) {
         let event = this.calendarApi.getEventById(this.globalEventId);
 
         if (event) {
