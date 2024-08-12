@@ -75,7 +75,20 @@ export class FullscreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    if (localStorage.getItem('leave')) {
+      const leaveData = localStorage.getItem('leave');
+
+      if (leaveData) {
+        this.leave = JSON.parse(leaveData);
+        
+        if (this.calendarApi) {
+          this.calendarApi.addEvent({
+            id: this.createEventId(),
+            title: this.leave[0].value,
+          });
+        }
+      }
+    }
   }
 
   createEventId() {
@@ -95,29 +108,21 @@ export class FullscreenComponent implements OnInit {
   //   this.openPopup();
   // }
   handleDateSelect(selectInfo: DateSelectArg) {
-    // const title = prompt('Please enter a new title for your event');
+    const title = prompt('Please enter a new title for your event');
     this.calendarApi = selectInfo.view.calendar;
 
     this.calendarApi.unselect(); // clear date selection
 
-    //if (title) {
-      if (localStorage.getItem('leave')) {
-        const leaveData = localStorage.getItem('leave');
-  
-        if (leaveData) {
-          this.leave = JSON.parse(leaveData);
-          
-          this.calendarApi.addEvent({
-            id: this.createEventId(),
-            title: this.leave[0].title,
-            start: selectInfo.startStr,
-            end: selectInfo.endStr,
-            allDay: selectInfo.allDay,
-            mydate: null
-          });
-        }
-      }
-    //}
+    if (title) {
+      this.calendarApi.addEvent({
+        id: this.createEventId(),
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay,
+        mydate: null
+      });
+    }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
