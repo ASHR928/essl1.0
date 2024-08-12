@@ -102,6 +102,7 @@ export class FullscreenComponent implements OnInit {
 
   handleEventClick(clickInfo: EventClickArg) {
     const selectedEventId = clickInfo.event.id;
+    this.calendarApi = clickInfo.view.calendar;
     this.globalEventId = selectedEventId;
     this.openPopup();
     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
