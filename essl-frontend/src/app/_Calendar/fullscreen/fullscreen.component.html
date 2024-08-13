@@ -1,8 +1,8 @@
-<div class='demo-app-main'>
+<div *ngIf="showCalendar" class='demo-app-main'>
     <full-calendar [options]='calendarOptions'>
-        <ng-template #eventContent let-arg>
+        <!-- <ng-template #eventContent let-arg>
             <b>{{ arg.timeText }}</b>
             <i>{{ arg.event.title }}</i>
-        </ng-template>
+        </ng-template> -->
     </full-calendar>
 </div>

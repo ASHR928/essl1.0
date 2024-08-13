@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,17 +9,22 @@ import { EventInput } from '@fullcalendar/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 import { CommonService } from '../../_Resolver/common.service';
+import { EmployeeService } from '../../_Services/employee.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'fullscreen',
   standalone: true,
   imports: [
-    FullCalendarModule
+    FullCalendarModule,
+    CommonModule
   ],
   templateUrl: './fullscreen.component.html',
   styleUrl: './fullscreen.component.scss'
 })
 export class FullscreenComponent implements OnInit {
+  @ViewChild('fullCalendar') calendarComponent!: FullCalendarComponent;
+  showCalendar = false;
   param = '';
   eventGuid = 0;
   globalEventId = '0';
@@ -27,11 +32,6 @@ export class FullscreenComponent implements OnInit {
   TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
   INITIAL_EVENTS: EventInput[] = [
-    {
-      id: this.createEventId(),
-      title: 'All-day event',
-      start: this.TODAY_STR
-    }
   ];
   calendarVisible = true;
   calendarApi?: CalendarApi;
@@ -60,12 +60,35 @@ export class FullscreenComponent implements OnInit {
   };
   heightWidth = { height: 'auto', width: 'auto' };
 
-  constructor(public dialog: MatDialog, private commonService: CommonService) {
+  constructor(public dialog: MatDialog, private commonService: CommonService, private employeeSerive: EmployeeService
+  ) {
+
+  }
+  ngOnInit(): void {
+    let empId = this.commonService.commonData.Emp_ID;
+    this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
+
+      for (const data1 of data[0]) {
+        this.INITIAL_EVENTS.push(this.transformAttendanceLog(data1));
+      }
+
+      this.calendarOptions = {
+        ...this.calendarOptions, // Spread the existing options
+        initialEvents: [...this.INITIAL_EVENTS] // Update initialEvents
+      };
+
+      this.showCalendar = true
+
+    });
 
   }
 
-  ngOnInit(): void {
-    console.log(this.commonService.commonData);
+  transformAttendanceLog(attendanceLog: any) {
+    return {
+      id: this.createEventId(),
+      title: attendanceLog.Status === "Present" ? "Present" : "Absent",
+      start: attendanceLog.AttendanceDate.split('T')[0] // Extracting the date part
+    };
   }
 
   createEventId() {
@@ -103,10 +126,12 @@ export class FullscreenComponent implements OnInit {
   // }
 
   handleEventClick(clickInfo: EventClickArg) {
+    
     const selectedEventId = clickInfo.event.id;
     this.calendarApi = clickInfo.view.calendar;
     this.globalEventId = selectedEventId;
-    this.openPopup();
+    
+    this.openPopup(clickInfo.event.start);
     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
     //   clickInfo.event.remove();
     // } else {
@@ -137,7 +162,7 @@ export class FullscreenComponent implements OnInit {
   handleEvents(events: EventApi[]) {
   }
 
-  openPopup() {
+  openPopup(startDate:any) {
     const dialogRef = this.dialog.open(CalendarComponent, {
       height: this.heightWidth.height,
       width: this.heightWidth.width
@@ -145,13 +170,11 @@ export class FullscreenComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((data) => {
       if (this.calendarApi) {
-        let event = this.calendarApi.getEventById(this.globalEventId);
+        let event = this.calendarApi.getEventById(this.globalEventId);        
 
         if (event) {
           event.setProp('title', data[0].title);
-          event.setStart(data[0].date);
-
-          console.log(event);
+          event.setStart(startDate);
         }
       }
     });

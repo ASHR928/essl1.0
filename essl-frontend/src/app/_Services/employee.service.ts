@@ -61,4 +61,15 @@ export class EmployeeService {
       })
     );
   }
+
+  getAttendanceLogsByEmpId(empId: any) {
+    return this.http.get(Url.LocalUrl + 'attendance/attendanceLogs/' + empId).pipe(
+      toArray(),
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
 }
