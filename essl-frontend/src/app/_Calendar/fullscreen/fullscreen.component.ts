@@ -126,11 +126,11 @@ export class FullscreenComponent implements OnInit {
   // }
 
   handleEventClick(clickInfo: EventClickArg) {
-    
+
     const selectedEventId = clickInfo.event.id;
     this.calendarApi = clickInfo.view.calendar;
     this.globalEventId = selectedEventId;
-    
+
     this.openPopup(clickInfo.event.start);
     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
     //   clickInfo.event.remove();
@@ -162,7 +162,7 @@ export class FullscreenComponent implements OnInit {
   handleEvents(events: EventApi[]) {
   }
 
-  openPopup(startDate:any) {
+  openPopup(startDate: any) {
     const dialogRef = this.dialog.open(CalendarComponent, {
       height: this.heightWidth.height,
       width: this.heightWidth.width
@@ -170,11 +170,23 @@ export class FullscreenComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((data) => {
       if (this.calendarApi) {
-        let event = this.calendarApi.getEventById(this.globalEventId);        
+        let event = this.calendarApi.getEventById(this.globalEventId);
 
         if (event) {
           event.setProp('title', data[0].title);
           event.setStart(startDate);
+          let body = {
+            Status: data[0].title,
+            AttendanceDate : startDate
+          }
+          console.log(this.commonService.commonData.Emp_ID);
+
+          this.employeeSerive.updateLeaveInAttendanceLog(this.commonService.commonData.Emp_ID, body).subscribe((data) => {
+            console.log(data);
+            
+          });
+
+
         }
       }
     });

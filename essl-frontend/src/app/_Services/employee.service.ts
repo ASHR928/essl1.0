@@ -8,7 +8,7 @@ import { Url } from '../_setUrl/url';
 })
 export class EmployeeService {
   err: Subject<string> = new Subject<string>();
-  
+
   constructor(private http: HttpClient) { }
 
   getRosters() {
@@ -42,7 +42,7 @@ export class EmployeeService {
     );
   }
 
-  postBulkEmployees(body: any) {   
+  postBulkEmployees(body: any) {
     return this.http.post(Url.LocalUrl + 'rosters/bulk-insert', body).pipe(
       retry(3),
       catchError(error => {
@@ -65,6 +65,16 @@ export class EmployeeService {
   getAttendanceLogsByEmpId(empId: any) {
     return this.http.get(Url.LocalUrl + 'attendance/attendanceLogs/' + empId).pipe(
       toArray(),
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
+  updateLeaveInAttendanceLog(empId:any,body: any) {
+    return this.http.put(Url.LocalUrl + 'attendance/attendanceLogs/'+ empId, body).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);

@@ -15,7 +15,7 @@ exports.getAttendanceLogById = async (req, res) => {
   try {
 
     console.log(req.params);
-    
+
     const { empId } = req.params;
     console.log(empId);
 
@@ -43,9 +43,14 @@ exports.createAttendanceLog = async (req, res) => {
 // Update an attendance log
 exports.updateAttendanceLog = async (req, res) => {
   try {
+    console.log(req.body);
+
     const { empId } = req.params;
     const [updated] = await AttendanceLog.update(req.body, {
-      where: { EmployeeId: empId }
+      where: {
+        EmployeeId: empId,
+        AttendanceDate: req.body.AttendanceDate
+      }
     });
     if (updated) {
       const updatedAttendanceLog = await AttendanceLog.findOne({ where: { EmployeeId: empId } });
