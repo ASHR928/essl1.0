@@ -3,26 +3,33 @@ import { FileUploadComponent } from '../../_Common/file-upload/file-upload.compo
 import { EmployeeService } from '../../_Services/employee.service';
 import { MessagesService } from '../../_Toastr/messages.service';
 import { ServicesModule } from '../../_Modules/services/services.module';
+import { MaterialModule } from '../../_Material/material/material.module';
 
 @Component({
   selector: 'app-update-roster',
   standalone: true,
   imports: [
     FileUploadComponent,
-    ServicesModule
+    ServicesModule,
+    MaterialModule
   ],
   templateUrl: './update-roster.component.html',
   styleUrl: './update-roster.component.scss'
 })
 export class UpdateRosterComponent {
   globalData: any;
+  fileDetails = [];
   
   constructor(private employeeService: EmployeeService, private messageService: MessagesService) {}
 
   getData(data: any) {
+    this.fileDetails = data;
+  }
+
+  upload() {
     const formData = new FormData();
 
-    data.forEach((fileEntry: any) => {
+    this.fileDetails.forEach((fileEntry: any) => {
       if (fileEntry.fileEntry.isFile) {
         const file = fileEntry.fileEntry as FileSystemFileEntry;
         file.file((fileToUpload: File) => {
