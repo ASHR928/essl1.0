@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpModule } from '../../_Http/http/http.module';
 import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
+import { MaterialModule } from '../../_Material/material/material.module';
 
 @Component({
   selector: 'file-upload',
   standalone: true,
   imports: [
     NgxFileDropModule,
+    MaterialModule,
     HttpModule
   ],
   templateUrl: './file-upload.component.html',
