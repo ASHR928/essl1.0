@@ -35,7 +35,7 @@ export class EmployeeRosterComponent implements OnInit {
     { field: 'Shift_ID', headerName: 'Shift ID', filter: 'text', width: 120 },
     { field: 'Start_Date', headerName: 'Roaster Valid From', filter: 'text', width: 200 },
     { field: 'End_Date', headerName: 'Roaster Valid Till', filter: 'text', width: 200 },
-    { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
+    // { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
   ];
 
   constructor(private buttonService: ButtonService, private employeeService: EmployeeService) {}

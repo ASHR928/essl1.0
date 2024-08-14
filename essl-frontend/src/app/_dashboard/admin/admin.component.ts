@@ -48,7 +48,7 @@ export class AdminComponent {
     { field: 'Emp_email', headerName: 'Email', filter: 'text', width: 180 },
     { field: 'Emp_Team_Name', headerName: 'Team Name', filter: 'text', width: 170 },
     { field: 'Emp_Department_Name', headerName: 'Dept Name', filter: 'text', width: 180 },
-    { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
+    // { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
   ];
 
   constructor(private buttonService: ButtonService) {}
