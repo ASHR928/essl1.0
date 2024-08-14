@@ -53,8 +53,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log(navigator.userAgent);
+
     const id = this.loginForm.controls['usertype'].value;
     localStorage.setItem('userType', id);
+    localStorage.setItem('employee_id','104')
     this.router.navigate(['/', 'dashboard', 'admin'], { queryParams: { type: id, unique: 1 } });
   }
 }
