@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DashboardMenuService } from '../_Services/dashboard-menu.service';
 import { MessagesService } from '../_Toastr/messages.service';
 import { ServicesModule } from '../_Modules/services/services.module';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,7 @@ import { ServicesModule } from '../_Modules/services/services.module';
   imports: [
     MaterialModule,
     RouterModule,
+    NgxBootstrapIconsModule,
     ServicesModule
   ],
   templateUrl: './dashboard.component.html',
