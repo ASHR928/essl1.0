@@ -1,4 +1,8 @@
 <div *ngIf="showCalendar" class='demo-app-main'>
+    <h4 style="text-align: center;">
+        Total Number of working days = {{working_days}}
+    </h4>
+    <br>
     <full-calendar [options]='calendarOptions'>
         <!-- <ng-template #eventContent let-arg>
             <b>{{ arg.timeText }}</b>

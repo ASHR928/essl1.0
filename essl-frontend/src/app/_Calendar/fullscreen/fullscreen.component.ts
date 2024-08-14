@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg, EventApi, CalendarApi, DatesSetArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -27,6 +27,7 @@ import { Day } from '../../enum/dayEnum';
 export class FullscreenComponent implements OnInit {
   @ViewChild('fullCalendar') calendarComponent!: FullCalendarComponent;
   showCalendar = false;
+  working_days: any
   param = '';
   eventGuid = 0;
   globalEventId = '0';
@@ -56,6 +57,7 @@ export class FullscreenComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    datesSet: this.handleDatesSet.bind(this),
     // select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
@@ -100,6 +102,13 @@ export class FullscreenComponent implements OnInit {
 
     });
 
+  }
+
+  // Method to handle date range changes
+  handleDatesSet(dateInfo: DatesSetArg) {
+    console.log('Visible dates changed:');
+    console.log('Start:', dateInfo.view.currentStart.toISOString());
+    console.log('End:', dateInfo.view.currentEnd.toISOString());
   }
 
   getWeekOff(

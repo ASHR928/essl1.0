@@ -3,7 +3,7 @@
     <h5>Edit Status for {{currentDate|date: 'dd-MM-yyyy'}}</h5> <br>
 
     <mat-form-field>
-        <mat-label>Select Employee ID</mat-label>
+        <mat-label>Attendance Type</mat-label>
         <mat-select #item matNativeControl required (selectionChange)="getId(item)">
             @for (item of leaveStatus; track $index) {
                 <mat-option value="{{item.key}}">{{item.value}}</mat-option>
