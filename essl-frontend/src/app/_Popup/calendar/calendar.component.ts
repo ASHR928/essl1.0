@@ -21,7 +21,11 @@ export class CalendarComponent {
     { key: '1', value: 'Present' },
     { key: '2', value: 'Absent' },
     { key: '3', value: 'Sick Leave' },
-    { key: '4', value: 'Casual Leave' }
+    { key: '4', value: 'Casual Leave' },
+    { key: '5', value: 'NCNS' },
+    { key: '6', value: 'SW' },
+    { key: '7', value: 'Half Day' },
+    { key: '8', value: 'OT' }
   ];
 
   constructor(public dialogRef: MatDialogRef<CalendarComponent>) {}

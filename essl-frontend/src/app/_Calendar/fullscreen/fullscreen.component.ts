@@ -11,13 +11,15 @@ import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 import { CommonService } from '../../_Resolver/common.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { CommonModule } from '@angular/common';
+import { Day } from '../../enum/dayEnum';
+
 
 @Component({
   selector: 'fullscreen',
   standalone: true,
   imports: [
     FullCalendarModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './fullscreen.component.html',
   styleUrl: './fullscreen.component.scss'
@@ -67,26 +69,75 @@ export class FullscreenComponent implements OnInit {
   ngOnInit(): void {
     let empId = this.commonService.commonData.Emp_ID;
     this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
-
-      for (const data1 of data[0]) {
-        this.INITIAL_EVENTS.push(this.transformAttendanceLog(data1));
+      for (const row of data[0]) {
+        this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
       }
 
-      this.calendarOptions = {
-        ...this.calendarOptions, // Spread the existing options
-        initialEvents: [...this.INITIAL_EVENTS] // Update initialEvents
-      };
+      this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
+        console.log(data);
+        let weekOff1 = data[0].Weekly_Off1
+        let weekOff2 = data[0].Weekly_Off2
 
-      this.showCalendar = true
+        let year = this.TODAY_STR.substring(0, 4)
+        let month = this.TODAY_STR.substring(5, 7)
+
+        let weeklyOffs = this.getWeekOff(year, month, weekOff1, weekOff2)
+        weeklyOffs.forEach((day, index) => {
+          this.INITIAL_EVENTS.push(this.transformAttendanceLog({
+            Status: 'WO',
+            AttendanceDate: day
+          }));
+        });
+        this.calendarOptions = {
+          ...this.calendarOptions, // Spread the existing options
+          initialEvents: [...this.INITIAL_EVENTS] // Update initialEvents
+        };
+        console.log(this.INITIAL_EVENTS);
+
+        this.showCalendar = true
+      })
+
 
     });
 
   }
 
+  getWeekOff(
+    year: any,
+    month: any,
+    weekoff1: keyof typeof Day,
+    weekoff2: keyof typeof Day
+  ) {
+    // Convert day names to numeric values using the enum
+    const weekoffDay1 = Day[weekoff1];
+    const weekoffDay2 = Day[weekoff2];
+
+    const dates: string[] = [];
+
+    const startDate = new Date(year, month - 1, 1); // First day of the month
+    const endDate = new Date(year, month, 0); // Last day of the month
+    console.log(year, month, startDate, endDate, weekoffDay1, weekoffDay2);
+
+    // Iterate through each day of the month
+    for (let date = startDate; date <= endDate; date = new Date(date.getTime() + 24 * 60 * 60 * 1000)) {
+      const day = date.getUTCDay(); // Use UTC day to avoid time zone issues
+      // console.log(`Checking date: ${date.toISOString().split('T')[0]}, Day: ${day}`); // Debugging output
+      if (day === weekoffDay1 || day === weekoffDay2) {
+        // Format the date as YYYY-MM-DD
+        const formattedDate = date.toISOString().split('T')[0];
+        dates.push(formattedDate);
+      }
+    }
+
+    console.log(dates);
+    return dates;
+  }
+
+
   transformAttendanceLog(attendanceLog: any) {
     return {
       id: this.createEventId(),
-      title: attendanceLog.Status === "Present" ? "Present" : "Absent",
+      title: attendanceLog.Status,
       start: attendanceLog.AttendanceDate.split('T')[0] // Extracting the date part
     };
   }
@@ -177,13 +228,13 @@ export class FullscreenComponent implements OnInit {
           event.setStart(startDate);
           let body = {
             Status: data[0].title,
-            AttendanceDate : startDate
+            AttendanceDate: startDate
           }
           console.log(this.commonService.commonData.Emp_ID);
 
           this.employeeSerive.updateLeaveInAttendanceLog(this.commonService.commonData.Emp_ID, body).subscribe((data) => {
             console.log(data);
-            
+
           });
 
 

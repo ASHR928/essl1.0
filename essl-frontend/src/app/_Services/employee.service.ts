@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, retry, Subject, toArray } from 'rxjs';
 import { Url } from '../_setUrl/url';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -73,8 +74,8 @@ export class EmployeeService {
     );
   }
 
-  updateLeaveInAttendanceLog(empId:any,body: any) {
-    return this.http.put(Url.LocalUrl + 'attendance/attendanceLogs/'+ empId, body).pipe(
+  updateLeaveInAttendanceLog(empId: any, body: any) {
+    return this.http.put(Url.LocalUrl + 'attendance/attendanceLogs/' + empId, body).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);
