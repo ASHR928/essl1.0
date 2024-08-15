@@ -52,11 +52,15 @@ export class RoasterModelComponent implements OnInit {
   constructor(private employeeService: EmployeeService, private commonService: CommonService, public dialogRef: MatDialogRef<RoasterModelComponent>) {}
 
   ngOnInit(): void {
-    this.employeeService.getEmployees().subscribe((data: any) => {
-      this.employeeList = data;
-    });
     this.employeeService.getEmpDetailsById(this.commonService.commonData.Emp_ID).subscribe((data: any) => {
       this.rowData = data;
+      const Emp_ID = data[0].Emp_ID;
+
+      this.employeeService.getEmployees().subscribe((data: any) => {
+        this.employeeList = data.filter((result: any) => {
+          return result.Emp_ID != Emp_ID;
+        });
+      });
     });
 
     this.employeeService.getRosters().subscribe((data: any) => {
