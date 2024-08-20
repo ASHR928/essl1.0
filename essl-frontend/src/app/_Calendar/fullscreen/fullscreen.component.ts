@@ -259,7 +259,7 @@ export class FullscreenComponent implements OnInit {
       return 'orange';
     } else if (Status == 'Present') {
       return 'green';
-    } else if (Status == 'Present') {
+    } else if (Status == 'Absent') {
       return 'red';
     } else {
       return 'blue';
