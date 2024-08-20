@@ -253,8 +253,6 @@ export class FullscreenComponent implements OnInit {
   }
 
   backgroundColorChange(Status: any): string {
-    console.log('tst' , this.INITIAL_EVENTS);
-
     if (Status == 'WO') {
       return 'orange';
     } else if (Status == 'Present') {
