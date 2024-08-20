@@ -71,7 +71,9 @@ export class FullscreenComponent implements OnInit {
   ngOnInit(): void {
     let empId = this.commonService.commonData.Emp_ID;
     this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
+
       for (const row of data[0]) {
+        console.log('row', row.Status);
         this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
       }
 
@@ -94,7 +96,6 @@ export class FullscreenComponent implements OnInit {
           ...this.calendarOptions, // Spread the existing options
           initialEvents: [...this.INITIAL_EVENTS] // Update initialEvents
         };
-        console.log(this.INITIAL_EVENTS);
 
         this.showCalendar = true
       })
@@ -147,6 +148,7 @@ export class FullscreenComponent implements OnInit {
     return {
       id: this.createEventId(),
       title: attendanceLog.Status,
+      backgroundColor: this.backgroundColorChange(attendanceLog.Status),
       start: attendanceLog.AttendanceDate.split('T')[0] // Extracting the date part
     };
   }
@@ -245,10 +247,22 @@ export class FullscreenComponent implements OnInit {
             console.log(data);
 
           });
-
-
         }
       }
     });
+  }
+
+  backgroundColorChange(Status: any): string {
+    console.log('tst' , this.INITIAL_EVENTS);
+
+    if (Status == 'WO') {
+      return 'orange';
+    } else if (Status == 'Present') {
+      return 'green';
+    } else if (Status == 'Present') {
+      return 'red';
+    } else {
+      return 'blue';
+    }
   }
 }
