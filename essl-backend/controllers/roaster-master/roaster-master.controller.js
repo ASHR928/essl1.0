@@ -30,6 +30,8 @@ exports.bulkInsertRoaster = async (req, res) => {
       Updated_By_UserID: user.Updated_By_UserID
     }));
 
+    console.log(transformedUsers);
+    
     const newUsers = await RosterMaster.bulkCreate(transformedUsers);
     res.status(201).json(newUsers);
   } catch (error) {

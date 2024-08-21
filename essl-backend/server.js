@@ -36,11 +36,7 @@ app.use(function (req, res, next) {
 app.use(allRoutes);
 
 
-con.connect((err) => {
-  if (err) {
-      console.log(err);
-  }
-})
+
 
 
 app.listen(4000, () => {

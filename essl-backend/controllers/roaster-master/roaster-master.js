@@ -35,11 +35,11 @@ const RosterMaster = db.define('Roster_Master', {
 
   },
   Start_Date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true,
   },
   End_Date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true,
   },
   Updated_By_UserID: {
