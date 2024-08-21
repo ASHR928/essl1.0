@@ -25,19 +25,37 @@ exports.bulkInsertRoaster = async (req, res) => {
       Weekly_Off1: user.Weekly_Off1,
       Weekly_Off2: user.Weekly_Off2,
       Shift_ID: user.Shift_ID,
-      Start_Date: user.Start_Date,
-      End_Date: user.End_Date,
-      Updated_By_UserID: user.Updated_By_UserID
+      Start_Date: user.Start_Date ? excelDateToJSDate(user.Start_Date) : null,
+      End_Date: user.End_Date ? excelDateToJSDate(user.End_Date) : null,
+      Updated_By_UserID: user.Updated_By_UserID !== undefined ? user.Updated_By_UserID : null,
     }));
 
     console.log(transformedUsers);
-    
+
+
     const newUsers = await RosterMaster.bulkCreate(transformedUsers);
     res.status(201).json(newUsers);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
+function excelDateToJSDate(serial) {
+  const excelBaseDate = new Date(Date.UTC(1899, 11, 30)); // Excel base date
+  const jsDate = new Date(excelBaseDate.getTime() + serial * 86400000); // Convert serial to date
+  
+  // Manually format the date to 'YYYY-MM-DDTHH:MM:SS.sss' without timezone offset
+  const year = jsDate.getUTCFullYear();
+  const month = String(jsDate.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(jsDate.getUTCDate()).padStart(2, '0');
+  const hours = String(jsDate.getUTCHours()).padStart(2, '0');
+  const minutes = String(jsDate.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(jsDate.getUTCSeconds()).padStart(2, '0');
+  const milliseconds = String(jsDate.getUTCMilliseconds()).padStart(3, '0');
+
+  // Return formatted date
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+}
+
 
 // Get all roster entries
 exports.getAllRosters = async (req, res) => {

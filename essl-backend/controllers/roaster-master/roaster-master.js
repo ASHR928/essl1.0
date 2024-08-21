@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const db = require('../../sequelizeconn');
 
 const RosterMaster = db.define('Roster_Master', {
@@ -24,22 +24,22 @@ const RosterMaster = db.define('Roster_Master', {
     allowNull: true,
   },
   Created_At: {
-    type: DataTypes.DATE,
+    type: Sequelize.DATE,
     allowNull: true,
-    defaultValue: DataTypes.NOW,
+    defaultValue: Sequelize.DATE.NOW,
   },
   Updated_At: {
-    type: DataTypes.DATE,
+    type: Sequelize.DATE,
     allowNull: true,
-    defaultValue: DataTypes.NOW,
+    defaultValue: Sequelize.DATE.NOW,
 
   },
   Start_Date: {
-    type: DataTypes.DATEONLY,
+    type: Sequelize.DATE,
     allowNull: true,
   },
   End_Date: {
-    type: DataTypes.DATEONLY,
+    type: Sequelize.DATE,
     allowNull: true,
   },
   Updated_By_UserID: {

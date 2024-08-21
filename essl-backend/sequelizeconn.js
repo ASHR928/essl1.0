@@ -1,19 +1,20 @@
 var Sequelize = require("sequelize");
+
 var db = new Sequelize(
-    'essl', // Database name
+    'etimetracklite1', // Database name
     'test', // Username
-    'Anyasoftek@123', // Password
+    'test', // Password
     {
         dialect: "mssql", // Use 'mssql' for SQL Server
-        host: '172.105.62.226', // SQL Server host
+        host: 'localhost\\SQLEXPRESS', // SQL Server host
         dialectOptions: {
             options: {
-                encrypt: true, // Enable encryption
-                trustServerCertificate: true // Trust the server certificate
+                encrypt: false, // Enable encryption
+                trustServerCertificate: false // Trust the server certificate
             }
         },
         port: 1433, // Default SQL Server port
-        logging: false, // Disable logging; set to `console.log` to enable
+        logging: console.log, // Disable logging; set to `console.log` to enable
     }
 );
 
