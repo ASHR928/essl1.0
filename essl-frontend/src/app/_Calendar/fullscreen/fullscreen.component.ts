@@ -237,6 +237,8 @@ export class FullscreenComponent implements OnInit {
         if (event) {
           event.setProp('title', data[0].title);
           event.setStart(startDate);
+          event.setProp('backgroundColor', this.backgroundColorChange(data[0].title));
+
           let body = {
             Status: data[0].title,
             AttendanceDate: startDate
@@ -254,7 +256,7 @@ export class FullscreenComponent implements OnInit {
 
   backgroundColorChange(Status: any): string {
     if (Status == 'WO') {
-      return 'orange';
+      return 'grey';
     } else if (Status == 'Present') {
       return 'green';
     } else if (Status == 'Absent') {

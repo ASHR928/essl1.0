@@ -1,14 +1,19 @@
-
-var sequelize = require("sequelize");
-var db = new sequelize(
-    'essl',
-    'test',
-    'Anyasoftek@123',
+var Sequelize = require("sequelize");
+var db = new Sequelize(
+    'essl', // Database name
+    'test', // Username
+    'Anyasoftek@123', // Password
     {
-        dialect: "mysql",
-        host: '172.105.62.226',
-        charset: 'utf8mb4', // Use utf8mb4 for full Unicode support
-        collate: 'utf8mb4_unicode_ci',
+        dialect: "mssql", // Use 'mssql' for SQL Server
+        host: '172.105.62.226', // SQL Server host
+        dialectOptions: {
+            options: {
+                encrypt: true, // Enable encryption
+                trustServerCertificate: true // Trust the server certificate
+            }
+        },
+        port: 1433, // Default SQL Server port
+        logging: false, // Disable logging; set to `console.log` to enable
     }
 );
 

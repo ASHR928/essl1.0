@@ -1,24 +1,23 @@
-const mysql = require("mysql");
+const sql = require("mssql");
 
-exports.con = mysql.createConnection({
-    host: '172.105.62.226',        
-    user: 'test',        
+const config = {
+    user: 'test', 
     password: 'Anyasoftek@123', 
+    server: '172.105.62.226', 
     database: 'essl', 
-    port: 3306,
     options: {
-        encrypt: true, 
-        trustServerCertificate: true 
-    },     
-          
-});
+        encrypt: true, // Use encryption
+        trustServerCertificate: true, // Trust the server certificate
+        enableArithAbort: true // Optional, depending on your SQL Server version
+    },
+    port: 1433 // Default port for SQL Server
+};
 
-// connection.connect((err) => {
-//     if (err) {
-//         console.error('Error connecting to the database:', err.stack);
-//         return;
-//     }
-//     console.log('Connected to the local database as ID ' + connection.threadId);
-// });
-
-// module.exports = connection;
+exports.con = sql.connect(config)
+    .then(pool => {
+        console.log("Connected to SQL Server");
+        return pool;
+    })
+    .catch(err => {
+        console.error("Database connection failed:", err);
+    });
