@@ -1,5 +1,7 @@
 const AttendanceLog = require('../attendance-logs/attendance-logs');
-const sequelize = require('../../sequelizeconn')
+const db = require('../../sequelizeconn')
+var Sequelize = require("sequelize");
+
 
 // Get all attendance logs
 exports.getAllAttendanceLogs = async (req, res) => {
@@ -46,13 +48,14 @@ exports.getAttendanceLogByEmployeeCode = async (req, res) => {
 
     console.log(query);
 
-    const attendanceLog = await sequelize.query(query, {
+    const attendanceLog = await db.query(query, {
       replacements: { empId },
       type: Sequelize.QueryTypes.SELECT,
     });
+    
+    
     console.log(attendanceLog);
-
-    if (attendanceLog) {
+    if (attendanceLog.length >= 1) {
       res.json(attendanceLog);
     } else {
       res.status(404).json({ message: 'AttendanceLog not found' });
@@ -62,9 +65,6 @@ exports.getAttendanceLogByEmployeeCode = async (req, res) => {
   }
 };
 
-
-
-// Create a new attendance log
 exports.createAttendanceLog = async (req, res) => {
   try {
     const newAttendanceLog = await AttendanceLog.create(req.body);
