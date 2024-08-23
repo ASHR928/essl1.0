@@ -26,5 +26,19 @@
         "title": "Admin",
         "name": "Update Roaster",
         "redirect": "updateroster"
+    },
+    {
+        "id": 5,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Attendance Punch Log",
+        "redirect": "attpunchlog"
+    },
+    {
+        "id": 6,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Application Log",
+        "redirect": "applog"
     }
 ]

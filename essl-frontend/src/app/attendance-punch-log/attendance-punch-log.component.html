@@ -1,0 +1,11 @@
+<div class="col-md-12 col-lg-12 col-sm-12-col-xm-12 row">
+    <mat-form-field style="width: 100%;" class="float-right">
+        <mat-label>Filter</mat-label>
+        <input style="width: 100%;" #filterValue (input)="onFilterChange(filterValue.value)" matInput placeholder="Enter 3 or more chars to filter" name="search">
+    </mat-form-field>
+
+    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" class="ag-theme-quartz"
+    (gridReady)="onGridReady($event)"
+    style="height: 350px;">
+    </ag-grid-angular>
+</div>

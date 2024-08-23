@@ -7,6 +7,8 @@ import { EmployeeRosterComponent } from './_dashboard/employee-roster/employee-r
 import { UpdateRosterComponent } from './_dashboard/update-roster/update-roster.component';
 import { ButtonsComponent } from './_Common/buttons/buttons.component';
 import { employeeResolver } from './_Resolver/employee.resolver';
+import { AttendancePunchLogComponent } from './attendance-punch-log/attendance-punch-log.component';
+import { AppLogComponent } from './app-log/app-log.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -16,6 +18,8 @@ export const routes: Routes = [
         { path: 'emplist', component: EmployeeListComponent },
         { path: 'emproster', component: EmployeeRosterComponent, resolve: { 'empList': employeeResolver } },
         { path: 'updateroster', component: UpdateRosterComponent },
-        { path: 'button', component: ButtonsComponent }
+        { path: 'button', component: ButtonsComponent },
+        { path: 'attpunchlog', component: AttendancePunchLogComponent },
+        { path: 'applog', component: AppLogComponent }
     ] }
 ];

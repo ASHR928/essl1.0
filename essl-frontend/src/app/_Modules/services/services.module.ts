@@ -5,6 +5,7 @@ import { MessagesService } from '../../_Toastr/messages.service';
 import { LoginService } from '../../_Services/login.service';
 import { DashboardMenuService } from '../../_Services/dashboard-menu.service';
 import { EmployeeService } from '../../_Services/employee.service';
+import { AttendancepunchlogService } from '../../_Services/attendancepunchlog.service';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EmployeeService } from '../../_Services/employee.service';
     MessagesService,
     LoginService,
     DashboardMenuService,
-    EmployeeService
+    EmployeeService,
+    AttendancepunchlogService
   ]
 })
 export class ServicesModule { }
