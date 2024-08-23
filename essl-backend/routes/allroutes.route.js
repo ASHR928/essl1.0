@@ -12,9 +12,11 @@ const employeeMasterRoutes = require('../controllers/employee-master/employee-ma
 
 router.use('/employees', employeeMasterRoutes);
 
+const attendancePunchLogRoutes = require('../controllers/attendance-punch-logs/attendance-punch-logs.routes')
+router.use('/punchrecords', attendancePunchLogRoutes);
+
 const attendanceLogRoutes = require('../controllers/attendance-logs/attendance-logs.routes')
 router.use('/attendance', attendanceLogRoutes);
-
 
 module.exports = router;
 
