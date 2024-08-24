@@ -40,6 +40,7 @@ export class FullscreenComponent implements OnInit {
   ];
   calendarVisible = true;
   calendarApi?: CalendarApi;
+  previousAttendanceType: any;
   previousAttendance: number = 0;
   attendanceCalculation: any = {
     'Present': 1,
@@ -207,6 +208,7 @@ export class FullscreenComponent implements OnInit {
     const selectedEventId = clickInfo.event.id;
     this.calendarApi = clickInfo.view.calendar;
     this.globalEventId = selectedEventId;
+    this.previousAttendanceType = clickInfo.event.title.trim();
     this.previousAttendance = Number(this.attendanceCalculation[clickInfo.event.title.trim()])
 
     this.openPopup(clickInfo.event.start);
@@ -264,10 +266,20 @@ export class FullscreenComponent implements OnInit {
             Status: data[0].title,
             AttendanceDate: formattedDate //startDate.toISOString().split('T')[0]
           }
-          console.log(this.commonService.commonData.Emp_ID);
+
+          let logBody = {
+            employee_id: 101,
+            action_screen: 'Calendar Component',
+            description: 'Updated attendance type from ' + this.previousAttendanceType + ' to ' + data[0].title.trim()
+          }
+          this.previousAttendanceType = data[0].title.trim();
+
 
           this.employeeSerive.updateLeaveInAttendanceLog(this.commonService.commonData.Emp_ID, body).subscribe((data) => {
             console.log(data);
+            this.employeeSerive.insertApplicationLog(logBody).subscribe((data) => {
+
+            })
 
           });
         }
