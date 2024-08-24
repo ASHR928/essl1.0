@@ -26,11 +26,11 @@ export class AppLogComponent implements OnInit {
     { field: "employee_id", headerName: 'Emp ID', width: 100, filter: true },
     { field: "action_screen", headerName: 'Action Screen', filter: true },
     { field: 'description', headerName: 'Description' },
-    { field: 'Emp_Name', headerName: 'Updated By' },
-    { field: 'Updated_At', headerName: 'Updated At', width: 130, filter: 'date' }
+    { field: 'EmployeeName', headerName: 'Updated By' },
+    { field: 'created_at', headerName: 'Updated At', width: 130, filter: 'date' }
   ];
-  
-  constructor(private applicationLogService: ApplicationLogService) {}
+
+  constructor(private applicationLogService: ApplicationLogService) { }
 
   ngOnInit(): void {
     this.applicationLogService.getAppLog().subscribe((response: any) => {

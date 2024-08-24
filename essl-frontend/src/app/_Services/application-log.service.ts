@@ -12,7 +12,7 @@ export class ApplicationLogService {
   constructor(private http: HttpClient) { }
 
   getAppLog() {
-    return this.http.get(Url.LocalUrl + 'attendance/attendanceLogs').pipe(
+    return this.http.get(Url.LocalUrl + 'applicationlogs').pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);
