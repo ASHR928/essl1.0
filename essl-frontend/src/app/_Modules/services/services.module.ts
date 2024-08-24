@@ -6,6 +6,7 @@ import { LoginService } from '../../_Services/login.service';
 import { DashboardMenuService } from '../../_Services/dashboard-menu.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { AttendancepunchlogService } from '../../_Services/attendancepunchlog.service';
+import { ApplicationLogService } from '../../_Services/application-log.service';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { AttendancepunchlogService } from '../../_Services/attendancepunchlog.se
     LoginService,
     DashboardMenuService,
     EmployeeService,
-    AttendancepunchlogService
+    AttendancepunchlogService,
+    ApplicationLogService
   ]
 })
 export class ServicesModule { }

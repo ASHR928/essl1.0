@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../_Material/material/material.module';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi } from 'ag-grid-community';
+import { ApplicationLogService } from '../_Services/application-log.service';
+import { HttpModule } from '../_Http/http/http.module';
+import { ServicesModule } from '../_Modules/services/services.module';
 
 @Component({
   selector: 'app-app-log',
   standalone: true,
   imports: [
     MaterialModule,
-    AgGridAngular
+    AgGridAngular,
+    HttpModule,
+    ServicesModule
   ],
   templateUrl: './app-log.component.html',
   styleUrl: './app-log.component.scss'
 })
-export class AppLogComponent {
+export class AppLogComponent implements OnInit {
   gridApi!: GridApi;
   rowData: any = [];
   colDefs: ColDef[] = [
@@ -25,7 +30,13 @@ export class AppLogComponent {
     { field: 'Updated_At', headerName: 'Updated At', width: 130, filter: 'date' }
   ];
   
-  constructor() {}
+  constructor(private applicationLogService: ApplicationLogService) {}
+
+  ngOnInit(): void {
+    this.applicationLogService.getAppLog().subscribe((response: any) => {
+      this.rowData = response;
+    });
+  }
 
   onFilterChange(value: any): void {
     if (value.length >= 3) {
