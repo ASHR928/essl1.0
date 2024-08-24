@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const db = require('../../sequelizeconn');
 
 const ApplicationLog = db.define('ApplicationLogs', {
@@ -16,10 +16,10 @@ const ApplicationLog = db.define('ApplicationLogs', {
   description: {
     type: DataTypes.TEXT,
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  }
+  // created_at: {
+  //   type: Sequelize.DATE,
+  //   defaultValue: Sequelize.NOW,
+  // }
 }, {
   timestamps: false,
   tableName: 'ApplicationLogs',
