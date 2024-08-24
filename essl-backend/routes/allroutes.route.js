@@ -18,6 +18,10 @@ router.use('/punchrecords', attendancePunchLogRoutes);
 const attendanceLogRoutes = require('../controllers/attendance-logs/attendance-logs.routes')
 router.use('/attendance', attendanceLogRoutes);
 
+
+const applicationLogRoutes = require('../controllers/application-logs/application-logs.routes')
+router.use('/applicationlogs', applicationLogRoutes);
+
 module.exports = router;
 
 
