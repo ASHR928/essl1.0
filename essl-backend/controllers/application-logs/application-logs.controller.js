@@ -1,4 +1,6 @@
 const ApplicationLog = require('../application-logs/application-logs');
+const db = require('../../sequelizeconn')
+
 
 // Create a new log entry
 exports.createLog = async (req, res) => {
