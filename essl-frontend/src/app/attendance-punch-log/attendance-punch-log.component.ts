@@ -30,8 +30,8 @@ export class AttendancePunchLogComponent implements OnInit {
     { field: 'Emp_Designation', headerName: 'Emp Designation', width: 160, filter: true },
     { field: 'Emp_Team_Name', headerName: 'Emp Team Name', width: 170, filter: true },
     { field: 'Emp_Department_Name', headerName: 'Emp Dept Name', width: 170, filter: true },
-    { field: 'date', headerName: 'Date', width: 120, filter: true },
-    { field: 'hh_mm', headerName: 'Time', width: 100, filter: true }
+    { field: 'date', headerName: 'Date', width: 120, filter: true, valueGetter: params => params.data.date.substring(0,10) },
+    { field: 'hh_mm', headerName: 'Time', width: 100, filter: true, valueGetter: params => params.data.date.substring(11, 15) }
   ];
   
   constructor(private attendancepunchlogService: AttendancepunchlogService) {}
