@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 import { CommonService } from '../../_Resolver/common.service';
 import { EmployeeService } from '../../_Services/employee.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Day } from '../../enum/dayEnum';
 
 
@@ -20,14 +20,16 @@ import { Day } from '../../enum/dayEnum';
   imports: [
     FullCalendarModule,
     CommonModule,
+    DatePipe
   ],
+  providers: [DatePipe],
   templateUrl: './fullscreen.component.html',
   styleUrl: './fullscreen.component.scss'
 })
 export class FullscreenComponent implements OnInit {
   @ViewChild('fullCalendar') calendarComponent!: FullCalendarComponent;
   showCalendar = false;
-  working_days: any
+  working_days: number = 0;
   param = '';
   eventGuid = 0;
   globalEventId = '0';
@@ -73,7 +75,8 @@ export class FullscreenComponent implements OnInit {
   };
   heightWidth = { height: 'auto', width: 'auto' };
 
-  constructor(public dialog: MatDialog, private commonService: CommonService, private employeeSerive: EmployeeService
+  constructor(public dialog: MatDialog, private commonService: CommonService, private employeeSerive: EmployeeService,
+    private datePipe: DatePipe
   ) {
 
   }
@@ -84,7 +87,8 @@ export class FullscreenComponent implements OnInit {
       for (const row of data[0]) {
         console.log('row', row.Status);
         this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
-        this.working_days += this.attendanceCalculation[row.Status]
+        this.working_days += Number(this.attendanceCalculation[row.Status.trim()])
+        console.log( this.attendanceCalculation[row.Status])
       }
 
       this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
@@ -246,13 +250,14 @@ export class FullscreenComponent implements OnInit {
 
         if (event) {
           event.setProp('title', data[0].title);
-          this.working_days += this.attendanceCalculation[data[0].Status]
+          this.working_days += Number(this.attendanceCalculation[data[0].title.trim()]);
           event.setStart(startDate);
           event.setProp('backgroundColor', this.backgroundColorChange(data[0].title));
+          const formattedDate = this.datePipe.transform(startDate, 'yyyy-MM-ddTHH:mm:ss.SSS');
 
           let body = {
             Status: data[0].title,
-            AttendanceDate: startDate
+            AttendanceDate: formattedDate //startDate.toISOString().split('T')[0]
           }
           console.log(this.commonService.commonData.Emp_ID);
 
