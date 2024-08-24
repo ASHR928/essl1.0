@@ -40,6 +40,7 @@ export class FullscreenComponent implements OnInit {
   ];
   calendarVisible = true;
   calendarApi?: CalendarApi;
+  previousAttendance: number = 0;
   attendanceCalculation: any = {
     'Present': 1,
     'Absent': -1,
@@ -88,7 +89,7 @@ export class FullscreenComponent implements OnInit {
         console.log('row', row.Status);
         this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
         this.working_days += Number(this.attendanceCalculation[row.Status.trim()])
-        console.log( this.attendanceCalculation[row.Status])
+        console.log(this.attendanceCalculation[row.Status])
       }
 
       this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
@@ -162,7 +163,7 @@ export class FullscreenComponent implements OnInit {
     return {
       id: this.createEventId(),
       title: attendanceLog.Status,
-      backgroundColor: this.backgroundColorChange(attendanceLog.Status),
+      backgroundColor: this.backgroundColorChange(attendanceLog.Status.trim()),
       start: attendanceLog.AttendanceDate.split('T')[0] // Extracting the date part
     };
   }
@@ -206,6 +207,7 @@ export class FullscreenComponent implements OnInit {
     const selectedEventId = clickInfo.event.id;
     this.calendarApi = clickInfo.view.calendar;
     this.globalEventId = selectedEventId;
+    this.previousAttendance = Number(this.attendanceCalculation[clickInfo.event.title.trim()])
 
     this.openPopup(clickInfo.event.start);
     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
@@ -250,7 +252,10 @@ export class FullscreenComponent implements OnInit {
 
         if (event) {
           event.setProp('title', data[0].title);
+
           this.working_days += Number(this.attendanceCalculation[data[0].title.trim()]);
+          this.working_days -= this.previousAttendance;
+          this.previousAttendance = this.attendanceCalculation[data[0].title.trim()]
           event.setStart(startDate);
           event.setProp('backgroundColor', this.backgroundColorChange(data[0].title));
           const formattedDate = this.datePipe.transform(startDate, 'yyyy-MM-ddTHH:mm:ss.SSS');
