@@ -85,43 +85,53 @@ export class FullscreenComponent implements OnInit {
   }
   ngOnInit(): void {
     let empId = this.commonService.commonData.Emp_ID;
+  
+    // Fetch attendance logs by employee ID
     this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
-
-      for (const row of data[0]) {
-        console.log('row', row.Status);
+      const attendanceLogs = data[0];
+  
+      for (const row of attendanceLogs) {
         this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
-        this.working_days += Number(this.attendanceCalculation[row.Status.trim()])
-        console.log(this.attendanceCalculation[row.Status])
+        this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
       }
-
+  
+      // Fetch employee details to determine weekly offs
       this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
-        console.log(data);
-        let weekOff1 = data[0].Weekly_Off1
-        let weekOff2 = data[0].Weekly_Off2
-
-        let year = this.TODAY_STR.substring(0, 4)
-        let month = this.TODAY_STR.substring(5, 7)
-
-        let weeklyOffs = this.getWeekOff(year, month, weekOff1, weekOff2)
-        weeklyOffs.forEach((day, index) => {
-          this.working_days += 1
-          this.INITIAL_EVENTS.push(this.transformAttendanceLog({
-            Status: 'WO',
-            AttendanceDate: day
-          }));
+        const weekOff1 = data[0].Weekly_Off1;
+        const weekOff2 = data[0].Weekly_Off2;
+  
+        const year = this.TODAY_STR.substring(0, 4);
+        const month = this.TODAY_STR.substring(5, 7);
+  
+        // Calculate weekly offs for the given month and year
+        const weeklyOffs = this.getWeekOff(year, month, weekOff1, weekOff2);
+  
+        // Iterate through each calculated weekly off
+        weeklyOffs.forEach((day) => {
+          const existingLog = attendanceLogs.find(
+            (log : any) => log.AttendanceDate.split('T')[0] === day
+          );
+  
+          if (!existingLog) {
+            this.working_days += 1;
+            this.INITIAL_EVENTS.push(this.transformAttendanceLog({
+              Status: 'WO',
+              AttendanceDate: day
+            }));
+          }
         });
+  
+        // Update calendar options to include initial events
         this.calendarOptions = {
-          ...this.calendarOptions, // Spread the existing options
-          initialEvents: [...this.INITIAL_EVENTS] // Update initialEvents
+          ...this.calendarOptions,
+          initialEvents: [...this.INITIAL_EVENTS]
         };
-
-        this.showCalendar = true
-      })
-
-
+  
+        this.showCalendar = true;
+      });
     });
-
   }
+  
 
   // Method to handle date range changes
   handleDatesSet(dateInfo: DatesSetArg) {
