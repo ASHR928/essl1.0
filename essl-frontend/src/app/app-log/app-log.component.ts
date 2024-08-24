@@ -23,18 +23,18 @@ export class AppLogComponent implements OnInit {
   rowData: any = [];
   colDefs: ColDef[] = [
     // { field: 'log_id', headerName: '' },
-    { field: "employee_id", headerName: 'Emp ID', width: 100, filter: true },
+    { field: "EmployeeCode", headerName: 'Emp ID', width: 100, filter: true },
     { field: "action_screen", headerName: 'Action Screen', filter: true },
-    { field: 'description', headerName: 'Description' },
+    { field: 'description', headerName: 'Description', width: 350 },
     { field: 'EmployeeName', headerName: 'Updated By' },
-    { field: 'created_at', headerName: 'Updated At', width: 130, filter: 'date' }
+    { field: 'created_at', headerName: 'Updated At', width: 150, filter: 'date' }
   ];
 
   constructor(private applicationLogService: ApplicationLogService) { }
 
   ngOnInit(): void {
     this.applicationLogService.getAppLog().subscribe((response: any) => {
-      this.rowData = response;
+      this.rowData = response[0];
     });
   }
 
