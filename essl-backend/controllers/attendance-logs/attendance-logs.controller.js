@@ -101,17 +101,21 @@ exports.updateAttendanceLog = async (req, res) => {
     );
     const employeeId = EmpID[0].EmployeeId;
 
+    let result = null
+
     const update_query = `update AttendanceLogs set Status = '${req.body.Status}' where EmployeeId = '${employeeId}' and 
           [AttendanceDate] =  '${req.body.AttendanceDate}';`
-    const result = await db.query(update_query);
+    result = await db.query(update_query);
 
     console.log(result[1]);
-    
+
 
     if (result[1] == 0) {
-      const insert_query = `insert into AttendanceLogs(Status,EmployeeId,AttendanceDate) values
-            ('${req.body.Status}','${employeeId}','${req.body.AttendanceDate}')
-      `
+      const insert_query = `insert into AttendanceLogs(Status,EmployeeId,AttendanceDate,Duration,LateBy,EarlyBy,IsOnLeave,WeeklyOff,Holiday,PunchRecords,ShiftId,Present,Absent,StatusCode,IsonSpecialOff,OverTime,OverTimeE,MissedOutPunch) values
+            ('${req.body.Status}','${employeeId}','${req.body.AttendanceDate}',540,0,0,0,0,0,'InOut',1,1,0,'P',0,0,0,0)`
+
+
+      result = await db.query(insert_query);
 
     }
 
