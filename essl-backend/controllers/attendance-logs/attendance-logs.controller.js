@@ -102,13 +102,19 @@ exports.updateAttendanceLog = async (req, res) => {
     const employeeId = EmpID[0].EmployeeId;
 
     const update_query = `update AttendanceLogs set Status = '${req.body.Status}' where EmployeeId = '${employeeId}' and 
-         [AttendanceDate] =  '${req.body.AttendanceDate}';`
-
-         console.log(update_query);
+          [AttendanceDate] =  '${req.body.AttendanceDate}';`
     const result = await db.query(update_query);
 
+    console.log(result[1]);
     
-    console.log(result);
+
+    if (result[1] == 0) {
+      const insert_query = `insert into AttendanceLogs(Status,EmployeeId,AttendanceDate) values
+            ('${req.body.Status}','${employeeId}','${req.body.AttendanceDate}')
+      `
+
+    }
+
     const val = res.json(result);
     return val;
 
