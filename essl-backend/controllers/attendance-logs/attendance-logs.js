@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const db = require('../../sequelizeconn');
 
 const AttendanceLog = db.define('AttendanceLog', {
@@ -8,8 +8,8 @@ const AttendanceLog = db.define('AttendanceLog', {
     autoIncrement: true,
   },
   AttendanceDate: {
-    type: DataTypes.DATEONLY,
-    allowNull: true,
+    type: DataTypes.DATE,
+    allowNull: false,
   },
   EmployeeId: {
     type: DataTypes.INTEGER,

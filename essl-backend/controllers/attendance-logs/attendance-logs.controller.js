@@ -2,7 +2,6 @@ const AttendanceLog = require('../attendance-logs/attendance-logs');
 const db = require('../../sequelizeconn')
 var Sequelize = require("sequelize");
 
-
 // Get all attendance logs
 exports.getAllAttendanceLogs = async (req, res) => {
   try {
@@ -52,8 +51,8 @@ exports.getAttendanceLogByEmployeeCode = async (req, res) => {
       replacements: { empId },
       type: Sequelize.QueryTypes.SELECT,
     });
-    
-    
+
+
     console.log(attendanceLog);
     if (attendanceLog.length >= 1) {
       res.json(attendanceLog);
@@ -74,20 +73,100 @@ exports.createAttendanceLog = async (req, res) => {
   }
 };
 
-// Update an attendance log
 exports.updateAttendanceLog = async (req, res) => {
   try {
-    console.log(req.body);
+    //const attendanceDate = new Date(req.body.AttendanceDatenceDateString);
+
+    //console.log(attendanceDate.toISOString().replace('T', ' ').split('.')[0] + '.000');
 
     const { empId } = req.params;
+
+    console.log(req.body);
+
+
+    const query = `SELECT EmployeeId
+          from Employees where EmployeeCode = :empId;`
+
+
+    // const date = new Date(req.body.AttendanceDate);
+    // console.log(date);
+
+
+    const EmpID = await db.query(query, {
+      replacements: { empId },
+      type: Sequelize.QueryTypes.SELECT,
+    });
+
+    console.log(EmpID[0].EmployeeId
+    );
+    const employeeId = EmpID[0].EmployeeId;
+
+    const update_query = `update AttendanceLogs set Status = '${req.body.Status}' where EmployeeId = '${employeeId}' and 
+         [AttendanceDate] =  '${req.body.AttendanceDate}';`
+
+         console.log(update_query);
+    const result = await db.query(update_query);
+
+    
+    console.log(result);
+    const val = res.json(result);
+    return val;
+
+    // const [updated] = await AttendanceLog.update(req.body, {
+    //   where: {
+    //     EmployeeId: EmpID[0].EmployeeId,
+    //     AttendanceDate: req.body.AttendanceDate
+    //   }
+    // });
+    // console.log('date fomrmat ', formattedDate);
+    // if (updated) {
+    //   const updatedAttendanceLog = await AttendanceLog.findOne({ where: { EmployeeId: EmpID[0].EmployeeId } });
+    //   res.json(updatedAttendanceLog);
+    // } else {
+    //   res.status(404).json({ message: 'AttendanceLog not found' });
+    // }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Update an attendance log
+exports.updateAttendanceLog_test = async (req, res) => {
+  try {
+    //const attendanceDate = new Date(req.body.AttendanceDatenceDateString);
+
+    //console.log(attendanceDate.toISOString().replace('T', ' ').split('.')[0] + '.000');
+
+    const { empId } = req.params;
+
+    console.log(req.body);
+
+
+    const query = `SELECT EmployeeId
+          from Employees where EmployeeCode = :empId;`
+
+
+    // const date = new Date(req.body.AttendanceDate);
+    // console.log(date);
+
+
+    const EmpID = await db.query(query, {
+      replacements: { empId },
+      type: Sequelize.QueryTypes.SELECT,
+    });
+
+    console.log(EmpID[0].EmployeeId
+    );
+
     const [updated] = await AttendanceLog.update(req.body, {
       where: {
-        EmployeeId: empId,
+        EmployeeId: EmpID[0].EmployeeId,
         AttendanceDate: req.body.AttendanceDate
       }
     });
+    // console.log('date fomrmat ', formattedDate);
     if (updated) {
-      const updatedAttendanceLog = await AttendanceLog.findOne({ where: { EmployeeId: empId } });
+      const updatedAttendanceLog = await AttendanceLog.findOne({ where: { EmployeeId: EmpID[0].EmployeeId } });
       res.json(updatedAttendanceLog);
     } else {
       res.status(404).json({ message: 'AttendanceLog not found' });
