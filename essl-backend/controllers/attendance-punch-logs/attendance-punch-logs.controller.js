@@ -5,7 +5,8 @@ var Sequelize = require("sequelize");
 exports.getAttendancePunchLog = async (req, res) => {
   try {
     const query = `select emp.Emp_ID, emp.Emp_Name, emp.Emp_Alias_Name, emp.Emp_Designation, emp.Emp_Team_Name, emp.Emp_Department_Name, ptd.date, ptd.hh_mm
-from EMPLOYEE_MASTER as emp inner join PunchTimeDetails as ptd on ptd.tktno = emp.Emp_ID;`;
+from EMPLOYEE_MASTER as emp inner join PunchTimeDetails as ptd on ptd.tktno = emp.Emp_ID
+group by emp.Emp_ID, emp.Emp_Name, emp.Emp_Alias_Name, emp.Emp_Designation, emp.Emp_Team_Name, emp.Emp_Department_Name, ptd.date, ptd.hh_mm;`;
 
     const attendanceLog = await db.query(query, {
       type: Sequelize.QueryTypes.SELECT,
