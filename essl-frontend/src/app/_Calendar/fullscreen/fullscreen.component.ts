@@ -38,6 +38,15 @@ export class FullscreenComponent implements OnInit {
   ];
   calendarVisible = true;
   calendarApi?: CalendarApi;
+  attendanceCalculation: any = {
+    'Present': 1,
+    'Absent': -1,
+    'SW': -3,
+    'NCNS': -5,
+    'Casual Leave': -1,
+    'Sick Leave': -1,
+    'OT': 2
+  }
   calendarOptions: CalendarOptions = {
     plugins: [
       interactionPlugin,
@@ -75,6 +84,7 @@ export class FullscreenComponent implements OnInit {
       for (const row of data[0]) {
         console.log('row', row.Status);
         this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
+        this.working_days += this.attendanceCalculation[row.Status]
       }
 
       this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
@@ -236,6 +246,7 @@ export class FullscreenComponent implements OnInit {
 
         if (event) {
           event.setProp('title', data[0].title);
+          this.working_days += this.attendanceCalculation[data[0].Status]
           event.setStart(startDate);
           event.setProp('backgroundColor', this.backgroundColorChange(data[0].title));
 
