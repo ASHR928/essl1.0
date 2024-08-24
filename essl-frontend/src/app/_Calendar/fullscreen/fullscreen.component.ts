@@ -43,10 +43,11 @@ export class FullscreenComponent implements OnInit {
   previousAttendanceType: any;
   previousAttendance: number = 0;
   attendanceCalculation: any = {
+    'WO': 1,
     'Present': 1,
-    'Absent': -1,
-    'SW': -3,
-    'NCNS': -5,
+    'Absent': 0,
+    'SW': -2,
+    'NCNS': -4,
     'Casual Leave': -1,
     'Sick Leave': -1,
     'OT': 2
@@ -103,6 +104,7 @@ export class FullscreenComponent implements OnInit {
 
         let weeklyOffs = this.getWeekOff(year, month, weekOff1, weekOff2)
         weeklyOffs.forEach((day, index) => {
+          this.working_days += 1
           this.INITIAL_EVENTS.push(this.transformAttendanceLog({
             Status: 'WO',
             AttendanceDate: day
