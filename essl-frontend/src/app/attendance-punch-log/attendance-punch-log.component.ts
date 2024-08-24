@@ -21,7 +21,6 @@ import { AttendancepunchlogService } from '../_Services/attendancepunchlog.servi
 export class AttendancePunchLogComponent implements OnInit {
   gridApi!: GridApi;
   rowData: any = [];
-  AttendancePunchLog: any = [];
   colDefs: ColDef[] = [
     { field: 'sno', headerName: 'Sr. No', width: 100 },
     // { field: "PunchTimeDetailsId", headerName: 'Punch Id', width: 100 },
@@ -39,7 +38,7 @@ export class AttendancePunchLogComponent implements OnInit {
 
   ngOnInit(): void {
     this.attendancepunchlogService.getAttendancePunchLog().subscribe((res: any) => {
-      this.AttendancePunchLog = res;
+      this.rowData = res;
       console.log(res);
     });
   }
