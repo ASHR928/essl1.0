@@ -4,7 +4,7 @@
         <input style="width: 100%;" #filterValue (input)="onFilterChange(filterValue.value)" matInput placeholder="Enter 3 or more chars to filter" name="search">
     </mat-form-field>
 
-    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" class="ag-theme-quartz"
+    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" class="ag-theme-quartz" [pagination]="true" [paginationPageSize]="20"
     (gridReady)="onGridReady($event)"
     style="height: 350px;">
     </ag-grid-angular>

@@ -22,7 +22,6 @@ export class AttendancePunchLogComponent implements OnInit {
   gridApi!: GridApi;
   rowData: any = [];
   colDefs: ColDef[] = [
-    { field: 'sno', headerName: 'Sr. No', width: 100 },
     // { field: "PunchTimeDetailsId", headerName: 'Punch Id', width: 100 },
     { field: "Emp_ID", headerName: 'Emp ID', width: 100, filter: true },
     { field: "Emp_Name", headerName: 'Emp Name', filter: true },
