@@ -10,13 +10,24 @@ exports.createLog = async (req, res) => {
   }
 };
 
+
+
 // Get all logs
 exports.getAllLogs = async (req, res) => {
   try {
-    const logs = await ApplicationLog.findAll();
-    res.status(200).json(logs);
+
+    const query = `SELECT   a.action_screen, a.description, a.created_at, emp.EmployeeCode, emp.EmployeeName 
+    FROM ApplicationLogs as a INNER JOIN employees as emp ON a.employee_id = emp.EmployeeCode`
+
+    const applicationLog = await db.query(query);
+
+    if (applicationLog.length >= 1) {
+      res.json(applicationLog);
+    } else {
+      res.status(404).json({ message: 'applicationLog not found' });
+    }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
