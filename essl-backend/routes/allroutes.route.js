@@ -22,6 +22,9 @@ router.use('/attendance', attendanceLogRoutes);
 const applicationLogRoutes = require('../controllers/application-logs/application-logs.routes')
 router.use('/applicationlogs', applicationLogRoutes);
 
+const userTypesRoutes = require('../controllers/user-type/user-type.routes')
+router.use('/usertypes', userTypesRoutes);
+
 module.exports = router;
 
 
