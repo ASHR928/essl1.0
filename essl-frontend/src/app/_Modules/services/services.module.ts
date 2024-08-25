@@ -7,6 +7,7 @@ import { DashboardMenuService } from '../../_Services/dashboard-menu.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { AttendancepunchlogService } from '../../_Services/attendancepunchlog.service';
 import { ApplicationLogService } from '../../_Services/application-log.service';
+import { UserTypeListService } from '../../_Services/user-type-list.service';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ApplicationLogService } from '../../_Services/application-log.service';
     DashboardMenuService,
     EmployeeService,
     AttendancepunchlogService,
-    ApplicationLogService
+    ApplicationLogService,
+    UserTypeListService
   ]
 })
 export class ServicesModule { }

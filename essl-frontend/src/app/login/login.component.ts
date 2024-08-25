@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessagesService } from '../_Toastr/messages.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { LoginService } from '../_Services/login.service';
+import { UserTypeListService } from '../_Services/user-type-list.service';
 
 @Component({
   selector: 'app-login',
@@ -31,10 +32,16 @@ export class LoginComponent implements OnInit {
   userType: any = [];
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private messageService: MessagesService,
-    private router: Router, private loginService: LoginService) { }
+    private router: Router, private loginService: LoginService, private userTypeListService: UserTypeListService) { }
 
   ngOnInit(): void {
-    this.loginService.loginType().subscribe((res: any) => {
+    // this.loginService.loginType().subscribe((res: any) => {
+    //   this.userType = res;
+    // }, error => {
+    //   this.messageService.errorMsg(JSON.stringify(error));
+    // });
+
+    this.userTypeListService.getUserTypeList().subscribe((res: any) => {
       this.userType = res;
     }, error => {
       this.messageService.errorMsg(JSON.stringify(error));
@@ -64,8 +71,11 @@ export class LoginComponent implements OnInit {
     const obj = { email: userName, Role: userType, pwd: pwd };
 
     this.loginService.login(obj).subscribe((response: any) => {
-      console.log(response);
-      this.router.navigate(['/', 'dashboard', 'admin'], { queryParams: { type: userType, unique: 1 } });
+      if (response.sqlMessage == undefined) {
+        this.router.navigate(['/', 'dashboard', 'admin'], { queryParams: { type: userType, unique: 1 } });
+      } else {
+        this.error = response.sqlMessage;
+      }
     });
   }
 }

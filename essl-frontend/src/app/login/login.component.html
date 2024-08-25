@@ -28,7 +28,7 @@
               <mat-label>User Type</mat-label>
               <mat-select formControlName="usertype" #item name="usertype" (selectionChange)="getValue(item)">
                 @for (user of userType; track $index) {
-                <mat-option [value]="user.loginType">{{user.title}}</mat-option>
+                <mat-option [value]="user.user_id">{{user.user_type}}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
