@@ -7,6 +7,8 @@ exports.bulkInsertRoaster = async (req, res) => {
   try {
     const empRoaster = req.body;
 
+    const employeeId = req.body.employee_id;    
+
     const file = req.file;
     console.log(req.body)
 
@@ -27,7 +29,7 @@ exports.bulkInsertRoaster = async (req, res) => {
       Shift_ID: user.Shift_ID,
       Start_Date: user.Start_Date ? excelDateToJSDate(user.Start_Date) : null,
       End_Date: user.End_Date ? excelDateToJSDate(user.End_Date) : null,
-      Updated_By_UserID: user.Updated_By_UserID !== undefined ? user.Updated_By_UserID : null,
+      Updated_By_UserID: employeeId,
     }));
 
     console.log(transformedUsers);

@@ -19,15 +19,20 @@ import { MaterialModule } from '../../_Material/material/material.module';
 export class UpdateRosterComponent {
   globalData: any;
   fileDetails = [];
-  
-  constructor(private employeeService: EmployeeService, private messageService: MessagesService) {}
+
+  constructor(private employeeService: EmployeeService, private messageService: MessagesService) { }
 
   getData(data: any) {
     this.fileDetails = data;
   }
 
   upload() {
+    const employeeId = localStorage.getItem('employee_id'); // Get employee_id from localStorage
     const formData = new FormData();
+
+    if (employeeId) {
+      formData.append('employee_id', employeeId);
+    }
 
     this.fileDetails.forEach((fileEntry: any) => {
       if (fileEntry.fileEntry.isFile) {
