@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(navigator.userAgent);
     const userName = this.loginForm.controls['email'].value;
     const userType = this.loginForm.controls['usertype'].value;
     const pwd = this.loginForm.controls['password'].value;

@@ -4,6 +4,7 @@ import { ServicesModule } from '../../_Modules/services/services.module';
 import { ButtonsComponent } from '../../_Common/buttons/buttons.component';
 import { ButtonService } from '../../_Resolver/button.service';
 import { EmployeeService } from '../../_Services/employee.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -40,13 +41,21 @@ export class EmployeeListComponent implements OnInit {
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 120, cellStyle: { 'text-align': 'center' } }
   ];
 
-  constructor(private buttonService: ButtonService, private employeeService: EmployeeService) {}
+  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
 
-    this.employeeService.getEmployees().subscribe((res: any) => {
-      this.rowData = res;
-    })
+    this.route.queryParams.subscribe((params: any) => {
+      if (params.type == 3) {
+        this.employeeService.getEmployeeById(Number(localStorage.getItem('employee_id'))).subscribe((res: any) => {
+          this.rowData = res;
+        })
+      } else {
+        this.employeeService.getEmployees().subscribe((res: any) => {
+          this.rowData = res;
+        })
+      }
+    });
   }
 }

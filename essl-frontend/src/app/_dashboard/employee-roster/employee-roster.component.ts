@@ -4,6 +4,7 @@ import { ServicesModule } from '../../_Modules/services/services.module';
 import { ButtonsComponent } from '../../_Common/buttons/buttons.component';
 import { ButtonService } from '../../_Resolver/button.service';
 import { EmployeeService } from '../../_Services/employee.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee-roster',
@@ -18,6 +19,7 @@ import { EmployeeService } from '../../_Services/employee.service';
 })
 export class EmployeeRosterComponent implements OnInit {
   rowData: any[] = [];
+  userType = 0;
 
   allrows = {
     Emp_ID: "",
@@ -38,10 +40,13 @@ export class EmployeeRosterComponent implements OnInit {
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
   ];
 
-  constructor(private buttonService: ButtonService, private employeeService: EmployeeService) {}
+  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
+    this.buttonService.isButtonVisible = { delete: true, edit: false, view: false, calendar: false };
+    this.route.queryParams.subscribe((params: any) => {
+      this.userType = params.type;
+    });
 
     this.loadData();
   }

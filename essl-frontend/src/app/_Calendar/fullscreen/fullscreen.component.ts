@@ -12,6 +12,7 @@ import { CommonService } from '../../_Resolver/common.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Day } from '../../enum/dayEnum';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -79,7 +80,7 @@ export class FullscreenComponent implements OnInit {
   heightWidth = { height: 'auto', width: 'auto' };
 
   constructor(public dialog: MatDialog, private commonService: CommonService, private employeeSerive: EmployeeService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe, private route: ActivatedRoute
   ) {
 
   }
@@ -225,7 +226,12 @@ export class FullscreenComponent implements OnInit {
     this.previousAttendanceType = clickInfo.event.title.trim();
     this.previousAttendance = Number(this.attendanceCalculation[clickInfo.event.title.trim()])
 
-    this.openPopup(clickInfo.event.start);
+    this.route.queryParams.subscribe((params: any) => {
+      if (params.type !== 3) {
+        this.openPopup(clickInfo.event.start);
+      }
+    });
+
     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
     //   clickInfo.event.remove();
     // } else {

@@ -38,6 +38,8 @@ export class CommonGridComponent implements OnInit {
   @Input('showPopup') showPopup = false;
   @Input('heightWidth') heightWidth = { height: '0px', width: '0px' };
   @Output() status: EventEmitter<any> = new EventEmitter<any>();
+  @Input() userType = 0;
+  @Input() setUserType = 1;
 
   defaultRow: any;
 
@@ -56,17 +58,19 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
-    if (this.showPopup) {
-      this.commonService.commonData = data.data;
-      
-      const dialogRef = this.dialog.open(OperatorModelComponent, {
-        height: this.heightWidth.height,
-        width: this.heightWidth.width
-      });
-
-      dialogRef.afterClosed().subscribe(() => {
-        this.status.emit(true);
-      });
+    if (this.userType != this.setUserType) {
+      if (this.showPopup) {
+        this.commonService.commonData = data.data;
+        
+        const dialogRef = this.dialog.open(OperatorModelComponent, {
+          height: this.heightWidth.height,
+          width: this.heightWidth.width
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.status.emit(true);
+        });
+      }
     }
   }
 

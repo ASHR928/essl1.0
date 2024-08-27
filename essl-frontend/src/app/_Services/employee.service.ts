@@ -43,6 +43,18 @@ export class EmployeeService {
     );
   }
 
+  getEmployeeById(empId: any) {
+    console.log(Url.LocalUrl + 'employees/' + empId)
+    return this.http.get(Url.LocalUrl + 'employees/' + empId).pipe(
+      retry(3),
+      toArray(),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
   postBulkEmployees(body: any) {
     return this.http.post(Url.LocalUrl + 'rosters/bulk-insert', body).pipe(
       retry(3),
