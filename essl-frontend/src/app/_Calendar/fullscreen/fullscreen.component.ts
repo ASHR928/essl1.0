@@ -90,9 +90,11 @@ export class FullscreenComponent implements OnInit {
     this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
       const attendanceLogs = data[0];
 
-      for (const row of attendanceLogs) {
-        this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
-        this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
+      if (attendanceLogs != undefined) {
+        for (const row of attendanceLogs) {
+          this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
+          this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
+        }
       }
 
       // Fetch employee details to determine weekly offs
