@@ -13,6 +13,7 @@ import { EmployeeService } from '../../_Services/employee.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Day } from '../../enum/dayEnum';
 import { ActivatedRoute } from '@angular/router';
+import { MaterialModule } from '../../_Material/material/material.module';
 
 
 @Component({
@@ -21,7 +22,8 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     FullCalendarModule,
     CommonModule,
-    DatePipe
+    DatePipe,
+    MaterialModule
   ],
   providers: [DatePipe],
   templateUrl: './fullscreen.component.html',
@@ -45,6 +47,7 @@ export class FullscreenComponent implements OnInit {
   previousAttendance: number = 0;
   attendanceCalculation: any = {
     'WO': 1,
+    '½Present': 0.5,
     'Present': 1,
     'Absent': 0,
     'SW': -2,
@@ -53,6 +56,7 @@ export class FullscreenComponent implements OnInit {
     'Sick Leave': -1,
     'OT': 2
   }
+  dialogRef: any;
   calendarOptions: CalendarOptions = {
     plugins: [
       interactionPlugin,
@@ -133,6 +137,10 @@ export class FullscreenComponent implements OnInit {
         this.showCalendar = true;
       });
     });
+  }
+
+  closeDialog() {
+    this.dialog.closeAll()
   }
 
 
@@ -261,12 +269,12 @@ export class FullscreenComponent implements OnInit {
   }
 
   openPopup(startDate: any) {
-    const dialogRef = this.dialog.open(CalendarComponent, {
+    this.dialogRef = this.dialog.open(CalendarComponent, {
       height: this.heightWidth.height,
       width: this.heightWidth.width
     });
 
-    dialogRef.afterClosed().subscribe((data) => {
+    this.dialogRef.afterClosed().subscribe((data: any) => {
       if (this.calendarApi) {
         let event = this.calendarApi.getEventById(this.globalEventId);
 
