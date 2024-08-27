@@ -65,13 +65,16 @@ export class LoginComponent implements OnInit {
     const userType = this.loginForm.controls['usertype'].value;
     const pwd = this.loginForm.controls['password'].value;
 
-    localStorage.setItem('userType', userType);
-    localStorage.setItem('employee_id','104');
+
 
     const obj = { email: userName, Role: userType, pwd: pwd };
 
     this.loginService.login(obj).subscribe((response: any) => {
+      console.log(response);
+
       if (response.sqlMessage == undefined) {
+        localStorage.setItem('userType', userType);
+        localStorage.setItem('employee_id', response[0].Emp_ID);
         this.router.navigate(['/', 'dashboard', 'admin'], { queryParams: { type: userType, unique: 1 } });
       } else {
         this.error = response.sqlMessage;

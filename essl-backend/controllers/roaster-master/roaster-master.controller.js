@@ -7,6 +7,8 @@ exports.bulkInsertRoaster = async (req, res) => {
   try {
     const empRoaster = req.body;
 
+    const employeeId = req.body.employee_id;    
+
     const file = req.file;
     console.log(req.body)
 
@@ -27,7 +29,7 @@ exports.bulkInsertRoaster = async (req, res) => {
       Shift_ID: user.Shift_ID,
       Start_Date: user.Start_Date ? excelDateToJSDate(user.Start_Date) : null,
       End_Date: user.End_Date ? excelDateToJSDate(user.End_Date) : null,
-      Updated_By_UserID: user.Updated_By_UserID !== undefined ? user.Updated_By_UserID : null,
+      Updated_By_UserID: employeeId,
     }));
 
     console.log(transformedUsers);
@@ -43,6 +45,10 @@ function excelDateToJSDate(serial) {
   const excelBaseDate = new Date(Date.UTC(1899, 11, 30)); // Excel base date
   const jsDate = new Date(excelBaseDate.getTime() + serial * 86400000); // Convert serial to date
   
+  // Manually adjust the timezone offset if needed (e.g., convert to UTC)
+  const offset = jsDate.getTimezoneOffset();
+  jsDate.setMinutes(jsDate.getMinutes() - offset);
+
   // Manually format the date to 'YYYY-MM-DDTHH:MM:SS.sss' without timezone offset
   const year = jsDate.getUTCFullYear();
   const month = String(jsDate.getUTCMonth() + 1).padStart(2, '0');
@@ -52,9 +58,9 @@ function excelDateToJSDate(serial) {
   const seconds = String(jsDate.getUTCSeconds()).padStart(2, '0');
   const milliseconds = String(jsDate.getUTCMilliseconds()).padStart(3, '0');
 
-  // Return formatted date
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`; // Ensure 'Z' for UTC
 }
+
 
 
 // Get all roster entries
