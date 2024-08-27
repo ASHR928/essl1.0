@@ -226,11 +226,9 @@ export class FullscreenComponent implements OnInit {
     this.previousAttendanceType = clickInfo.event.title.trim();
     this.previousAttendance = Number(this.attendanceCalculation[clickInfo.event.title.trim()])
 
-    this.route.queryParams.subscribe((params: any) => {
-      if (params.type !== 3) {
-        this.openPopup(clickInfo.event.start);
-      }
-    });
+    if (Number(localStorage.getItem('employee_id')) !== 3) {
+      this.openPopup(clickInfo.event.start);
+    }
 
     // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
     //   clickInfo.event.remove();
@@ -273,35 +271,34 @@ export class FullscreenComponent implements OnInit {
         let event = this.calendarApi.getEventById(this.globalEventId);
 
         if (event) {
-          event.setProp('title', data[0].title);
+          if (data != undefined) {
+            event.setProp('title', data[0].title);
 
-          this.working_days += Number(this.attendanceCalculation[data[0].title.trim()]);
-          this.working_days -= this.previousAttendance;
-          this.previousAttendance = this.attendanceCalculation[data[0].title.trim()]
-          event.setStart(startDate);
-          event.setProp('backgroundColor', this.backgroundColorChange(data[0].title));
-          const formattedDate = this.datePipe.transform(startDate, 'yyyy-MM-ddTHH:mm:ss.SSS');
+            this.working_days += Number(this.attendanceCalculation[data[0].title.trim()]);
+            this.working_days -= this.previousAttendance;
+            this.previousAttendance = this.attendanceCalculation[data[0].title.trim()]
+            event.setStart(startDate);
+            event.setProp('backgroundColor', this.backgroundColorChange(data[0].title));
+            const formattedDate = this.datePipe.transform(startDate, 'yyyy-MM-ddTHH:mm:ss.SSS');
 
-          let body = {
-            Status: data[0].title,
-            AttendanceDate: formattedDate //startDate.toISOString().split('T')[0]
+            let body = {
+              Status: data[0].title,
+              AttendanceDate: formattedDate //startDate.toISOString().split('T')[0]
+            }
+
+            let logBody = {
+              employee_id: Number(localStorage.getItem('employee_id')),
+              action_screen: 'Calendar Component',
+              description: 'Updated attendance type from ' + this.previousAttendanceType + ' to ' + data[0].title.trim()
+            }
+            this.previousAttendanceType = data[0].title.trim();
+
+            this.employeeSerive.updateLeaveInAttendanceLog(this.commonService.commonData.Emp_ID, body).subscribe((data) => {
+              console.log(data);
+              this.employeeSerive.insertApplicationLog(logBody).subscribe((data) => {
+              })
+            });
           }
-
-          let logBody = {
-            employee_id: Number(localStorage.getItem('employee_id')),
-            action_screen: 'Calendar Component',
-            description: 'Updated attendance type from ' + this.previousAttendanceType + ' to ' + data[0].title.trim()
-          }
-          this.previousAttendanceType = data[0].title.trim();
-
-
-          this.employeeSerive.updateLeaveInAttendanceLog(this.commonService.commonData.Emp_ID, body).subscribe((data) => {
-            console.log(data);
-            this.employeeSerive.insertApplicationLog(logBody).subscribe((data) => {
-
-            })
-
-          });
         }
       }
     });
