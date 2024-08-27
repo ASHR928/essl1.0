@@ -40,5 +40,89 @@
         "title": "Admin",
         "name": "Application Log",
         "redirect": "applog"
+    },
+    {
+        "id": 1,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Admin",
+        "redirect": "admin"
+    },
+    {
+        "id": 2,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Employee List",
+        "redirect": "emplist"
+    },
+    {
+        "id": 3,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Employee Roaster",
+        "redirect": "emproster"
+    },
+    {
+        "id": 4,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Update Roaster",
+        "redirect": "updateroster"
+    },
+    {
+        "id": 5,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Attendance Punch Log",
+        "redirect": "attpunchlog"
+    },
+    {
+        "id": 6,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Application Log",
+        "redirect": "applog"
+    },
+    {
+        "id": 1,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Admin",
+        "redirect": "admin"
+    },
+    {
+        "id": 2,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Employee List",
+        "redirect": "emplist"
+    },
+    {
+        "id": 3,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Employee Roaster",
+        "redirect": "emproster"
+    },
+    {
+        "id": 4,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Update Roaster",
+        "redirect": "updateroster"
+    },
+    {
+        "id": 5,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Attendance Punch Log",
+        "redirect": "attpunchlog"
+    },
+    {
+        "id": 6,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Application Log",
+        "redirect": "applog"
     }
 ]
