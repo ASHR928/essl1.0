@@ -24,7 +24,7 @@ export class CalendarComponent {
     { key: '4', value: 'Casual Leave' },
     { key: '5', value: 'NCNS' },
     { key: '6', value: 'SW' },
-    { key: '7', value: 'Half Day' },
+    { key: '7', value: '½Present' },
     { key: '8', value: 'OT' }
   ];
 
