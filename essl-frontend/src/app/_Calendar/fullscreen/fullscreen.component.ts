@@ -227,7 +227,7 @@ export class FullscreenComponent implements OnInit {
     this.previousAttendanceType = clickInfo.event.title.trim();
     this.previousAttendance = Number(this.attendanceCalculation[clickInfo.event.title.trim()])
 
-    if (Number(localStorage.getItem('employee_id')) !== 3) {
+    if (Number(localStorage.getItem('userType')) !== 3) {
       this.openPopup(clickInfo.event.start);
     }
 

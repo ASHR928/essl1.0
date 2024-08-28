@@ -3,13 +3,13 @@
     <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" style="background-color: #FFF4EA;">
         <mat-toolbar color="primary">
             <div class="bar-header">
-                <img src="../../assets/logo/logo.png" style="height: 72px;" alt="">
+                <!-- <img src="../../assets/logo/logo.jpg" style="height: 72px;" alt=""> -->
                 <span class="text-right">
                     <i class="bi bi-person-circle" [matMenuTriggerFor]="menu" style="color: #4758B8;"></i>
                     <!-- <span [matMenuTriggerFor]="menu" style="color: #A8385D; font-size: 1.0rem; text-align: center; cursor: pointer;" class="email">{{login.firstName.toUpperCase()}}</span> -->
                     <mat-menu #menu="matMenu">
                         <span style="color: white; font-size: 0.8rem;"></span>
-                        <button mat-menu-item (click)="logout()" style="color: white !important;">Logout</button>
+                        <button mat-menu-item (click)="logout()">Logout</button>
                     </mat-menu>
                 </span>
             </div>
@@ -27,7 +27,7 @@
 
     <mat-sidenav-content class="content">
         <mat-toolbar color="primary">
-            <button mat-icon-button (click)="sidenav.toggle()">
+            <button mat-icon-button (click)="sidenav.toggle()" style="color: white !important; margin-bottom: 70px;">
                 <mat-icon>menu</mat-icon>
             </button>
             <div class="header_one">
