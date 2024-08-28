@@ -4,7 +4,7 @@ exports.Login = async (req, res) => {
     try {
         data = req.body;
         const que = `SELECT Emp_ID, Role_ID, Email FROM USER_MASTER WHERE Email='${data.email}' and Password='${data.pwd}' and Role_ID=${data.Role}`;
-        console.log(que);
+
         await mssql.query(que).then(result => {
             if (result.recordset.length <= 0) {
                 res.json({ sqlMessage: 'User name or password is incorrect' });

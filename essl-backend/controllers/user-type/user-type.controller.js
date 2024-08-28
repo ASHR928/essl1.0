@@ -7,7 +7,6 @@ exports.UserTypeList = async (req, res) => {
                 console.error('Error fetching user details:', err);
                 res.status(500).json({ sqlMessage: err });
             } else {
-                console.log(result.recordsets[0]);
                 res.send(result.recordsets[0]);
             }
         });

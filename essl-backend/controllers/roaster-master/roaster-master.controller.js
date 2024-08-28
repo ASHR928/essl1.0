@@ -5,12 +5,8 @@ const XLSX = require('xlsx');
 // Bulk insert users from Excel data
 exports.bulkInsertRoaster = async (req, res) => {
   try {
-    const empRoaster = req.body;
-
     const employeeId = req.body.employee_id;    
-
     const file = req.file;
-    console.log(req.body)
 
     if (!file) {
       return res.status(400).json({ error: 'No file uploaded' });
@@ -31,9 +27,6 @@ exports.bulkInsertRoaster = async (req, res) => {
       End_Date: user.End_Date ? excelDateToJSDate(user.End_Date) : null,
       Updated_By_UserID: employeeId,
     }));
-
-    console.log(transformedUsers);
-
 
     const newUsers = await RosterMaster.bulkCreate(transformedUsers);
     res.status(201).json(newUsers);
@@ -90,8 +83,6 @@ exports.getRosterByEmpId = async (req, res) => {
 // Create a new roster entry
 exports.createRoster = async (req, res) => {
   try {
-    console.log('Request Body:', req.body); // Log the request body to verify data
-
     const newRoster = await RosterMaster.create(req.body);
     res.status(201).json(newRoster);
   } catch (error) {

@@ -20,10 +20,7 @@ async function insertAdminUser(loginName, loginPassword, role) {
                         VALUES 
                         (?, ?, ?, ?, ?, ?)`;
         const values = [loginName, hashedPassword, role, 1, -1, 1];
-
         const [rows] = await pool.execute(query, values);
-
-        console.log('Admin user created successfully.');
     } catch (err) {
         console.error('Error creating admin user:', err);
     }
