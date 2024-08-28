@@ -5,6 +5,7 @@ import { ButtonsComponent } from '../../_Common/buttons/buttons.component';
 import { ButtonService } from '../../_Resolver/button.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { ActivatedRoute } from '@angular/router';
+import { MessagesService } from '../../_Toastr/messages.service';
 
 @Component({
   selector: 'app-employee-roster',
@@ -40,7 +41,7 @@ export class EmployeeRosterComponent implements OnInit {
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
   ];
 
-  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute) { }
+  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute, private messageService: MessagesService) { }
 
   ngOnInit(): void {
     this.buttonService.isButtonVisible = { delete: true, edit: false, view: false, calendar: false };
@@ -59,6 +60,10 @@ export class EmployeeRosterComponent implements OnInit {
 
   changeStatus(value: any) {
     if (value) {
+      if (localStorage.getItem('swap') == 'swap') {
+        this.messageService.successMsg('Employee Roster successfully swap..')
+        localStorage.setItem('swap', '');
+      }
       this.loadData();
     }
   }

@@ -50,7 +50,8 @@ export class RoasterModelComponent implements OnInit {
   ];
 
 
-  constructor(private employeeService: EmployeeService, private commonService: CommonService, public dialogRef: MatDialogRef<RoasterModelComponent>) { }
+  constructor(private employeeService: EmployeeService, private commonService: CommonService,
+    public dialogRef: MatDialogRef<RoasterModelComponent>) { }
 
   ngOnInit(): void {
     this.employeeService.getEmpDetailsById(this.commonService.commonData.Emp_ID).subscribe((data: any) => {
@@ -77,9 +78,9 @@ export class RoasterModelComponent implements OnInit {
   }
 
   SwapRow() {
-
     this.employeeService.putSwapEmployees(this.commonService.commonData.Emp_ID, this.empId2).subscribe((data: any) => {
-      alert('Employee Roster successfully swap..');
+      localStorage.setItem('swap', 'swap');
+      // alert('Employee Roster successfully swap..');
 
       let logBody = {
         employee_id: Number(localStorage.getItem('employee_id')),
