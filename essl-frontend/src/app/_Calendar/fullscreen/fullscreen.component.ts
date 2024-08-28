@@ -6,13 +6,14 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { EventInput } from '@fullcalendar/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CalendarComponent } from '../../_Popup/calendar/calendar.component';
 import { CommonService } from '../../_Resolver/common.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Day } from '../../enum/dayEnum';
 import { ActivatedRoute } from '@angular/router';
+import { MaterialModule } from '../../_Material/material/material.module';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     FullCalendarModule,
     CommonModule,
+    MaterialModule,  
     DatePipe
   ],
   providers: [DatePipe],
@@ -157,7 +159,6 @@ export class FullscreenComponent implements OnInit {
 
     const startDate = new Date(year, month - 1, 1); // First day of the month
     const endDate = new Date(year, month, 0); // Last day of the month
-    console.log(year, month, startDate, endDate, weekoffDay1, weekoffDay2);
 
     // Iterate through each day of the month
     for (let date = startDate; date <= endDate; date = new Date(date.getTime() + 24 * 60 * 60 * 1000)) {
@@ -170,7 +171,6 @@ export class FullscreenComponent implements OnInit {
       }
     }
 
-    console.log(dates);
     return dates;
   }
 
@@ -294,7 +294,6 @@ export class FullscreenComponent implements OnInit {
             this.previousAttendanceType = data[0].title.trim();
 
             this.employeeSerive.updateLeaveInAttendanceLog(this.commonService.commonData.Emp_ID, body).subscribe((data) => {
-              console.log(data);
               this.employeeSerive.insertApplicationLog(logBody).subscribe((data) => {
               })
             });

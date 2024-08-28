@@ -51,4 +51,8 @@ export class CalendarComponent {
   save() {
     this.dialogRef.close(this.leave);
   }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }

@@ -4,6 +4,7 @@ import { HttpModule } from '../../_Http/http/http.module';
 import { ActivatedRoute } from '@angular/router';
 import { FullscreenComponent } from '../../_Calendar/fullscreen/fullscreen.component';
 import { RoasterModelComponent } from '../../_Popup/roaster-model/roaster-model.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-operator-model',
@@ -20,7 +21,7 @@ import { RoasterModelComponent } from '../../_Popup/roaster-model/roaster-model.
 export class OperatorModelComponent implements OnInit {
   type: any = {};
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, public dialogRef: MatDialogRef<OperatorModelComponent>) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(param => {
@@ -28,5 +29,9 @@ export class OperatorModelComponent implements OnInit {
       const val = param['unique'];
       this.type = { type: par, unique: val };
     });
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }
