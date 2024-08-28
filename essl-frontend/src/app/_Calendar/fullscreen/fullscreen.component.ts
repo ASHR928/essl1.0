@@ -139,11 +139,6 @@ export class FullscreenComponent implements OnInit {
     });
   }
 
-  closeDialog() {
-    this.dialog.closeAll()
-  }
-
-
   // Method to handle date range changes
   handleDatesSet(dateInfo: DatesSetArg) {
     console.log('Visible dates changed:');
