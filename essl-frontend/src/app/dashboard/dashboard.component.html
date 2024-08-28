@@ -36,20 +36,7 @@
             <div class="header_two">
                  <span style="cursor: pointer; color: #42A5F5; font-size: 15px;" [matMenuTriggerFor]="menu1"></span>
                 <mat-menu #menu1="matMenu">
-                    <ul style="list-style-type: none;">
-                        <li>
-                            <a [routerLink]="['/', 'dashboard', 'profile']" class="settings">Profile</a>
-                        </li>
-                        <li>
-                            <a href="/" class="settings">Settings</a>
-                        </li>
-                        <li>
-                            <a href="/" class="settings">Help</a>
-                        </li>
-                        <li>
-                            <a (click)="logout()" style="color: white !important; cursor: pointer;">Logout</a>
-                        </li>
-                    </ul>
+                    <a (click)="logout()" style="color: white !important; cursor: pointer;">Logout</a>
                 </mat-menu>
             </div>
         </mat-toolbar>
