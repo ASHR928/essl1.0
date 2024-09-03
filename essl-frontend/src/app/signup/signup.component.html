@@ -23,19 +23,19 @@
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Emp Alias Name</mat-label>
-                            <input matInput placeholder="Enter Emp Alias Name" formControlName="Emp_Alias_Name">
+                            <input matInput placeholder="Enter Emp Alias Name" formControlName="Emp_Alias_Name" required>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                    <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Company</mat-label>
                             <input matInput placeholder="Enter Emp Company" formControlName="Emp_Company">
                         </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Designation</mat-label>
-                            <input matInput placeholder="Enter Employee Designation" formControlName="Emp_Designation">
+                            <input matInput placeholder="Enter Employee Designation" formControlName="Emp_Designation" required>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
@@ -51,22 +51,22 @@
                             <input matInput placeholder="Enter Email ID" formControlName="Emp_email" required>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                    <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Team Name</mat-label>
                             <input matInput placeholder="Enter Team Name" formControlName="Emp_Team_Name">
                         </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Location</mat-label>
-                            <input matInput placeholder="Enter Location" formControlName="Emp_Location">
+                            <input matInput placeholder="Enter Location" formControlName="Emp_Location" required>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
-                            <mat-label>DOB</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="dob">
+                            <mat-label>DOJ</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="dob" required>
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -75,27 +75,27 @@
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Department Name</mat-label>
-                            <input matInput placeholder="Enter Department Name" formControlName="Emp_Department_Name">
+                            <input matInput placeholder="Enter Department Name" formControlName="Emp_Department_Name" required>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>PAN Number</mat-label>
-                            <input matInput placeholder="Enter PAN Number" formControlName="PAN_Number">
+                            <input matInput placeholder="Enter PAN Number" formControlName="PAN_Number" required>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
-                            <mat-label>UAN Number</mat-label>
-                            <input matInput placeholder="Enter UAN Number" formControlName="UAN_Number">
+                            <mat-label>Adharcard Number</mat-label>
+                            <input matInput placeholder="Enter UAN Number" formControlName="UAN_Number" required>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                    <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>ESIC Number</mat-label>
                             <input matInput placeholder="Enter ESIC Number" formControlName="ESIC_Number">
                         </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="clearfix"></div>
                     @if (error != '') {
                     <mat-error style="color: red;">{{error}}</mat-error>

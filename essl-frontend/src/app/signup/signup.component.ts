@@ -28,39 +28,39 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
       Emp_Name: ['', [Validators.required]],
-      Emp_Alias_Name: [''],
-      Emp_Company: [''],
-      Emp_Designation: [''],
+      Emp_Alias_Name: ['', [Validators.required]],
+      // Emp_Company: [''],
+      Emp_Designation: ['', [Validators.required]],
       Emp_Contact_No: ['', [Validators.required]],
       Emp_email: ['', [Validators.required]],
-      Emp_Team_Name: [''],
-      Emp_Location: [''],
-      dob: [''],
-      Emp_Department_Name: [''],
-      PAN_Number: [''],
-      UAN_Number: [''],
-      ESIC_Number: ['']
+      // Emp_Team_Name: [''],
+      Emp_Location: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      Emp_Department_Name: ['', [Validators.required]],
+      PAN_Number: ['', [Validators.required]],
+      UAN_Number: ['', [Validators.required]],
+      // ESIC_Number: ['']
     });
   }
 
   signUp() {
     const Emp_Name = this.signUpForm.controls['Emp_Name'].value;
     const Emp_Alias_Name = this.signUpForm.controls['Emp_Alias_Name'].value;
-    const Emp_Company = this.signUpForm.controls['Emp_Company'].value;
+    // const Emp_Company = this.signUpForm.controls['Emp_Company'].value;
     const Emp_Designation = this.signUpForm.controls['Emp_Designation'].value;
     const Emp_Contact_No = this.signUpForm.controls['Emp_Contact_No'].value;
     const Emp_email = this.signUpForm.controls['Emp_email'].value;
-    const Emp_Team_Name = this.signUpForm.controls['Emp_Team_Name'].value;
+    // const Emp_Team_Name = this.signUpForm.controls['Emp_Team_Name'].value;
     const Emp_Location = this.signUpForm.controls['Emp_Location'].value;
     const dob = this.signUpForm.controls['dob'].value;
     const Emp_Department_Name = this.signUpForm.controls['Emp_Department_Name'].value;
     const PAN_Number = this.signUpForm.controls['PAN_Number'].value;
     const UAN_Number = this.signUpForm.controls['UAN_Number'].value;
-    const ESIC_Number = this.signUpForm.controls['ESIC_Number'].value;
+    // const ESIC_Number = this.signUpForm.controls['ESIC_Number'].value;
 
-    const obj = { Emp_Name: Emp_Name, Emp_Alias_Name: Emp_Alias_Name, Emp_Company: Emp_Company, Emp_Designation: Emp_Designation, 
-      Emp_Contact_No: Emp_Contact_No, Emp_email: Emp_email, Emp_Team_Name: Emp_Team_Name, Emp_Location: Emp_Location, dob: dob,
-      Emp_Department_Name: Emp_Department_Name, PAN_Number: PAN_Number, UAN_Number: UAN_Number, ESIC_Number: ESIC_Number
+    const obj = { Emp_Name: Emp_Name, Emp_Alias_Name: Emp_Alias_Name, Emp_Designation: Emp_Designation, 
+      Emp_Contact_No: Emp_Contact_No, Emp_email: Emp_email, Emp_Location: Emp_Location, dob: dob,
+      Emp_Department_Name: Emp_Department_Name, PAN_Number: PAN_Number, UAN_Number: UAN_Number
     };
 
     this.flag = true;
