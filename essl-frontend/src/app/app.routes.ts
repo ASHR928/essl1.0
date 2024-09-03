@@ -12,9 +12,9 @@ import { AppLogComponent } from './app-log/app-log.component';
 import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
-    { path: '', component: SignupComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent },
+    { path: '', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent, children: [
         { path: 'admin', component: AdminComponent },
         { path: 'emplist', component: EmployeeListComponent },
