@@ -35,12 +35,6 @@ export class LoginComponent implements OnInit {
     private router: Router, private loginService: LoginService, private userTypeListService: UserTypeListService) { }
 
   ngOnInit(): void {
-    // this.loginService.loginType().subscribe((res: any) => {
-    //   this.userType = res;
-    // }, error => {
-    //   this.messageService.errorMsg(JSON.stringify(error));
-    // });
-
     this.userTypeListService.getUserTypeList().subscribe((res: any) => {
       this.userType = res;
     }, error => {
@@ -64,13 +58,9 @@ export class LoginComponent implements OnInit {
     const userType = this.loginForm.controls['usertype'].value;
     const pwd = this.loginForm.controls['password'].value;
 
-
-
     const obj = { email: userName, Role: userType, pwd: pwd };
 
     this.loginService.login(obj).subscribe((response: any) => {
-      console.log(response);
-
       if (response.sqlMessage == undefined) {
         localStorage.setItem('userType', userType);
         localStorage.setItem('employee_id', response[0].Emp_ID);

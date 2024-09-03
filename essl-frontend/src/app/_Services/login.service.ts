@@ -30,4 +30,14 @@ export class LoginService {
       })
     );
   }
+
+  signUp(obj: any) {
+    return this.http.post(Url.LocalUrl + 'login/signup', obj).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
 }
