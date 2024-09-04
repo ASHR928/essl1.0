@@ -1,6 +1,7 @@
-const authenticateToken = require('../../token/auth');
+const express = require('express');
 const Mail = require('../../controllers/MailMailer/MailMailer.controller');
+const router = express.Router();
 
-exports.findAll = (app) => {
-    app.post('/sendmail', authenticateToken, Mail.SendMail);
-}
+router.post('/sendmail', Mail.SendMail);
+
+module.exports = router;
