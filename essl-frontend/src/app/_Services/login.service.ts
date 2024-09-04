@@ -8,7 +8,7 @@ import { Url } from '../_setUrl/url';
 })
 export class LoginService {
   err: Subject<string> = new Subject<string>();
-  
+
   constructor(private http: HttpClient) { }
 
   loginType() {
@@ -23,6 +23,16 @@ export class LoginService {
 
   login(obj: any) {
     return this.http.post(Url.LocalUrl + 'login/loginstatus', obj).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
+  insertEmployee(obj: any) {
+    return this.http.post(Url.LocalUrl + 'employees', obj).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);

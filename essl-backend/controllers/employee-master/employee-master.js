@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes,Sequelize } = require('sequelize');
 const db = require('../../sequelizeconn');
 
 const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
@@ -6,6 +6,10 @@ const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+  },
+  Emp_Company_ID: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   Emp_Name: {
     type: DataTypes.STRING,
@@ -36,7 +40,10 @@ const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
     type: DataTypes.STRING,
   },
   Emp_DOJ: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
+  },
+  Emp_DOB: {
+    type: DataTypes.DATEONLY,
   },
   Emp_Department_Name: {
     type: DataTypes.STRING,
@@ -50,17 +57,20 @@ const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
   ESIC_Number: {
     type: DataTypes.STRING,
   },
+  Aadhar_no: {
+    type: DataTypes.STRING,
+  },
   Is_Active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
   Created_At: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.DATE.NOW,
   },
   Updated_At: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.DATE.NOW,
   },
 }, {
   tableName: 'EMPLOYEE_MASTER',

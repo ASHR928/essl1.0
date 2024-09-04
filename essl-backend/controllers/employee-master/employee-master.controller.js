@@ -1,5 +1,7 @@
 const EmployeeMaster = require('../employee-master/employee-master');
 const XLSX = require('xlsx');
+const mssql = require('mssql');
+
 
 
 // Get employees by team name
@@ -48,12 +50,100 @@ exports.getEmployeeById = async (req, res) => {
 // Create a new employee
 exports.createEmployee = async (req, res) => {
   try {
-    const newEmployee = await EmployeeMaster.create(req.body);
-    res.status(201).json(newEmployee);
+    const {
+      Emp_Company_ID,
+      Emp_Name,
+      Emp_Alias_Name,
+      Emp_Designation,
+      Emp_Contact_No,
+      Emp_email,
+      Emp_Location,
+      doj,
+      dob,
+      Emp_Department_Name,
+      PAN_Number,
+      AADHAR_Number,
+      Is_Active
+    } = req.body;
+
+    const insertSql = `
+      INSERT INTO EMPLOYEE_MASTER (
+        Emp_Company_ID,
+        Emp_Name,
+        Emp_Alias_Name,
+        Emp_Designation,
+        Emp_Contact_No,
+        Emp_email,
+        Emp_Location,
+        Emp_DOJ,
+        Emp_DOB,
+        Emp_Department_Name,
+        PAN_Number,
+        Aadhar_no,
+        Is_Active,
+        Created_At,
+        Updated_At
+      )
+      VALUES (
+        @Emp_Company_ID,
+        @Emp_Name,
+        @Emp_Alias_Name,
+        @Emp_Designation,
+        @Emp_Contact_No,
+        @Emp_email,
+        @Emp_Location,
+        @Emp_DOJ,
+        @Emp_DOB,
+        @Emp_Department_Name,
+        @PAN_Number,
+        @Aadhar_no,
+        @Is_Active,
+        @Created_At,
+        @Updated_At
+      )
+    `;
+
+    const request = new mssql.Request();
+    request.input('Emp_Company_ID', mssql.VarChar, Emp_Company_ID);
+    request.input('Emp_Name', mssql.VarChar, Emp_Name);
+    request.input('Emp_Alias_Name', mssql.VarChar, Emp_Alias_Name);
+    request.input('Emp_Designation', mssql.VarChar, Emp_Designation);
+    request.input('Emp_Contact_No', mssql.VarChar, Emp_Contact_No);
+    request.input('Emp_email', mssql.VarChar, Emp_email);
+    request.input('Emp_Location', mssql.VarChar, Emp_Location);
+    request.input('Emp_DOJ', mssql.DateTime, new Date(doj));
+    request.input('Emp_DOB', mssql.DateTime, new Date(dob));
+    request.input('Emp_Department_Name', mssql.VarChar, Emp_Department_Name);
+    request.input('PAN_Number', mssql.VarChar, PAN_Number);
+    request.input('Aadhar_no', mssql.VarChar, AADHAR_Number);
+    request.input('Is_Active', mssql.Bit, Is_Active !== undefined ? Is_Active : true);
+    request.input('Created_At', mssql.DateTime, new Date());
+    request.input('Updated_At', mssql.DateTime, new Date());
+
+    await request.query(insertSql);
+
+    // Fetch the newly inserted record
+    const selectSql = `
+      SELECT TOP 1 * FROM EMPLOYEE_MASTER
+      WHERE Aadhar_no = @Aadhar_no AND Emp_Name = @Emp_Name
+      ORDER BY Created_At DESC
+    `;
+
+    const result = await request.query(selectSql);
+    res.status(201).json({
+      message: 'Employee created successfully',
+      employee: result.recordset[0].Emp_Company_ID
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error);
+
+    res.status(500).json({
+      message: 'Error creating employee',
+      error: error.message
+    });
   }
 };
+
 
 // Bulk insert employees from Excel data
 exports.bulkInsertEmployees = async (req, res) => {

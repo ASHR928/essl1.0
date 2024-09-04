@@ -51,12 +51,15 @@
                             <input matInput placeholder="Enter Email ID" formControlName="Emp_email" required>
                         </mat-form-field>
                     </div>
-                    <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
-                            <mat-label>Team Name</mat-label>
-                            <input matInput placeholder="Enter Team Name" formControlName="Emp_Team_Name">
+                            <mat-label>DOB</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="dob" required>
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
-                    </div> -->
+                    </div> 
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>Location</mat-label>
@@ -66,10 +69,10 @@
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
                             <mat-label>DOJ</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                            <input matInput [matDatepicker]="picker2" formControlName="doj" required>
                             <mat-hint>MM/DD/YYYY</mat-hint>
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
@@ -86,8 +89,8 @@
                     </div>
                     <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
                         <mat-form-field>
-                            <mat-label>Adharcard Number</mat-label>
-                            <input matInput placeholder="Enter UAN Number" formControlName="UAN_Number" required>
+                            <mat-label>AADHAR Number</mat-label>
+                            <input matInput placeholder="Enter AADHAR Number" formControlName="AADHAR_Number" required>
                         </mat-form-field>
                     </div>
                     <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">

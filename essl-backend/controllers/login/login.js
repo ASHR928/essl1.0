@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes,Sequelize } = require('sequelize');
 const db = require("../../sequelizeconn");
 
 const UserMaster = db.define('USER_MASTER', {
@@ -8,7 +8,7 @@ const UserMaster = db.define('USER_MASTER', {
         primaryKey: true
     },
     Emp_ID: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
     Password: {
@@ -20,16 +20,17 @@ const UserMaster = db.define('USER_MASTER', {
         allowNull: true
     },
     Created_At: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
     },
     Updated_At: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
     },
     Updated_By_UserID: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:'101'
     }
 }, {
     tableName: 'USER_MASTER',
