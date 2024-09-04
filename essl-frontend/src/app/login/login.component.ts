@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(7)]],
+      Emp_ID: ['', [Validators.required]],
       usertype: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
@@ -54,11 +54,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const userName = this.loginForm.controls['email'].value;
+    const userName = this.loginForm.controls['Emp_ID'].value;
     const userType = this.loginForm.controls['usertype'].value;
     const pwd = this.loginForm.controls['password'].value;
 
-    const obj = { email: userName, Role: userType, pwd: pwd };
+    const obj = { Emp_ID: userName, Role: userType, pwd: pwd };
 
     this.loginService.login(obj).subscribe((response: any) => {
       if (response.sqlMessage == undefined) {
@@ -68,6 +68,8 @@ export class LoginComponent implements OnInit {
       } else {
         this.error = response.sqlMessage;
       }
+    }, error => {
+      this.messageService.errorMsg(error);
     });
   }
 }

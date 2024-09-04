@@ -15,11 +15,8 @@
         <mat-card-content><br>
           <form [formGroup]="loginForm">
             <mat-form-field>
-              <mat-label>Username</mat-label>
-              <input matInput placeholder="Enter email" name="email" formControlName="email" appEmail required>
-              @if (loginForm.get('email')?.hasError('error')) {
-              <mat-error>{{ loginForm.get('email')?.getError('error') }}</mat-error>
-              }
+              <mat-label>Emp ID</mat-label>
+              <input matInput placeholder="Enter Emp ID" formControlName="Emp_ID" required>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Password</mat-label>

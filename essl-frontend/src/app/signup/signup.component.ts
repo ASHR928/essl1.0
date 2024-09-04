@@ -68,24 +68,18 @@ export class SignupComponent implements OnInit {
       Emp_Department_Name: Emp_Department_Name, PAN_Number: PAN_Number, AADHAR_Number: AADHAR_Number
     };
 
-    console.log(obj);
-
     this.flag = true;
 
     this.loginService.insertEmployee(obj).subscribe((res: any) => {
-      console.log(res.employee);
       const body = {
         Emp_ID: res.employee
       }
       this.loginService.signUp(body).subscribe(res => {
-        console.log(res);
-
+        this.flag = false;
+        this.messageService.successMsg('Details submitted successfully, Please check your email for login credentials');
       })
 
-
-      //this.messageService.successMsg('Details submitted successfully, Please check your email for login credentials');
       this.signUpForm.reset();
-      this.flag = false;
     });
   }
 
