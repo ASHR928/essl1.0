@@ -25,6 +25,9 @@ router.use('/applicationlogs', applicationLogRoutes);
 const userTypesRoutes = require('../controllers/user-type/user-type.routes')
 router.use('/usertypes', userTypesRoutes);
 
+const mailer = require('../controllers/MailMailer/MailMailer.routes')
+router.use('/mailer', userTypesRoutes);
+
 module.exports = router;
 
 
