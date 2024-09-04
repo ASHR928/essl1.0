@@ -5,8 +5,8 @@ const UsersList = require('../login/login')
 exports.Login = async (req, res) => {
     try {
         data = req.body;
-        const que = `SELECT Emp_ID, Role_ID, Email FROM USER_MASTER WHERE Email='${data.email}' and Password='${data.pwd}' and Role_ID=${data.Role}`;
-        console.log(que);
+        const que = `SELECT Emp_ID, Role_ID FROM USER_MASTER WHERE Emp_ID='${data.Emp_ID}' and Password='${data.pwd}' and Role_ID=${data.Role}`;
+        
         await mssql.query(que).then(result => {
             if (result.recordset.length <= 0) {
                 res.json({ sqlMessage: 'User name or password is incorrect' });
@@ -23,7 +23,7 @@ exports.insertUsersDetails = async (req, res) => {
     try {
         const Emp_ID = req.body.Emp_ID
         const pwd = generatePassword()
-        const Password = await encrypt.encrypt(pwd);
+        const Password = pwd; //await encrypt.encrypt(pwd);
         const Role_ID = 3
         const usersDetails = await UsersList.create(
             {
@@ -32,7 +32,6 @@ exports.insertUsersDetails = async (req, res) => {
         res.status(201).json(usersDetails);
     } catch (error) {
         console.log(error);
-        
         res.status(500).json({ sqlMessage: 'Internal Server Error ' + error });
     }
 }
