@@ -35,7 +35,7 @@ exports.getAllEmployees = async (req, res) => {
 exports.getEmployeeById = async (req, res) => {
   try {
     const { empId } = req.params;
-    const employee = await EmployeeMaster.findOne({ where: { Emp_ID: empId } });
+    const employee = await EmployeeMaster.findOne({ where: { Emp_Company_ID: empId } });
 
     if (!employee) {
       return res.status(404).json({ error: 'Employee not found' });

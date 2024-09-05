@@ -288,7 +288,7 @@ export class FullscreenComponent implements OnInit {
             }
 
             let logBody = {
-              employee_id: Number(localStorage.getItem('employee_id')),
+              employee_id: localStorage.getItem('employee_id'),
               action_screen: 'Calendar Component',
               description: 'Updated attendance type from ' + this.previousAttendanceType + ' to ' + data[0].title.trim()
             }

@@ -32,11 +32,11 @@ export class EmployeeListComponent implements OnInit {
 
   colDefs: any[] = [
     { field: 'Emp_Name', headerName: 'Employee Name', filter: 'text', width: 180 },
-    { field: "Emp_Company", headerName: 'Company', filter: 'text', width: 180 },
+    // { field: "Emp_Company", headerName: 'Company', filter: 'text', width: 180 },
     { field: 'Emp_Designation', headerName: "Designation", filter: 'text', width: 150 },
     { field: 'Emp_Contact_No', headerName: 'Contact', filter: 'text', width: 120 },
     { field: 'Emp_email', headerName: 'Email', filter: 'text', width: 180 },
-    { field: 'Emp_Team_Name', headerName: 'Team Name', filter: 'text', width: 170 },
+    // { field: 'Emp_Team_Name', headerName: 'Team Name', filter: 'text', width: 170 },
     { field: 'Emp_Department_Name', headerName: 'Dept Name', filter: 'text', width: 180 },
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 120, cellStyle: { 'text-align': 'center' } }
   ];
@@ -48,7 +48,7 @@ export class EmployeeListComponent implements OnInit {
 
     this.route.queryParams.subscribe((params: any) => {
       if (params.type == 3) {
-        this.employeeService.getEmployeeById(Number(localStorage.getItem('employee_id'))).subscribe((res: any) => {
+        this.employeeService.getEmployeeById(localStorage.getItem('employee_id')).subscribe((res: any) => {
           this.rowData = res;
         })
       } else {

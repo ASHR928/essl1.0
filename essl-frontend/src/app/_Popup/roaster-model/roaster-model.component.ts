@@ -83,7 +83,7 @@ export class RoasterModelComponent implements OnInit {
       // alert('Employee Roster successfully swap..');
 
       let logBody = {
-        employee_id: Number(localStorage.getItem('employee_id')),
+        employee_id: localStorage.getItem('employee_id'),
         action_screen: 'Swap Roster',
         description: 'Roster swapped for employee id ' + this.commonService.commonData.Emp_ID + ' with employee id ' + this.empId2
 
