@@ -73,7 +73,25 @@ export class SignupComponent implements OnInit {
       const body = {
         Emp_ID: res.employee
       }
-      this.loginService.signUp(body).subscribe(res => {
+      this.loginService.signUp(body).subscribe((res:any) => {
+console.log(res);
+
+        const mailBody = {
+          'name':Emp_Name,
+          'to': Emp_email,
+          'user':res.Emp_ID  ,
+          'pass':res.Password ,
+        }
+        console.log(mailBody);
+        
+
+        this.loginService.sendEmail(mailBody).subscribe(res=>{
+          console.log(res);
+          
+        })
+
+
+
         this.flag = false;
         this.messageService.successMsg('Details submitted successfully, Please check your email for login credentials');
       })
