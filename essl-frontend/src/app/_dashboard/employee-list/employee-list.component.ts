@@ -31,6 +31,7 @@ export class EmployeeListComponent implements OnInit {
   };
 
   colDefs: any[] = [
+    { field: 'Emp_Company_ID', headerName: 'Employee ID', filter: 'text', width: 150 },
     { field: 'Emp_Name', headerName: 'Employee Name', filter: 'text', width: 180 },
     // { field: "Emp_Company", headerName: 'Company', filter: 'text', width: 180 },
     { field: 'Emp_Designation', headerName: "Designation", filter: 'text', width: 150 },
