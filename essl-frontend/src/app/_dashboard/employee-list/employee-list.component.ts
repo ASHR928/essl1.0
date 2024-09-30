@@ -5,6 +5,9 @@ import { ButtonsComponent } from '../../_Common/buttons/buttons.component';
 import { ButtonService } from '../../_Resolver/button.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { ActivatedRoute } from '@angular/router';
+import { EditComponent } from '../../editModal/edit/edit.component';
+import { MatDialog } from '@angular/material/dialog';
+import { EditDialogComponent } from '../../dialog/edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-employee-list',
@@ -18,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './employee-list.component.scss'
 })
 export class EmployeeListComponent implements OnInit {
-   rowData: any[] = [];
+  rowData: any[] = [];
 
   allrows = {
     Emp_Name: "",
@@ -40,13 +43,24 @@ export class EmployeeListComponent implements OnInit {
     // { field: 'Emp_Team_Name', headerName: 'Team Name', filter: 'text', width: 170 },
     { field: 'Emp_Department_Name', headerName: 'Dept Name', filter: 'text', width: 180 },
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 120, cellStyle: { 'text-align': 'center' } }
+    {
+      field: 'Action', cellRenderer: EditComponent, cellRendererParams: {
+        onEdit: this.onEdit.bind(this)
+      }
+    }
+
   ];
 
-  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute) {}
+  constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
+    this.buttonService.isButtonVisible = { delete: true, edit: false, view: false, calendar: false };
+this.populateEmployeeList()
+  }
 
+  populateEmployeeList(){
     this.route.queryParams.subscribe((params: any) => {
       if (params.type == 3) {
         this.employeeService.getEmployeeById(localStorage.getItem('employee_id')).subscribe((res: any) => {
@@ -56,6 +70,34 @@ export class EmployeeListComponent implements OnInit {
         this.employeeService.getEmployees().subscribe((res: any) => {
           this.rowData = res;
         })
+      }
+    });
+  }
+
+  onEdit(rowData: any) {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      width: '90%',
+      height: '80%',
+      data: { ...rowData }  // Pass the row data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+        this.employeeService.updateEmployee(result).subscribe((data: any) => {
+          console.log(data);
+          this.populateEmployeeList()
+
+        })
+
+
+
+        // Update the rowData with the new values
+        //   const updatedRow = this.rowData.find(r => r.name === rowData.name);
+        //   if (updatedRow) {
+        //     updatedRow.name = result.name;
+        //     updatedRow.accountType = result.accountType;
+        //   }
       }
     });
   }

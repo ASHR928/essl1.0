@@ -43,8 +43,17 @@ export class EmployeeService {
     );
   }
 
+  updateEmployee(data: any) {
+    return this.http.put(Url.LocalUrl + 'employees/' + data.Emp_Company_ID, data).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
   getEmployeeById(empId: any) {
-    console.log(Url.LocalUrl + 'employees/' + empId)
     return this.http.get(Url.LocalUrl + 'employees/' + empId).pipe(
       retry(3),
       toArray(),

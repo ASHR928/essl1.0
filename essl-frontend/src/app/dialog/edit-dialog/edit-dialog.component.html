@@ -1,0 +1,87 @@
+<div mat-dialog-content>
+    <div class="col-md-12 col-sm-12 col-xm-12 col-lg-12 row">
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Employee Name</mat-label>
+                <input matInput [(ngModel)]="data.Emp_Name" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Emp Alias Name</mat-label>
+                <input matInput placeholder="Enter Emp Alias Name" [(ngModel)]="data.Emp_Alias_Name" required>
+            </mat-form-field>
+        </div>
+        <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Company</mat-label>
+                <input matInput placeholder="Enter Emp Company" formControlName="Emp_Company">
+            </mat-form-field>
+        </div> -->
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Designation</mat-label>
+                <input matInput placeholder="Enter Employee Designation" [(ngModel)]="data.Emp_Designation" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Contact No</mat-label>
+                <input matInput placeholder="Enter Emp Contact No" [(ngModel)]="data.Emp_Contact_No" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Enter Email ID" [(ngModel)]="data.Emp_email" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>DOB</mat-label>
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="data.Emp_DOB" required readonly>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="Enter Location" [(ngModel)]="data.Emp_Location" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>DOJ</mat-label>
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="data.Emp_DOJ" required readonly>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Department Name</mat-label>
+                <input matInput placeholder="Enter Department Name" [(ngModel)]="data.Emp_Department_Name" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>PAN Number</mat-label>
+                <input matInput placeholder="Enter PAN Number" [(ngModel)]="data.PAN_Number" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>AADHAR Number</mat-label>
+                <input matInput placeholder="Enter AADHAR Number" [(ngModel)]="data.Aadhar_no" required>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+        <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+    </div>

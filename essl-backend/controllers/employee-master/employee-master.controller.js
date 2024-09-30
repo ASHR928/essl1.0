@@ -184,24 +184,108 @@ exports.bulkInsertEmployees = async (req, res) => {
   }
 };
 
-// Update an employee by ID
+// // Update an employee by ID
+// exports.updateEmployee = async (req, res) => {
+//   try {
+//     const { empId } = req.params;
+//     console.log(empId);
+//     console.log(req.body);
+
+
+//     const [updated] = await EmployeeMaster.update(req.body, {
+//       where: { Emp_Company_ID: empId }
+//     });
+
+//     if (!updated) {
+//       return res.status(404).json({ error: 'Employee not found' });
+//     }
+
+//     const updatedEmployee = await EmployeeMaster.findAll({ where: { Emp_Company_ID: empId } });
+//     res.status(200).json(updatedEmployee);
+//   } catch (error) {
+//     console.log(error);
+
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+// Update an existing employee
 exports.updateEmployee = async (req, res) => {
   try {
-    const { empId } = req.params;
-    const [updated] = await EmployeeMaster.update(req.body, {
-      where: { Emp_ID: empId }
+    const {
+      Emp_Company_ID,
+      Emp_Name,
+      Emp_Alias_Name,
+      Emp_Designation,
+      Emp_Contact_No,
+      Emp_email,
+      Emp_Location,
+      Emp_DOJ,
+      Emp_DOB,
+      Emp_Department_Name,
+      PAN_Number,
+      AADHAR_Number,
+      Is_Active
+    } = req.body;
+
+    const updateSql = `
+      UPDATE EMPLOYEE_MASTER
+      SET
+        Emp_Name = @Emp_Name,
+        Emp_Alias_Name = @Emp_Alias_Name,
+        Emp_Designation = @Emp_Designation,
+        Emp_Contact_No = @Emp_Contact_No,
+        Emp_email = @Emp_email,
+        Emp_Location = @Emp_Location,
+        Emp_DOJ = @Emp_DOJ,
+        Emp_DOB = @Emp_DOB,
+        Emp_Department_Name = @Emp_Department_Name,
+        PAN_Number = @PAN_Number,
+        Aadhar_no = @Aadhar_no,
+        Is_Active = @Is_Active,
+        Updated_At = @Updated_At
+      WHERE Emp_Company_ID = @Emp_Company_ID
+    `;
+
+    const request = new mssql.Request();
+    request.input('Emp_Company_ID', mssql.VarChar, Emp_Company_ID);
+    request.input('Emp_Name', mssql.VarChar, Emp_Name);
+    request.input('Emp_Alias_Name', mssql.VarChar, Emp_Alias_Name);
+    request.input('Emp_Designation', mssql.VarChar, Emp_Designation);
+    request.input('Emp_Contact_No', mssql.VarChar, Emp_Contact_No);
+    request.input('Emp_email', mssql.VarChar, Emp_email);
+    request.input('Emp_Location', mssql.VarChar, Emp_Location);
+    request.input('Emp_DOJ', mssql.DateTime, new Date(Emp_DOJ));
+    request.input('Emp_DOB', mssql.DateTime, new Date(Emp_DOB));
+    request.input('Emp_Department_Name', mssql.VarChar, Emp_Department_Name);
+    request.input('PAN_Number', mssql.VarChar, PAN_Number);
+    request.input('Aadhar_no', mssql.VarChar, AADHAR_Number);
+    request.input('Is_Active', mssql.Bit, Is_Active !== undefined ? Is_Active : true);
+    request.input('Updated_At', mssql.DateTime, new Date());
+
+    await request.query(updateSql);
+
+    // Fetch the updated record
+    const selectSql = `
+      SELECT * FROM EMPLOYEE_MASTER
+      WHERE Emp_Company_ID = @Emp_Company_ID
+    `;
+
+    const result = await request.query(selectSql);
+    res.status(200).json({
+      message: 'Employee updated successfully',
+      employee: result.recordset[0]
     });
-
-    if (!updated) {
-      return res.status(404).json({ error: 'Employee not found' });
-    }
-
-    const updatedEmployee = await EmployeeMaster.findByPk(empId);
-    res.status(200).json(updatedEmployee);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error);
+
+    res.status(500).json({
+      message: 'Error updating employee',
+      error: error.message
+    });
   }
 };
+
 
 // Delete an employee by ID
 exports.deleteEmployee = async (req, res) => {
