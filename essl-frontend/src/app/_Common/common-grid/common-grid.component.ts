@@ -58,18 +58,20 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
-    if (this.userType != this.setUserType) {
-      if (this.showPopup) {
-        this.commonService.commonData = data.data;
-        
-        const dialogRef = this.dialog.open(OperatorModelComponent, {
-          height: this.heightWidth.height,
-          width: this.heightWidth.width
-        });
-  
-        dialogRef.afterClosed().subscribe(() => {
-          this.status.emit(true);
-        });
+    if (this.commonService.isEdit != 'true') {
+      if (this.userType != this.setUserType) {
+        if (this.showPopup) {
+          this.commonService.commonData = data.data;
+
+          const dialogRef = this.dialog.open(OperatorModelComponent, {
+            height: this.heightWidth.height,
+            width: this.heightWidth.width
+          });
+
+          dialogRef.afterClosed().subscribe(() => {
+            this.status.emit(true);
+          });
+        }
       }
     }
   }

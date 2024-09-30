@@ -22,7 +22,7 @@ import { MaterialModule } from '../../_Material/material/material.module';
   imports: [
     FullCalendarModule,
     CommonModule,
-    MaterialModule,  
+    MaterialModule,
     DatePipe
   ],
   providers: [DatePipe],
@@ -89,54 +89,59 @@ export class FullscreenComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    let empId = this.commonService.commonData.Emp_ID;
 
-    // Fetch attendance logs by employee ID
-    this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
-      const attendanceLogs = data[0];
+    if (this.commonService.isEdit != 'true') {
 
-      if (attendanceLogs != undefined) {
-        for (const row of attendanceLogs) {
-          this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
-          this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
-        }
-      }
+      let empId = this.commonService.commonData.Emp_ID;
 
-      // Fetch employee details to determine weekly offs
-      this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
-        const weekOff1 = data[0].Weekly_Off1;
-        const weekOff2 = data[0].Weekly_Off2;
+      // Fetch attendance logs by employee ID
+      this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
+        const attendanceLogs = data[0];
 
-        const year = this.TODAY_STR.substring(0, 4);
-        const month = this.TODAY_STR.substring(5, 7);
-
-        // Calculate weekly offs for the given month and year
-        const weeklyOffs = this.getWeekOff(year, month, weekOff1, weekOff2);
-
-        // Iterate through each calculated weekly off
-        weeklyOffs.forEach((day) => {
-          const existingLog = attendanceLogs.find(
-            (log: any) => log.AttendanceDate.split('T')[0] === day
-          );
-
-          if (!existingLog) {
-            this.working_days += 1;
-            this.INITIAL_EVENTS.push(this.transformAttendanceLog({
-              Status: 'WO',
-              AttendanceDate: day
-            }));
+        if (attendanceLogs != undefined) {
+          for (const row of attendanceLogs) {
+            this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
+            this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
           }
+        }
+
+        // Fetch employee details to determine weekly offs
+        this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
+          const weekOff1 = data[0].Weekly_Off1;
+          const weekOff2 = data[0].Weekly_Off2;
+
+          const year = this.TODAY_STR.substring(0, 4);
+          const month = this.TODAY_STR.substring(5, 7);
+
+          // Calculate weekly offs for the given month and year
+          const weeklyOffs = this.getWeekOff(year, month, weekOff1, weekOff2);
+
+          // Iterate through each calculated weekly off
+          weeklyOffs.forEach((day) => {
+            const existingLog = attendanceLogs.find(
+              (log: any) => log.AttendanceDate.split('T')[0] === day
+            );
+
+            if (!existingLog) {
+              this.working_days += 1;
+              this.INITIAL_EVENTS.push(this.transformAttendanceLog({
+                Status: 'WO',
+                AttendanceDate: day
+              }));
+            }
+          });
+
+          // Update calendar options to include initial events
+          this.calendarOptions = {
+            ...this.calendarOptions,
+            initialEvents: [...this.INITIAL_EVENTS]
+          };
+
+          this.showCalendar = true;
         });
-
-        // Update calendar options to include initial events
-        this.calendarOptions = {
-          ...this.calendarOptions,
-          initialEvents: [...this.INITIAL_EVENTS]
-        };
-
-        this.showCalendar = true;
       });
-    });
+    }
+
   }
 
   // Method to handle date range changes

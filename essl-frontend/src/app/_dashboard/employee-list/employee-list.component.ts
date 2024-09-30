@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EditComponent } from '../../editModal/edit/edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../../dialog/edit-dialog/edit-dialog.component';
+import { CommonService } from '../../_Resolver/common.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -52,7 +53,7 @@ export class EmployeeListComponent implements OnInit {
   ];
 
   constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog, private commonService:CommonService
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +76,7 @@ this.populateEmployeeList()
   }
 
   onEdit(rowData: any) {
+    this.commonService.isEdit = 'true'
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '90%',
       height: '80%',
@@ -82,6 +84,8 @@ this.populateEmployeeList()
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.commonService.isEdit = 'false'
+
       if (result) {
         console.log(result);
         this.employeeService.updateEmployee(result).subscribe((data: any) => {

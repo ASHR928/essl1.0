@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class CommonService {
   private _empData: any;
 
+  private _edit: any
+
   constructor() { }
 
   public set commonData(obj: any) {
@@ -14,5 +16,13 @@ export class CommonService {
 
   get commonData() {
     return this._empData;
+  }
+
+  public set isEdit(obj: any) {
+    this._edit = obj;
+  }
+
+  get isEdit() {
+    return this._edit;
   }
 }
