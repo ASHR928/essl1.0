@@ -88,7 +88,9 @@ export class EmployeeListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.commonService.isEdit = 'false'
+      this.commonService.isEdit = 'false';
+      this.commonService.showPopup = false;
+      this.commonService.buttonText = '';
 
       if (result) {
         this.employeeService.updateEmployee(result).subscribe((data: any) => {

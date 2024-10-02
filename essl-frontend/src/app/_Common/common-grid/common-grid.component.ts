@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, NO_ERRORS_SCHEMA, OnInit, Output } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessagesService } from '../../_Toastr/messages.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -40,11 +40,9 @@ export class CommonGridComponent implements OnInit {
   @Input('color') color = 'primary';
   @Input('showPopup') showPopup = false;
   @Input('heightWidth') heightWidth = { height: '0px', width: '0px' };
-  @Output() status: EventEmitter<any> = new EventEmitter<any>();
   @Input() userType = 0;
   @Input() setUserType = 1;
   @Input() redirectPage: any = { redirectFlag: false, redirect: [], queryParams: {} };
-
   defaultRow: any;
 
   ngOnInit(): void {
@@ -62,22 +60,28 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
-    if (this.userType != this.setUserType) {
-      if (this.showPopup) {
-        this.commonService.commonData = data.data;
-
-        const dialogRef = this.dialog.open(OperatorModelComponent, {
-          height: this.heightWidth.height,
-          width: this.heightWidth.width
-        });
-
-        dialogRef.afterClosed().subscribe(() => {
-          this.status.emit(true);
-        });
-      } else if (this.redirectPage.redirectFlag) {
-        this.router.navigate(this.redirectPage.redirect, { queryParams: this.redirectPage.queryParams });
+    if (this.commonService.showPopup) {
+      if (this.userType != this.setUserType) {
+        if (this.showPopup) {
+          this.commonService.commonData = data.data;
+  
+          const dialogRef = this.dialog.open(OperatorModelComponent, {
+            height: this.heightWidth.height,
+            width: this.heightWidth.width
+          });
+  
+          dialogRef.afterClosed().subscribe(() => {
+            this.commonService.showPopup = false;
+            this.commonService.buttonText = '';
+          });
+        }
       }
+    } else if (this.redirectPage.redirectFlag) {
+      this.router.navigate(this.redirectPage.redirect, { queryParams: this.redirectPage.queryParams });
     }
+
+    this.commonService.buttonText = '';
+    this.commonService.showPopup = false;
   }
 
   AddNewItem() {
