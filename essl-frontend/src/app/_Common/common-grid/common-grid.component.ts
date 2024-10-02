@@ -60,11 +60,11 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
+    this.commonService.commonData = data.data;
+
     if (this.commonService.showPopup) {
       if (this.userType != this.setUserType) {
         if (this.showPopup) {
-          this.commonService.commonData = data.data;
-  
           const dialogRef = this.dialog.open(OperatorModelComponent, {
             height: this.heightWidth.height,
             width: this.heightWidth.width

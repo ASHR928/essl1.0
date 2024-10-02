@@ -126,8 +126,6 @@ export class EditDialogComponent {
   }
 
   onSave() {
-    console.log(this.data);
-    
     this.data.Emp_Designation = this.get_designation;
     this.data.Emp_Team_Name = this.get_team
     this.dialogRef.close(this.data);
