@@ -19,9 +19,27 @@
             </mat-form-field>
         </div> -->
         <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
-            <mat-form-field>
+            <!-- <mat-form-field>
                 <mat-label>Designation</mat-label>
                 <input matInput placeholder="Enter Employee Designation" [(ngModel)]="data.Emp_Designation" required>
+            </mat-form-field> -->
+            <mat-form-field>
+                <mat-label>Designation</mat-label>
+                <mat-select #designation (selectionChange)="Designation(designation)">
+                    @for (item of desig; track $index) {
+                        <mat-option value="{{item.SrNo}}">{{item.Designation}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+            <mat-form-field>
+                <mat-label>Team Name</mat-label>
+                <mat-select #team (selectionChange)="Team(team)">
+                    @for (item of teamMaster; track $index) {
+                        <mat-option value="{{item.id}}">{{item.team}}</mat-option>
+                    }
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
