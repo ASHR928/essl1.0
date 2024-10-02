@@ -74,19 +74,13 @@ export class SignupComponent implements OnInit {
         Emp_ID: res.employee
       }
       this.loginService.signUp(body).subscribe((res:any) => {
-console.log(res);
-
         const mailBody = {
           'name':Emp_Name,
           'to': Emp_email,
           'user':res.Emp_ID  ,
           'pass':res.Password ,
         }
-        console.log(mailBody);
-        
-
         this.loginService.sendEmail(mailBody).subscribe(res=>{
-          console.log(res);
           
         })
 

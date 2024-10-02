@@ -38,7 +38,6 @@ export class AttendancePunchLogComponent implements OnInit {
   ngOnInit(): void {
     this.attendancepunchlogService.getAttendancePunchLog().subscribe((res: any) => {
       this.rowData = res;
-      console.log(res);
     });
   }
 

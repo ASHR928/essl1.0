@@ -91,7 +91,6 @@ export class FullscreenComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.commonService.isEdit != 'true') {
-console.log(this.commonService.commonData)
       let empId = this.commonService.commonData.Emp_ID;
 
       // Fetch attendance logs by employee ID
