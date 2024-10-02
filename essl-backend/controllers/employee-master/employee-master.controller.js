@@ -225,7 +225,7 @@ exports.updateEmployee = async (req, res) => {
       Emp_DOB,
       Emp_Department_Name,
       PAN_Number,
-      AADHAR_Number,
+      Aadhar_no,
       Is_Active
     } = req.body;
 
@@ -262,7 +262,7 @@ exports.updateEmployee = async (req, res) => {
     request.input('Emp_DOB', mssql.DateTime, new Date(Emp_DOB));
     request.input('Emp_Department_Name', mssql.VarChar, Emp_Department_Name);
     request.input('PAN_Number', mssql.VarChar, PAN_Number);
-    request.input('Aadhar_no', mssql.VarChar, AADHAR_Number);
+    request.input('Aadhar_no', mssql.VarChar, Aadhar_no);
     request.input('Is_Active', mssql.Bit, Is_Active !== undefined ? Is_Active : true);
     request.input('Updated_At', mssql.DateTime, new Date());
 
