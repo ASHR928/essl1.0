@@ -20,7 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class EditDialogComponent {
 
-  selectedValue: string ='';
+  selectedDesignation: string = '';
+  selectedTeam: string = '';
 
   desig = [
     { SrNo: 1, Designation: "Executive Director" },
@@ -91,17 +92,31 @@ export class EditDialogComponent {
   get_team = '';
 
   constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private commonService: CommonService) { 
-     // this.selectedValue = '13'
-    }
+    @Inject(MAT_DIALOG_DATA) public data: any, private commonService: CommonService) {
+    // this.selectedValue = '13'
+    this.selectedDesignation = String(this.getSrNoByDesignation(data.Emp_Designation))
+    this.selectedTeam = String(this.getIdByTeam(data.Emp_Team_Name))
+    this.get_designation = data.Emp_Designation
+    this.get_team = data.Emp_Team_Name
+  }
+
+  getSrNoByDesignation(designation: any) {
+    const result = this.desig.find(d => d.Designation === designation);
+    return result ? result.SrNo : null; // Returns SrNo if found, else null
+  };
+  getIdByTeam(team: any) {
+    const result = this.teamMaster.find(d => d.team === team);
+    return result ? result.id : null; // Returns SrNo if found, else null
+  };
 
   Designation(val: any) {
     this.get_designation = val.triggerValue;
-    this.selectedValue = val.value
+    this.selectedDesignation = val.value
   }
 
   Team(val: any) {
     this.get_team = val.triggerValue;
+    this.selectedTeam = val.value
   }
 
   onClose() {
@@ -111,6 +126,8 @@ export class EditDialogComponent {
   }
 
   onSave() {
+    console.log(this.data);
+    
     this.data.Emp_Designation = this.get_designation;
     this.data.Emp_Team_Name = this.get_team
     this.dialogRef.close(this.data);
