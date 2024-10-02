@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../_Material/material/material.module';
 import { HttpModule } from '../../_Http/http/http.module';
 import { ActivatedRoute } from '@angular/router';
-import { FullscreenComponent } from '../../_Calendar/fullscreen/fullscreen.component';
 import { RoasterModelComponent } from '../../_Popup/roaster-model/roaster-model.component';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -12,7 +11,6 @@ import { MatDialogRef } from '@angular/material/dialog';
   imports: [
     MaterialModule,
     HttpModule,
-    FullscreenComponent,
     RoasterModelComponent
   ],
   templateUrl: './operator-model.component.html',

@@ -89,13 +89,12 @@ export class FullscreenComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
     if (this.commonService.isEdit != 'true') {
       let empId = this.commonService.commonData.Emp_ID;
-
+      let attendanceLogs: any = [];
       // Fetch attendance logs by employee ID
       this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
-        const attendanceLogs = data[0];
+        attendanceLogs = data[0];
 
         if (attendanceLogs != undefined) {
           for (const row of attendanceLogs) {
@@ -103,8 +102,7 @@ export class FullscreenComponent implements OnInit {
             this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
           }
         }
-
-        // Fetch employee details to determine weekly offs
+      }, () => {
         this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
           const weekOff1 = data[0].Weekly_Off1;
           const weekOff2 = data[0].Weekly_Off2;
@@ -140,7 +138,6 @@ export class FullscreenComponent implements OnInit {
         });
       });
     }
-
   }
 
   // Method to handle date range changes
