@@ -62,7 +62,7 @@ exports.createEmployee = async (req, res) => {
       dob,
       Emp_Department_Name,
       PAN_Number,
-      AADHAR_Number,
+      Aadhar_no,
       Is_Active
     } = req.body;
 
@@ -115,7 +115,7 @@ exports.createEmployee = async (req, res) => {
     request.input('Emp_DOB', mssql.DateTime, new Date(dob));
     request.input('Emp_Department_Name', mssql.VarChar, Emp_Department_Name);
     request.input('PAN_Number', mssql.VarChar, PAN_Number);
-    request.input('Aadhar_no', mssql.VarChar, AADHAR_Number);
+    request.input('Aadhar_no', mssql.VarChar, Aadhar_no);
     request.input('Is_Active', mssql.Bit, Is_Active !== undefined ? Is_Active : true);
     request.input('Created_At', mssql.DateTime, new Date());
     request.input('Updated_At', mssql.DateTime, new Date());
