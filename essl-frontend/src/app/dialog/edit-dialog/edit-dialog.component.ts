@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpModule } from '../../_Http/http/http.module';
 import { CommonService } from '../../_Resolver/common.service';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -12,9 +13,10 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   imports: [
     FormsModule,
     MaterialModule,
-    HttpModule
+    HttpModule,
+    DatePipe
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), DatePipe],
   templateUrl: './edit-dialog.component.html',
   styleUrl: './edit-dialog.component.scss'
 })
@@ -92,7 +94,7 @@ export class EditDialogComponent {
   get_team = '';
 
   constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private commonService: CommonService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private commonService: CommonService, private datePipe: DatePipe) {
     // this.selectedValue = '13'
     this.selectedDesignation = String(this.getSrNoByDesignation(data.Emp_Designation))
     this.selectedTeam = String(this.getIdByTeam(data.Emp_Team_Name))
@@ -127,7 +129,10 @@ export class EditDialogComponent {
 
   onSave() {
     this.data.Emp_Designation = this.get_designation;
-    this.data.Emp_Team_Name = this.get_team
+    console.log(this.data)
+    this.data.Emp_Team_Name = this.get_team;
+    this.data.Emp_DOB = this.datePipe.transform(this.data.Emp_DOB, 'yyyy-MM-dd');
+    this.data.Emp_DOJ = this.datePipe.transform(this.data.Emp_DOJ, 'yyyy-MM-dd');
     this.dialogRef.close(this.data);
   }
 }
