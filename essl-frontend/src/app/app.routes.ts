@@ -10,6 +10,7 @@ import { employeeResolver } from './_Resolver/employee.resolver';
 import { AttendancePunchLogComponent } from './attendance-punch-log/attendance-punch-log.component';
 import { AppLogComponent } from './app-log/app-log.component';
 import { SignupComponent } from './signup/signup.component';
+import { FullscreenComponent } from './_Calendar/fullscreen/fullscreen.component';
 
 export const routes: Routes = [
     { path: 'signup', component: SignupComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
         { path: 'updateroster', component: UpdateRosterComponent },
         { path: 'button', component: ButtonsComponent },
         { path: 'attpunchlog', component: AttendancePunchLogComponent },
-        { path: 'applog', component: AppLogComponent }
+        { path: 'applog', component: AppLogComponent },
+        { path: 'calender', component: FullscreenComponent }
     ] }
 ];

@@ -25,14 +25,9 @@ export class EditDialogComponent {
 
 
   onClose() {
-    console.log(this.data);
-    
-
   }
 
   onSave() {
-    this.dialogRef.close(this.data);
-
   }
 
 }

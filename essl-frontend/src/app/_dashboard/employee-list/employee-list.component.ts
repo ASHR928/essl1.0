@@ -23,6 +23,7 @@ import { CommonService } from '../../_Resolver/common.service';
 })
 export class EmployeeListComponent implements OnInit {
   rowData: any[] = [];
+  queryParams = { type: '', unique: '' };
 
   allrows = {
     Emp_Name: "",
@@ -49,7 +50,6 @@ export class EmployeeListComponent implements OnInit {
         onEdit: this.onEdit.bind(this)
       }
     }
-
   ];
 
   constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute,
@@ -58,7 +58,11 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttonService.isButtonVisible = { delete: true, edit: false, view: false, calendar: false };
-this.populateEmployeeList()
+
+    this.route.queryParams.subscribe((params: any) => {
+      this.queryParams = { type: params.type, unique: params.unique };
+    });
+    this.populateEmployeeList()
   }
 
   populateEmployeeList(){
@@ -87,21 +91,9 @@ this.populateEmployeeList()
       this.commonService.isEdit = 'false'
 
       if (result) {
-        console.log(result);
         this.employeeService.updateEmployee(result).subscribe((data: any) => {
-          console.log(data);
           this.populateEmployeeList()
-
         })
-
-
-
-        // Update the rowData with the new values
-        //   const updatedRow = this.rowData.find(r => r.name === rowData.name);
-        //   if (updatedRow) {
-        //     updatedRow.name = result.name;
-        //     updatedRow.accountType = result.accountType;
-        //   }
       }
     });
   }

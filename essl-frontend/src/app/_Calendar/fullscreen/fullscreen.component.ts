@@ -12,7 +12,7 @@ import { CommonService } from '../../_Resolver/common.service';
 import { EmployeeService } from '../../_Services/employee.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Day } from '../../enum/dayEnum';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from '../../_Material/material/material.module';
 
 
@@ -84,7 +84,7 @@ export class FullscreenComponent implements OnInit {
   heightWidth = { height: 'auto', width: 'auto' };
 
   constructor(public dialog: MatDialog, private commonService: CommonService, private employeeSerive: EmployeeService,
-    private datePipe: DatePipe, private route: ActivatedRoute
+    private datePipe: DatePipe, private route: ActivatedRoute, private router: Router
   ) {
 
   }
@@ -319,5 +319,11 @@ export class FullscreenComponent implements OnInit {
     } else {
       return 'blue';
     }
+  }
+
+  Back() {
+    this.route.queryParams.subscribe((params: any) => {
+      this.router.navigate(['/', 'dashboard', 'emplist'], { queryParams: { type: params.type, unique: params.unique }});
+    });
   }
 }

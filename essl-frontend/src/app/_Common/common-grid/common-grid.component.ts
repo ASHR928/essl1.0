@@ -6,13 +6,16 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { GridApi } from 'ag-grid-community';
 import { OperatorModelComponent } from '../operator-model/operator-model.component';
 import { CommonService } from '../../_Resolver/common.service';
+import { HttpModule } from '../../_Http/http/http.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'common-grid',
   standalone: true,
   imports: [
     AgGridAngular,
-    CommonModule
+    CommonModule,
+    HttpModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
@@ -22,7 +25,7 @@ import { CommonService } from '../../_Resolver/common.service';
   styleUrl: './common-grid.component.scss'
 })
 export class CommonGridComponent implements OnInit {
-  constructor(private messageService: MessagesService, private commonService: CommonService, public dialog: MatDialog) { }
+  constructor(private messageService: MessagesService, private commonService: CommonService, public dialog: MatDialog, private router: Router) { }
 
   gridApi!: GridApi;
   @Input('rowData') rowData: any = [];
@@ -40,6 +43,7 @@ export class CommonGridComponent implements OnInit {
   @Output() status: EventEmitter<any> = new EventEmitter<any>();
   @Input() userType = 0;
   @Input() setUserType = 1;
+  @Input() redirectPage: any = { redirectFlag: false, redirect: [], queryParams: {} };
 
   defaultRow: any;
 
@@ -58,20 +62,20 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
-    if (this.commonService.isEdit != 'true') {
-      if (this.userType != this.setUserType) {
-        if (this.showPopup) {
-          this.commonService.commonData = data.data;
+    if (this.userType != this.setUserType) {
+      if (this.showPopup) {
+        this.commonService.commonData = data.data;
 
-          const dialogRef = this.dialog.open(OperatorModelComponent, {
-            height: this.heightWidth.height,
-            width: this.heightWidth.width
-          });
+        const dialogRef = this.dialog.open(OperatorModelComponent, {
+          height: this.heightWidth.height,
+          width: this.heightWidth.width
+        });
 
-          dialogRef.afterClosed().subscribe(() => {
-            this.status.emit(true);
-          });
-        }
+        dialogRef.afterClosed().subscribe(() => {
+          this.status.emit(true);
+        });
+      } else if (this.redirectPage.redirectFlag) {
+        this.router.navigate(this.redirectPage.redirect, { queryParams: this.redirectPage.queryParams });
       }
     }
   }
