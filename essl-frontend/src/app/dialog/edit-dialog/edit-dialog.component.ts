@@ -4,7 +4,7 @@ import { MaterialModule } from '../../_Material/material/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpModule } from '../../_Http/http/http.module';
 import { CommonService } from '../../_Resolver/common.service';
-import { MatSelectModule } from '@angular/material/select';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -12,9 +12,9 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     FormsModule,
     MaterialModule,
-    MatSelectModule,
     HttpModule
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './edit-dialog.component.html',
   styleUrl: './edit-dialog.component.scss'
 })
