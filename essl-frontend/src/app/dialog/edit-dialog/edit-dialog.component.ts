@@ -4,7 +4,6 @@ import { MaterialModule } from '../../_Material/material/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpModule } from '../../_Http/http/http.module';
 import { CommonService } from '../../_Resolver/common.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -12,8 +11,7 @@ import { JsonPipe } from '@angular/common';
   imports: [
     FormsModule,
     MaterialModule,
-    HttpModule,
-    JsonPipe
+    HttpModule
   ],
   templateUrl: './edit-dialog.component.html',
   styleUrl: './edit-dialog.component.scss'
