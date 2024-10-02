@@ -25,7 +25,8 @@
             </mat-form-field> -->
             <mat-form-field>
                 <mat-label>Designation</mat-label>
-                <mat-select #designation (selectionChange)="Designation(designation)">
+                <!-- [(ngModel)]="selectedValue" -->
+                <mat-select #designation (selectionChange)="Designation(designation)" >
                     @for (item of desig; track $index) {
                         <mat-option value="{{item.SrNo}}">{{item.Designation}}</mat-option>
                     }

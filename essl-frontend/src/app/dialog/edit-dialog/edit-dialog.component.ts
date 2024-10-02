@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpModule } from '../../_Http/http/http.module';
 import { CommonService } from '../../_Resolver/common.service';
 import { JsonPipe } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -12,6 +13,7 @@ import { JsonPipe } from '@angular/common';
   imports: [
     FormsModule,
     MaterialModule,
+    MatSelectModule,
     HttpModule,
     JsonPipe
   ],
@@ -19,6 +21,9 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './edit-dialog.component.scss'
 })
 export class EditDialogComponent {
+
+  selectedValue: string ='';
+
   desig = [
     { SrNo: 1, Designation: "Executive Director" },
     { SrNo: 2, Designation: "CFO" },
@@ -88,10 +93,13 @@ export class EditDialogComponent {
   get_team = '';
 
   constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private commonService: CommonService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private commonService: CommonService) { 
+     // this.selectedValue = '13'
+    }
 
   Designation(val: any) {
     this.get_designation = val.triggerValue;
+    this.selectedValue = val.value
   }
 
   Team(val: any) {
@@ -106,6 +114,7 @@ export class EditDialogComponent {
 
   onSave() {
     this.data.Emp_Designation = this.get_designation;
+    this.data.Emp_Team_Name = this.get_team
     this.dialogRef.close(this.data);
   }
 }

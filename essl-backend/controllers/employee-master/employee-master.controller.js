@@ -220,6 +220,7 @@ exports.updateEmployee = async (req, res) => {
       Emp_Contact_No,
       Emp_email,
       Emp_Location,
+      Emp_Team_Name,
       Emp_DOJ,
       Emp_DOB,
       Emp_Department_Name,
@@ -236,6 +237,7 @@ exports.updateEmployee = async (req, res) => {
         Emp_Designation = @Emp_Designation,
         Emp_Contact_No = @Emp_Contact_No,
         Emp_email = @Emp_email,
+        Emp_Team_Name = @Emp_Team_Name,
         Emp_Location = @Emp_Location,
         Emp_DOJ = @Emp_DOJ,
         Emp_DOB = @Emp_DOB,
@@ -254,6 +256,7 @@ exports.updateEmployee = async (req, res) => {
     request.input('Emp_Designation', mssql.VarChar, Emp_Designation);
     request.input('Emp_Contact_No', mssql.VarChar, Emp_Contact_No);
     request.input('Emp_email', mssql.VarChar, Emp_email);
+    request.input('Emp_Team_Name', mssql.VarChar, Emp_Team_Name);
     request.input('Emp_Location', mssql.VarChar, Emp_Location);
     request.input('Emp_DOJ', mssql.DateTime, new Date(Emp_DOJ));
     request.input('Emp_DOB', mssql.DateTime, new Date(Emp_DOB));
