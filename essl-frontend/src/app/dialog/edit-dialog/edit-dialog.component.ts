@@ -32,6 +32,7 @@ export class EditDialogComponent {
   }
 
   onSave() {
+    this.dialogRef.close(this.data);
   }
 
 }
