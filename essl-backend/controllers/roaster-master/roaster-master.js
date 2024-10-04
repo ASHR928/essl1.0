@@ -8,7 +8,7 @@ const RosterMaster = db.define('Roster_Master', {
     autoIncrement: true,
   },
   Emp_ID: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   Weekly_Off1: {
@@ -43,7 +43,7 @@ const RosterMaster = db.define('Roster_Master', {
     allowNull: true,
   },
   Updated_By_UserID: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: true,
   },
 }, {

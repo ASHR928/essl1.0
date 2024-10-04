@@ -69,6 +69,8 @@ exports.getAllRosters = async (req, res) => {
 // Get a roster entry by Emp_ID
 exports.getRosterByEmpId = async (req, res) => {
   try {
+    console.log(req.params);
+    
     const { empId } = req.params;
     const roster = await RosterMaster.findOne({ where: { Emp_ID: empId } });
     if (!roster) {

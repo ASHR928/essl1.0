@@ -60,6 +60,8 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
+    console.log('clicked');
+    
     this.commonService.commonData = data.data;
 
     if (this.commonService.showPopup) {
@@ -77,6 +79,10 @@ export class CommonGridComponent implements OnInit {
         }
       }
     } else if (this.redirectPage.redirectFlag) {
+      console.log('click2');
+      console.log(this.redirectPage.redirectFlag);
+      
+      
       this.router.navigate(this.redirectPage.redirect, { queryParams: this.redirectPage.queryParams });
     }
 

@@ -23,7 +23,7 @@ export class AttendancePunchLogComponent implements OnInit {
   rowData: any = [];
   colDefs: ColDef[] = [
     // { field: "PunchTimeDetailsId", headerName: 'Punch Id', width: 100 },
-    { field: "Emp_ID", headerName: 'Emp ID', width: 100, filter: true },
+    { field: "Emp_Company_ID", headerName: 'Emp ID', width: 100, filter: true },
     { field: "Emp_Name", headerName: 'Emp Name', filter: true },
     { field: 'Emp_Alias_Name', headerName: 'Emp Alias Name' },
     { field: 'Emp_Designation', headerName: 'Emp Designation', width: 160, filter: true },
@@ -37,6 +37,8 @@ export class AttendancePunchLogComponent implements OnInit {
 
   ngOnInit(): void {
     this.attendancepunchlogService.getAttendancePunchLog().subscribe((res: any) => {
+      console.log(res);
+      
       this.rowData = res;
     });
   }

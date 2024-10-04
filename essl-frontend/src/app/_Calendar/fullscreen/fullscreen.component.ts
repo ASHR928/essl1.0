@@ -90,22 +90,26 @@ export class FullscreenComponent implements OnInit {
   }
   ngOnInit(): void {
     if (this.commonService.isEdit != 'true') {
-      let empId = this.commonService.commonData.Emp_ID;
+      let empId = this.commonService.commonData.Emp_Company_ID;
       let attendanceLogs: any = [];
       // Fetch attendance logs by employee ID
       this.employeeSerive.getAttendanceLogsByEmpId(empId).subscribe((data: any) => {
         attendanceLogs = data[0];
+        console.log(data);
 
+        // If attendanceLogs is defined, process the logs
         if (attendanceLogs != undefined) {
           for (const row of attendanceLogs) {
             this.INITIAL_EVENTS.push(this.transformAttendanceLog(row));
             this.working_days += Number(this.attendanceCalculation[row.Status.trim()]);
           }
         }
-      }, () => {
-        this.employeeSerive.getEmpDetailsById(empId).subscribe((data: any) => {
-          const weekOff1 = data[0].Weekly_Off1;
-          const weekOff2 = data[0].Weekly_Off2;
+
+        // Call getEmpDetailsById only after processing attendance logs
+        this.employeeSerive.getEmpDetailsById(empId).subscribe((empData: any) => {
+          const weekOff1 = empData[0].Weekly_Off1;
+          const weekOff2 = empData[0].Weekly_Off2;
+          console.log(empData);
 
           const year = this.TODAY_STR.substring(0, 4);
           const month = this.TODAY_STR.substring(5, 7);
@@ -136,6 +140,10 @@ export class FullscreenComponent implements OnInit {
 
           this.showCalendar = true;
         });
+
+      }, (error) => {
+        // Handle error if getAttendanceLogsByEmpId fails
+        console.error('Error fetching attendance logs:', error);
       });
     }
   }
@@ -319,7 +327,7 @@ export class FullscreenComponent implements OnInit {
 
   Back() {
     this.route.queryParams.subscribe((params: any) => {
-      this.router.navigate(['/', 'dashboard', 'emplist'], { queryParams: { type: params.type, unique: params.unique }});
+      this.router.navigate(['/', 'dashboard', 'emplist'], { queryParams: { type: params.type, unique: params.unique } });
     });
   }
 }
