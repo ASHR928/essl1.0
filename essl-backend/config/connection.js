@@ -1,7 +1,7 @@
 const sql = require("mssql");
 
 const config = {
-    user: 'test', 
+    user: 'test2', 
     password: 'test', 
     server: 'localhost\\SQLEXPRESS', 
     database: 'etimetracklite1', 

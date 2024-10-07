@@ -8,7 +8,7 @@ const ApplicationLog = db.define('ApplicationLogs', {
     autoIncrement: true,
   },
   employee_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
   },
   action_screen: {
     type: DataTypes.STRING,

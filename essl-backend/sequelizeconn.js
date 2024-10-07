@@ -2,7 +2,7 @@ var Sequelize = require("sequelize");
 
 var db = new Sequelize(
     'etimetracklite1', // Database name
-    'test', // Username
+    'test2', // Username
     'test', // Password
     {
         dialect: "mssql", // Use 'mssql' for SQL Server
