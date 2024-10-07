@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
   private _empData: any;
+  private _empDataSend: any;
   private _buttonval: any;
   private _popup: boolean = false;
   private _edit: any
@@ -17,6 +18,14 @@ export class CommonService {
 
   get commonData() {
     return this._empData;
+  }
+
+  public set empDataSend(obj: any) {
+    this._empDataSend = obj;
+  }
+
+  get empDataSend() {
+    return this._empDataSend;
   }
 
   public set buttonText(obj: any) {

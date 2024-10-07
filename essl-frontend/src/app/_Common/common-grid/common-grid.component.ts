@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, NO_ERRORS_SCHEMA, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessagesService } from '../../_Toastr/messages.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { GridApi } from 'ag-grid-community';
 import { OperatorModelComponent } from '../operator-model/operator-model.component';
 import { CommonService } from '../../_Resolver/common.service';
 import { HttpModule } from '../../_Http/http/http.module';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'common-grid',
@@ -25,7 +25,8 @@ import { Router } from '@angular/router';
   styleUrl: './common-grid.component.scss'
 })
 export class CommonGridComponent implements OnInit {
-  constructor(private messageService: MessagesService, private commonService: CommonService, public dialog: MatDialog, private router: Router) { }
+  constructor(private messageService: MessagesService, private commonService: CommonService, 
+    public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
 
   gridApi!: GridApi;
   @Input('rowData') rowData: any = [];
@@ -42,11 +43,23 @@ export class CommonGridComponent implements OnInit {
   @Input('heightWidth') heightWidth = { height: '0px', width: '0px' };
   @Input() userType = 0;
   @Input() setUserType = 1;
+  @Output('loadData') loadData = new EventEmitter<String>();
   @Input() redirectPage: any = { redirectFlag: false, redirect: [], queryParams: {} };
   defaultRow: any;
 
   ngOnInit(): void {
     this.defaultRow = this.allrows;
+
+    this.changeStatus();
+  }
+
+  changeStatus() {
+    this.route.queryParams.subscribe((params: any) => {
+      if (params.type == 2 && params.unique == 3) {
+        this.showPopup = true;
+        this.commonService.showPopup = true;
+      }
+    });
   }
 
   addRow() {
@@ -60,9 +73,8 @@ export class CommonGridComponent implements OnInit {
   }
 
   openPopup(data: any) {
-    console.log('clicked');
-    
     this.commonService.commonData = data.data;
+    this.changeStatus();
 
     if (this.commonService.showPopup) {
       if (this.userType != this.setUserType) {
@@ -75,14 +87,11 @@ export class CommonGridComponent implements OnInit {
           dialogRef.afterClosed().subscribe(() => {
             this.commonService.showPopup = false;
             this.commonService.buttonText = '';
+            this.loadData.emit(this.rowData);
           });
         }
       }
     } else if (this.redirectPage.redirectFlag) {
-      console.log('click2');
-      console.log(this.redirectPage.redirectFlag);
-      
-      
       this.router.navigate(this.redirectPage.redirect, { queryParams: this.redirectPage.queryParams });
     }
 

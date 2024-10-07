@@ -55,16 +55,17 @@ export class EmployeeRosterComponent implements OnInit {
   loadData() {
     this.employeeService.getRosters().subscribe((res: any) => {
       this.rowData = res;
+      this.messageService.successMsg('Employee Roster successfully swap..');
     })
   }
 
-  changeStatus(value: any) {
-    if (value) {
-      if (localStorage.getItem('swap') == 'swap') {
-        this.messageService.successMsg('Employee Roster successfully swap..')
-        localStorage.setItem('swap', '');
-      }
-      this.loadData();
-    }
-  }
+  // changeStatus(value: any) {
+  //   if (value) {
+  //     if (localStorage.getItem('swap') == 'swap') {
+  //       this.messageService.successMsg('Employee Roster successfully swap..')
+  //       localStorage.setItem('swap', '');
+  //     }
+  //     this.loadData();
+  //   }
+  // }
 }

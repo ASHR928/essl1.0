@@ -54,6 +54,10 @@ export class RoasterModelComponent implements OnInit {
     public dialogRef: MatDialogRef<RoasterModelComponent>) { }
 
   ngOnInit(): void {
+    this.loadEmpData();
+  }
+
+  private loadEmpData() {
     this.employeeService.getEmpDetailsById(this.commonService.commonData.Emp_ID).subscribe((data: any) => {
       this.rowData = data;
       const Emp_ID = data[0].Emp_ID;
@@ -89,9 +93,8 @@ export class RoasterModelComponent implements OnInit {
 
       }
       this.employeeService.insertApplicationLog(logBody).subscribe((data => {
-
-      }))
-      this.dialogRef.close();
+        this.dialogRef.close();
+      }));
     });
   }
 }

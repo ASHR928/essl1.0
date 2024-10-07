@@ -9,7 +9,7 @@
         <mat-label>Select Employee ID</mat-label>
         <mat-select #emp matNativeControl required (selectionChange)="getId(emp)">
             @for (item of employeeList; track $index) {
-                <mat-option value="{{item.Emp_ID}}">{{item.Emp_ID}}</mat-option>
+                <mat-option value="{{item.Emp_ID}}">{{item.Emp_Company_ID}}</mat-option>
             }
         </mat-select>
     </mat-form-field>
