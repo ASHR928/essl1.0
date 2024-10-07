@@ -42,6 +42,15 @@ export class EmployeeService {
       })
     );
   }
+  getEmployeesByTeamNameShiftID(teamName: any, shiftID: any) {
+    return this.http.get(Url.LocalUrl + 'employees/team/' + teamName + '/shift/' + shiftID).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
 
   updateEmployee(data: any) {
     return this.http.put(Url.LocalUrl + 'employees/' + data.Emp_Company_ID, data).pipe(

@@ -9,7 +9,8 @@ const Employees = require('../../controllers/employee-master/employee-master.con
 
 
 // Route to get employees by team name
-router.get('/team/:teamName', Employees.getEmployeesByTeamName);
+router.get('/team/:teamName/shift/:shiftID', Employees.getEmployeesByTeamNameShiftID);
+
 
 // Route to get all roster entries
 router.get('/', Employees.getAllEmployees);

@@ -17,7 +17,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     AgGridAngular,
     CommonModule,
     CommonGridComponent,
-    ServicesModule,
+
     MaterialModule
   ],
   templateUrl: './roaster-model.component.html',
@@ -60,13 +60,20 @@ export class RoasterModelComponent implements OnInit {
   private loadEmpData() {
     this.employeeService.getEmpDetailsById(this.commonService.commonData.Emp_ID).subscribe((data: any) => {
       this.rowData = data;
+      let teamName = data[0].Emp_Team_Name;
       const Emp_ID = data[0].Emp_ID;
+      const shiftID = data[0].Shift_ID
 
-      this.employeeService.getEmployees().subscribe((data: any) => {
-        this.employeeList = data.filter((result: any) => {
-          return result.Emp_ID != Emp_ID;
+      this.employeeService.getEmployeeById(Emp_ID).subscribe((data: any) => {
+        teamName = data[0].Emp_Team_Name;
+        this.employeeService.getEmployeesByTeamNameShiftID(teamName, shiftID).subscribe((data: any) => {
+          this.employeeList = data.filter((result: any) => {
+            return result.Emp_Company_ID != Emp_ID;
+          });
         });
-      });
+
+      })
+
     });
 
     this.employeeService.getRosters().subscribe((data: any) => {

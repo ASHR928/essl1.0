@@ -1,24 +1,37 @@
 const EmployeeMaster = require('../employee-master/employee-master');
 const XLSX = require('xlsx');
 const mssql = require('mssql');
+const db = require('../../sequelizeconn')
+var Sequelize = require("sequelize");
 
 
 
 // Get employees by team name
-exports.getEmployeesByTeamName = async (req, res) => {
+exports.getEmployeesByTeamNameShiftID = async (req, res) => {
+
+  const { teamName, shiftID } = req.params;
+  console.log(req.params);
+  console.log(teamName);
+
   try {
-    const { teamName } = req.params;
-    const employees = await EmployeeMaster.findAll({
-      where: { Emp_Team_Name: teamName }
+
+    const query = `SELECT a.Emp_Company_ID
+      FROM EMPLOYEE_MASTER as a INNER JOIN ROSTER_MASTER as b ON a.Emp_Company_ID = b.Emp_ID
+      and a.Emp_Team_Name = :teamName and b.SHIFT_ID= :shiftID
+      `
+
+    const emp = await db.query(query, {
+      replacements: { teamName, shiftID },
+      type: Sequelize.QueryTypes.SELECT,
     });
 
-    if (employees.length === 0) {
-      return res.status(404).json({ error: 'No employees found for this team' });
+    if (emp.length >= 1) {
+      res.json(emp);
+    } else {
+      res.status(404).json({ message: 'Emp roster not found' });
     }
-
-    res.status(200).json(employees);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 // Get all employees
