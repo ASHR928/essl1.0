@@ -22,6 +22,7 @@ export class AdminComponent {
 
   teamCount: any
   deptCount: any
+  empCount: any
   // rowData: any[] = [];
   rowData: any = [
     {
@@ -61,16 +62,16 @@ export class AdminComponent {
 
   ngOnInit(): void {
     this.employeeService.getDeptCount().subscribe((data: any) => {
-      console.log(data);
       this.deptCount = data.totalDepartments
-
     })
 
     this.employeeService.getTeamCount().subscribe((data: any) => {
-      console.log(data);
       this.teamCount = data.totalUniqueTeams
-
     })
+    this.employeeService.getEmployees().subscribe((data: any) => {
+      this.empCount = data.length;
+    })
+
     this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
   }
 }

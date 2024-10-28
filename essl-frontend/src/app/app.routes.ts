@@ -13,7 +13,6 @@ import { SignupComponent } from './signup/signup.component';
 import { FullscreenComponent } from './_Calendar/fullscreen/fullscreen.component';
 
 export const routes: Routes = [
-    { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent },
     { path: '', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent, children: [
@@ -24,6 +23,7 @@ export const routes: Routes = [
         { path: 'button', component: ButtonsComponent },
         { path: 'attpunchlog', component: AttendancePunchLogComponent },
         { path: 'applog', component: AppLogComponent },
+        { path: 'signup', component: SignupComponent },
         { path: 'calender', component: FullscreenComponent }
     ] }
 ];

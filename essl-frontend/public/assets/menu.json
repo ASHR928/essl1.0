@@ -42,6 +42,13 @@
         "redirect": "applog"
     },
     {
+        "id": 7,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Add New User",
+        "redirect": "signup"
+    },
+    {
         "id": 1,
         "loginType": "2",
         "title": "Admin",
@@ -82,6 +89,13 @@
         "title": "Admin",
         "name": "Administrator",
         "redirect": "applog"
+    },
+    {
+        "id": 7,
+        "loginType": "2",
+        "title": "Admin",
+        "name": "Add New User",
+        "redirect": "signup"
     },
     {
         "id": 1,

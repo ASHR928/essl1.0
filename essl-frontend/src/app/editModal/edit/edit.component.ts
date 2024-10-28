@@ -34,6 +34,8 @@ export class EditComponent implements ICellRendererAngularComp {
       this.commonService.showPopup = true;
       this.commonService.buttonText = this.deleteRef?.nativeElement.id;
     }
+
+    this.params.onDelete(this.params.data);
   }
 
   Edit() {

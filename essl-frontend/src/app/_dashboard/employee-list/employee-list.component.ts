@@ -9,6 +9,8 @@ import { EditComponent } from '../../editModal/edit/edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../../dialog/edit-dialog/edit-dialog.component';
 import { CommonService } from '../../_Resolver/common.service';
+import { LoginService } from '../../_Services/login.service';
+import { MessagesService } from '../../_Toastr/messages.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -47,13 +49,15 @@ export class EmployeeListComponent implements OnInit {
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 120, cellStyle: { 'text-align': 'center' } }
     {
       field: 'Action', cellRenderer: EditComponent, cellRendererParams: {
-        onEdit: this.onEdit.bind(this)
+        onEdit: this.onEdit.bind(this),
+        onDelete: this.onDelete.bind(this)
       }
     }
   ];
 
   constructor(private buttonService: ButtonService, private employeeService: EmployeeService, private route: ActivatedRoute,
-    private dialog: MatDialog, private commonService:CommonService
+    private dialog: MatDialog, private commonService:CommonService, 
+    private loginService: LoginService, private messageService: MessagesService
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +101,14 @@ export class EmployeeListComponent implements OnInit {
           this.populateEmployeeList()
         })
       }
+    });
+  }
+
+  onDelete(rowData: any) {
+    this.loginService.DeleteEmployee(rowData.Emp_Company_ID).subscribe((res: any) => {
+      this.messageService.successMsg(res.msg);
+    }, error => {
+      this.messageService.errorMsg(error);
     });
   }
 }
