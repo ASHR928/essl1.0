@@ -11,8 +11,8 @@ export class AttendancepunchlogService {
   
   constructor(private http: HttpClient) { }
 
-  getAttendancePunchLog() {
-    return this.http.get(Url.LocalUrl + 'punchrecords/attendancepunchlogs').pipe(
+  getAttendancePunchLog(arg:any,empID:any) {
+    return this.http.get(Url.LocalUrl + 'punchrecords/attendancepunchlogs/' + arg + '/'+ empID +'').pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);

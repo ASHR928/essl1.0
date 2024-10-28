@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+  }
+
+  .box {
+    box-shadow: 0 4px 8px rgba(1, 1, 1, 1.1);
+
+    min-width: 275px;
+    height: 100px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: white;
+    position: relative;
+    overflow: hidden; /* to clip the pseudo-element */
+
+    .big-size{
+      font-weight: bolder;
+      font-size: 20px;
+    }
+}
+
+.box::after {
+    content: ""; /* Required for pseudo-elements */
+    position: absolute;
+    
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%; /* Adjust this value as needed */
+    background-color: rgba(0, 0, 0, 0.3);    
+}
+
+.text-bottom {
+  font-size: 11px;
+  font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px; /* Adjust padding as needed */
+    text-align: center;
+    
+}
+
+@media only screen and (max-width: 932px) {
+  .scroll {
+    overflow: auto;
+  }
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mat-card-height {
+  height: 62px;
+  border-radius: 0px;
+  border-bottom: 1px solid lightgray;
+}

@@ -55,7 +55,7 @@ export class CommonGridComponent implements OnInit {
 
   changeStatus() {
     this.route.queryParams.subscribe((params: any) => {
-      if (params.type == 2 && params.unique == 3) {
+      if ((params.type == 1 || params.type == 2) && params.unique == 3) {
         this.showPopup = true;
         this.commonService.showPopup = true;
       }

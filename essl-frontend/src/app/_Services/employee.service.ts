@@ -33,6 +33,26 @@ export class EmployeeService {
     );
   }
 
+  getTeamCount() {
+    return this.http.get(Url.LocalUrl + 'employees/totalteams').pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
+  getDeptCount() {
+    return this.http.get(Url.LocalUrl + 'employees/totalDept').pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
   getEmployees() {
     return this.http.get(Url.LocalUrl + 'employees').pipe(
       retry(3),

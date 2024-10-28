@@ -3,6 +3,8 @@ import { CommonGridComponent } from '../../_Common/common-grid/common-grid.compo
 import { ServicesModule } from '../../_Modules/services/services.module';
 import { ButtonsComponent } from '../../_Common/buttons/buttons.component';
 import { ButtonService } from '../../_Resolver/button.service';
+import { CurrencyPipe } from '@angular/common';
+import { EmployeeService } from '../../_Services/employee.service';
 
 @Component({
   selector: 'app-admin',
@@ -10,12 +12,16 @@ import { ButtonService } from '../../_Resolver/button.service';
   imports: [
     CommonGridComponent,
     ServicesModule,
-    ButtonsComponent
+    ButtonsComponent,
+    CurrencyPipe
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
+
+  teamCount: any
+  deptCount: any
   // rowData: any[] = [];
   rowData: any = [
     {
@@ -51,9 +57,20 @@ export class AdminComponent {
     // { field: 'Action', cellRenderer: ButtonsComponent, width: 80, cellStyle: { 'text-align': 'center' } }
   ];
 
-  constructor(private buttonService: ButtonService) {}
+  constructor(private buttonService: ButtonService, private employeeService:EmployeeService) {}
 
   ngOnInit(): void {
+    this.employeeService.getDeptCount().subscribe((data: any) => {
+      console.log(data);
+      this.deptCount = data.totalDepartments
+
+    })
+
+    this.employeeService.getTeamCount().subscribe((data: any) => {
+      console.log(data);
+      this.teamCount = data.totalUniqueTeams
+
+    })
     this.buttonService.isButtonVisible = {delete: true, edit: false, view: false, calendar: false};
   }
 }

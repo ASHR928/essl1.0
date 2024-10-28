@@ -1,2 +1,23 @@
-<h3>Admin</h3><br>
-<common-grid [rowData]="rowData" [colDefs]="colDefs" [pagination]="true" [pageSize]="20" [allrows]="allrows"></common-grid>
+<h3>Dashboard</h3><br>
+<!-- <common-grid [rowData]="rowData" [colDefs]="colDefs" [pagination]="true" [pageSize]="20" [allrows]="allrows"></common-grid> -->
+<div class="container" style="overflow-y: auto;">
+    <div class="box" style="background-color: #17A2B8;">
+        <div class="big-size"> {{500000|currency: 'INR'}}
+        </div>
+        <div class="text-bottom"> TOTAL NUMBER OF EMPLOYEES
+        </div>
+    </div>
+    <div class="box" style="background-color: #28A745;">
+        <div class="big-size"> {{teamCount}}
+        </div>
+        <div class="text-bottom"> TOTAL NUMBER OF TEAM
+        </div>
+    </div>
+
+    <div class="box" style="background-color: #FFC107;">
+        <div class="big-size"> {{deptCount}}
+        </div>
+        <div class="text-bottom"> TOTAL NUMBER OF DEPARTMENT
+        </div>
+    </div>
+</div>

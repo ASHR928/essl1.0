@@ -5,7 +5,20 @@
             <div class="bar-header">
                 <!-- <img src="../../assets/logo/logo.jpg" style="height: 72px;" alt=""> -->
                 <span class="text-right">
-                    <i class="bi bi-person-circle" [matMenuTriggerFor]="menu" style="color: #4758B8;"></i>
+                    <table style="background-color: transparent; top: 0;position: fixed;left: 0;">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <i class="bi bi-person-circle" [matMenuTriggerFor]="menu" style="color: #4758B8;"></i>
+                                </td>
+                                <td style="font-size: 15px; color: black; padding-left: 20px;">
+                                    {{token.Emp_ID}} - {{token.userType.toUpperCase()}} <br> {{userName}}
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                    <div class="clearfix"></div>
                     <!-- <span [matMenuTriggerFor]="menu" style="color: #A8385D; font-size: 1.0rem; text-align: center; cursor: pointer;" class="email">{{login.firstName.toUpperCase()}}</span> -->
                     <mat-menu #menu="matMenu">
                         <span style="color: white; font-size: 0.8rem;"></span>

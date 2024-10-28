@@ -3,105 +3,105 @@
         "id": 1,
         "loginType": "1",
         "title": "Admin",
-        "name": "Admin",
+        "name": "Dashboard",
         "redirect": "admin"
     },
     {
         "id": 2,
         "loginType": "1",
         "title": "Admin",
-        "name": "Employee List",
+        "name": "Employee Data",
         "redirect": "emplist"
     },
     {
         "id": 3,
         "loginType": "1",
         "title": "Admin",
-        "name": "Employee Roaster",
+        "name": "HR Management",
         "redirect": "emproster"
     },
     {
         "id": 4,
         "loginType": "1",
         "title": "Admin",
-        "name": "Update Roaster",
+        "name": "Roaster Management",
         "redirect": "updateroster"
     },
     {
         "id": 5,
         "loginType": "1",
         "title": "Admin",
-        "name": "Attendance Punch Log",
+        "name": "Time & Attendance",
         "redirect": "attpunchlog"
     },
     {
         "id": 6,
         "loginType": "1",
         "title": "Admin",
-        "name": "Application Log",
+        "name": "Administrator",
         "redirect": "applog"
     },
     {
         "id": 1,
         "loginType": "2",
         "title": "Admin",
-        "name": "Admin",
+        "name": "Dashboard",
         "redirect": "admin"
     },
     {
         "id": 2,
         "loginType": "2",
         "title": "Admin",
-        "name": "Employee List",
+        "name": "Employee Data",
         "redirect": "emplist"
     },
     {
         "id": 3,
         "loginType": "2",
         "title": "Admin",
-        "name": "Employee Roaster",
+        "name": "HR Management",
         "redirect": "emproster"
     },
     {
         "id": 4,
         "loginType": "2",
         "title": "Admin",
-        "name": "Update Roaster",
+        "name": "Roaster Management",
         "redirect": "updateroster"
     },
     {
         "id": 5,
         "loginType": "2",
         "title": "Admin",
-        "name": "Attendance Punch Log",
+        "name": "Time & Attendance",
         "redirect": "attpunchlog"
     },
     {
         "id": 6,
         "loginType": "2",
         "title": "Admin",
-        "name": "Application Log",
+        "name": "Administrator",
         "redirect": "applog"
     },
     {
         "id": 1,
         "loginType": "3",
         "title": "Admin",
-        "name": "Admin",
+        "name": "Dashboard",
         "redirect": "admin"
     },
     {
         "id": 2,
         "loginType": "3",
         "title": "Admin",
-        "name": "Employee List",
+        "name": "Employee Data",
         "redirect": "emplist"
     },
     {
         "id": 5,
         "loginType": "3",
         "title": "Admin",
-        "name": "Attendance Punch Log",
+        "name": "Time & Attendance",
         "redirect": "attpunchlog"
     }
 ]

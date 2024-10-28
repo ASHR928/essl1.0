@@ -29,17 +29,41 @@ export class AttendancePunchLogComponent implements OnInit {
     { field: 'Emp_Designation', headerName: 'Emp Designation', width: 160, filter: true },
     { field: 'Emp_Team_Name', headerName: 'Emp Team Name', width: 170, filter: true },
     { field: 'Emp_Department_Name', headerName: 'Emp Dept Name', width: 170, filter: true },
-    { field: 'date', headerName: 'Date', width: 120, filter: 'agDateColumnFilter', valueGetter: params => params.data.date.substring(0,10) },
+    { field: 'date', headerName: 'Date', width: 120, filter: 'agDateColumnFilter', valueGetter: params => params.data.date.substring(0, 10) },
     { field: 'hh_mm', headerName: 'Time', width: 100, filter: 'agTimeColumnFilter', valueGetter: params => params.data.date.substring(11, 16) }
   ];
-  
-  constructor(private attendancepunchlogService: AttendancepunchlogService) {}
+
+  constructor(private attendancepunchlogService: AttendancepunchlogService) { }
 
   ngOnInit(): void {
-    this.attendancepunchlogService.getAttendancePunchLog().subscribe((res: any) => {
-      console.log(res);
-      
+    const role = localStorage.getItem('token');
+    let data: any
+    let empID = localStorage.getItem('employee_id')
+    let arg: any;
+
+    if (role != undefined) {
+      data = JSON.parse(role)[0];
+    }
+    if (data.Role_ID == 3) {
+      arg = data.Role_ID
+    }
+    this.attendancepunchlogService.getAttendancePunchLog(arg, empID).subscribe((res: any) => {
+      //   if (data.Role_ID == 3) {
+      //     this.rowData= res.filter((response: any) => {
+      //       return response.Emp_Company_ID = data.Emp_ID
+      //     });
+      //   } else {
+      res.sort((a: any, b: any) => {
+        if (a.Emp_Company_ID < b.Emp_Company_ID) {
+          return -1;
+        } else if (a.Emp_Company_ID > b.Emp_Company_ID) {
+          return 1;
+        } else {
+          return 0; // Equal
+        }
+      });
       this.rowData = res;
+      //   }
     });
   }
 
