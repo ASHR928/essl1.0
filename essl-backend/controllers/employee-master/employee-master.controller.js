@@ -5,6 +5,40 @@ const db = require('../../sequelizeconn')
 var Sequelize = require("sequelize");
 
 
+exports.getTotalUniqueTeamNames = async (req, res) => {
+  try {
+    const totalUniqueTeams = await EmployeeMaster.count({
+      distinct: true,
+      col: 'Emp_Team_Name',
+    });
+
+    res.status(200).json({
+      message: 'Total number of unique employee team names retrieved successfully',
+      totalUniqueTeams,
+    });
+  } catch (error) {
+    console.error('Error fetching total unique team names:', error);
+    res.status(500).json({ error: 'An error occurred while fetching team names' });
+  }
+};
+
+// Get total number of employee departments
+exports.getTotalDepartments = async (req, res) => {
+  try {
+    const totalDepartments = await EmployeeMaster.count({
+      distinct: true,
+      col: 'Emp_Department_Name',
+    });
+
+    res.status(200).json({
+      message: 'Total number of employee departments retrieved successfully',
+      totalDepartments,
+    });
+  } catch (error) {
+    console.error('Error fetching total departments:', error);
+    res.status(500).json({ error: 'An error occurred while fetching departments' });
+  }
+};
 
 // Get employees by team name
 exports.getEmployeesByTeamNameShiftID = async (req, res) => {

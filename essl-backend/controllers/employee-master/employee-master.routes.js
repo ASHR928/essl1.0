@@ -8,6 +8,10 @@ const router = express.Router();
 const Employees = require('../../controllers/employee-master/employee-master.controller');
 
 
+router.get('/totalteams',Employees.getTotalUniqueTeamNames)
+
+router.get('/totalDept',Employees.getTotalDepartments)
+
 // Route to get employees by team name
 router.get('/team/:teamName/shift/:shiftID', Employees.getEmployeesByTeamNameShiftID);
 

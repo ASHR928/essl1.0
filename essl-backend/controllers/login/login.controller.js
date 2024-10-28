@@ -5,8 +5,9 @@ const UsersList = require('../login/login')
 exports.Login = async (req, res) => {
     try {
         data = req.body;
-        const que = `SELECT Emp_ID, Role_ID FROM USER_MASTER WHERE Emp_ID='${data.Emp_ID}' and Password='${data.pwd}' and Role_ID=${data.Role}`;
-        
+        const que = `SELECT a.Emp_ID, a.Role_ID, b.Emp_Name FROM USER_MASTER as a inner join EMPLOYEE_MASTER as b 
+        on a.Emp_ID=b.Emp_Company_ID where  a.Emp_ID='${data.Emp_ID}' and status='Y' and Password='${data.pwd}' and Role_ID=${data.Role}`;
+
         await mssql.query(que).then(result => {
             if (result.recordset.length <= 0) {
                 res.json({ sqlMessage: 'User name or password is incorrect' });
@@ -18,6 +19,26 @@ exports.Login = async (req, res) => {
         res.status(500).json({ sqlMessage: 'Internal Server Error ' + error });
     }
 }
+
+exports.DeleteUser = async (req, res) => {
+    try {
+        const userId = req.query.userId;
+
+        if (!userId) {
+            return res.status(400).json({ msg: 'Missing userId in query parameters' });
+        }
+
+        const query = `UPDATE USER_MASTER SET status = 'N' WHERE Emp_ID = '${userId}'`;
+        console.log(query);
+
+        await mssql.query(query).then(result => {
+            res.json({ msg: 'User successfully deleted...' });
+        });
+    } catch (error) {
+        res.status(500).json({ sqlMessage: 'Internal Server Error: ' + error.message });
+    }
+};
+
 
 exports.insertUsersDetails = async (req, res) => {
     try {
