@@ -96,6 +96,8 @@ exports.getEmployeeById = async (req, res) => {
 
 // Create a new employee
 exports.createEmployee = async (req, res) => {
+  console.log(req.body);
+
   try {
     const {
       Emp_Company_ID,
@@ -109,7 +111,7 @@ exports.createEmployee = async (req, res) => {
       dob,
       Emp_Department_Name,
       PAN_Number,
-      Aadhar_no,
+      AADHAR_Number,
       Is_Active
     } = req.body;
 
@@ -143,7 +145,7 @@ exports.createEmployee = async (req, res) => {
         @Emp_DOB,
         @Emp_Department_Name,
         @PAN_Number,
-        @Aadhar_no,
+        @AADHAR_Number,
         @Is_Active,
         @Created_At,
         @Updated_At
@@ -162,25 +164,30 @@ exports.createEmployee = async (req, res) => {
     request.input('Emp_DOB', mssql.DateTime, new Date(dob));
     request.input('Emp_Department_Name', mssql.VarChar, Emp_Department_Name);
     request.input('PAN_Number', mssql.VarChar, PAN_Number);
-    request.input('Aadhar_no', mssql.VarChar, Aadhar_no);
+    request.input('AADHAR_Number', mssql.VarChar, AADHAR_Number);
     request.input('Is_Active', mssql.Bit, Is_Active !== undefined ? Is_Active : true);
     request.input('Created_At', mssql.DateTime, new Date());
     request.input('Updated_At', mssql.DateTime, new Date());
 
-    await request.query(insertSql);
+    // const res = new Promise(request.query(insertSql));
 
-    // Fetch the newly inserted record
-    const selectSql = `
+    await request.query(insertSql).then(async (response) => {
+      console.log('run second')
+      const selectSql = `
       SELECT TOP 1 * FROM EMPLOYEE_MASTER
-      WHERE Aadhar_no = @Aadhar_no AND Emp_Name = @Emp_Name
+      WHERE Aadhar_no = @AADHAR_Number AND Emp_Name = @Emp_Name
       ORDER BY Created_At DESC
     `;
-
-    const result = await request.query(selectSql);
-    res.status(201).json({
-      message: 'Employee created successfully',
-      employee: result.recordset[0].Emp_Company_ID
+      const result = await request.query(selectSql);
+      console.log(result);
+      res.status(201).json({
+        message: 'Employee created successfully',
+        employee: result.recordset[0].Emp_Company_ID
+      });
     });
+    // Fetch the newly inserted record
+    
+
   } catch (error) {
     console.log(error);
 
