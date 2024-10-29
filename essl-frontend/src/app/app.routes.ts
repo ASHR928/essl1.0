@@ -11,10 +11,12 @@ import { AttendancePunchLogComponent } from './attendance-punch-log/attendance-p
 import { AppLogComponent } from './app-log/app-log.component';
 import { SignupComponent } from './signup/signup.component';
 import { FullscreenComponent } from './_Calendar/fullscreen/fullscreen.component';
+import { ChangePasswordComponent } from './pass/change-password/change-password.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: LoginComponent },
+    { path: 'changePassword', component: ChangePasswordComponent },
     { path: 'dashboard', component: DashboardComponent, children: [
         { path: 'admin', component: AdminComponent },
         { path: 'emplist', component: EmployeeListComponent },

@@ -8,6 +8,8 @@ exports.Login = async (req, res) => {
         const que = `SELECT a.Emp_ID, a.Role_ID, b.Emp_Name FROM USER_MASTER as a inner join EMPLOYEE_MASTER as b 
         on a.Emp_ID=b.Emp_Company_ID where  a.Emp_ID='${data.Emp_ID}' and status='Y' and Password='${data.pwd}' and Role_ID=${data.Role}`;
 
+        console.log(que);
+        
         await mssql.query(que).then(result => {
             if (result.recordset.length <= 0) {
                 res.json({ sqlMessage: 'User name or password is incorrect' });
@@ -78,3 +80,19 @@ function generatePassword() {
 
     return password;
 }
+
+// Update a roster entry by Emp_ID
+exports.updatePassword = async (req, res) => {
+    try {
+        const { Emp_ID } = req.body;
+        const [updated] = await UsersList.update(req.body, {
+            where: { Emp_ID: Emp_ID }
+        });
+        if (!updated) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json({ msg: 'updated password' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

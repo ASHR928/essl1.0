@@ -60,4 +60,7 @@ export class DashboardComponent {
     localStorage.setItem('token', '');
     this.router.navigate(['/']);
   }
+  changePassword(){
+    this.router.navigate(['/changePassword'])
+  }
 }
