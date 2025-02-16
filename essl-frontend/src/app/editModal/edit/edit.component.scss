@@ -1,0 +1,19 @@
+#DISABLE i:hover {
+    color: #f44336;
+}
+
+#REACTIVATE i:hover {
+    color: #4caf50;
+}
+a {
+    color: #4caf50;
+    transition: color 0.3s ease;
+    
+    &:hover {
+        color:#4caf50 ;
+    }
+
+    i {
+        font-size: 1.1rem;
+    }
+}

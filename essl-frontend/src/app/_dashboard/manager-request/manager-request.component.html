@@ -1,0 +1,41 @@
+<h3>Leave Requests</h3><br>
+<common-grid [rowData]="rowData" [colDefs]="colDefs" [pagination]="true" [pageSize]="20"  [heightWidth]="{ height: '90%', width: '90%' }"
+[redirectPage]="{ redirectFlag: true, queryParams: queryParams }">
+
+<ng-template #actionButtons let-row>
+    <div style="display: flex; align-items: center; gap: 18px; padding-bottom: 14px;">
+      <select
+        [(ngModel)]="row.LeaveStatus"
+        style="padding: 8px; border-radius: 4px; border: 1px solid #ccc;"
+      >
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+      <button
+        class="confirm-button"
+        (click)="updateLeaveStatus(row, row.LeaveStatus)"
+      >
+        Confirm
+      </button>
+    </div>
+  </ng-template>
+<!-- <ng-template #actionButtons let-row>
+    <button
+      mat-button
+      color="primary"
+      *ngIf="row.Is_Active"
+      (click)="onDisable(row)"
+    >
+      Disable
+    </button>
+    <button
+      mat-button
+      color="accent"
+      *ngIf="!row.Is_Active"
+      (click)="onReactivate(row)"
+    >
+      Reactivate
+    </button>
+  </ng-template> -->
+</common-grid>

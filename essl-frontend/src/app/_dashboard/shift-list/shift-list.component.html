@@ -1,0 +1,117 @@
+@if (flag) {
+    <div style="width: 100%; height: 100%; z-index: 999; position: relative; top: 0px; bottom: 0px; right: 0px; left: 0px; background-color: rgb(249, 247, 247); opacity: 0.5;">
+        <h1 style="text-align: center; line-height: 100%;">Page Loading, Please Wait</h1>
+    </div>
+} @else {
+    <div class="shift-container">
+        <mat-card>
+            <mat-card-header>
+                <div class="image-container">
+                    <img src="https://www.prosperitytravels.in/img/logo-new.png" style="max-width: 116px; max-height: 87px;" alt=""><br>
+                    <b style="color: #2B2B6C;">Shift Master Form</b>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <br>
+                <form [formGroup]="shiftForm">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Shift ID</mat-label>
+                                <input matInput formControlName="Shift_ID" >
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Start Time</mat-label>
+                                <input matInput type="time" formControlName="Shift_StartTime" placeholder="HH:MM" required >
+                                <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startPicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>End Time</mat-label>
+                                <input matInput type="time" formControlName="Shift_EndTime" placeholder="'HH:MM" required >
+                                <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endPicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Approved By</mat-label>
+                                <input matInput formControlName="Approved_By">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Is Approved</mat-label>
+                                <mat-select formControlName="Is_Approved">
+                                    <mat-option [value]="true">Yes</mat-option>
+                                    <mat-option [value]="false">No</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Is Active</mat-label>
+                                <mat-select formControlName="Is_Active">
+                                    <mat-option [value]="true">Active</mat-option>
+                                    <mat-option [value]="false">Inactive</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-actions">
+                    <button mat-raised-button color="primary" [disabled]="!shiftForm.valid" (click)="saveShift()">Submit</button>
+                    <button mat-raised-button color="warn" (click)="resetForm()">Reset</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+<!-- <div>
+    <h2>Add Shift</h2>
+    <form (submit)="saveShift()">
+       
+        <input type="text" placeholder="Shift ID" [(ngModel)]="allrows.Shift_ID" name="Shift_ID" required/>
+        <input type="time" placeholder="Start Time" [(ngModel)]="allrows.Shift_StartTime" name="Start_Time" required/>
+        <input type="time" placeholder="End Time" [(ngModel)]="allrows.Shift_EndTime" name="End_Time" required/>
+        <input type="text" placeholder="Approved By" [(ngModel)]="allrows.Approved_By" name="Approved_By" required/>
+        <input type="checkbox" placeholder="Is Approved" [(ngModel)]="allrows.Is_Approved" name="Is_Approved" />
+        <input type="checkbox" placeholder="Is Active" [(ngModel)]="allrows.Is_Active" name="Is_Active" />
+        <button type="submit">Save Shift</button>
+    </form>
+    <h2>Shift Lists</h2> -->
+    
+
+    <common-grid 
+    [rowData]="rowData"
+    [colDefs]="colDefs"
+    [heightWidth]="{ height: '90%', width: '90%' }"
+    [pagination]="true"
+    [pageSize]="10"
+    [allrows]="allrows"
+    >
+
+    </common-grid>
+
+
+    <!-- <table border='1'>
+        <thead>
+            <tr>
+                <th *ngFor="let col of colDefs">{{col.header}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let allrows of rowData">
+                <td>{{allrows.Shift_ID}}</td>
+                <td>{{allrows.Shift_StartTime}}</td>
+                <td>{{allrows.Shift_EndTime}}</td>
+                <td>{{allrows.Approved_By}}</td>
+                <td>{{allrows.Is_Approved ?'Yes':'No'}}</td>
+                <td>{{allrows.Is_Active ?'Yes':'No'}}</td>
+            </tr>
+        </tbody>
+    </table> -->
+</div>
+}

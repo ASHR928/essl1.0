@@ -1,0 +1,65 @@
+@if (flag) {
+    <div style="width: 100%; height: 100%; z-index: 999; position: relative; top: 0px; bottom: 0px; right: 0px; left: 0px; background-color: rgb(249, 247, 247);  opacity: 0.5;">
+        <h1 style="text-align: center;line-height: 100%;">Page Loading, Please Wait</h1>
+    </div>
+    } @else {
+    <div class="leave-container">
+        <mat-card>
+            <mat-card-header>
+                <div class="image-container">
+                    <img src="https://www.prosperitytravels.in/img/logo-new.png" style="max-width: 116px; max-height: 87px;" alt=""><br>
+                    <b style="color: #2B2B6C;">Leave Reuqest Form</b>
+                </div>
+            </mat-card-header>
+            <mat-card-content><br>
+                <form [formGroup]="leaveRequestForm">
+                    <div class="col-md-12 col-sm-12 col-xm-12 col-lg-12 row">
+                        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                            <mat-form-field>
+                                <mat-label>Employee ID</mat-label>
+                                <input matInput placeholder="Enter Employee Name" formControlName="Employee_Id" readonly>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                            <mat-form-field>
+                                <mat-label>LeaveTypeId</mat-label>
+                                <input matInput placeholder="Enter Leave Type" formControlName="LeaveTypeId" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                            <mat-form-field>
+                                <mat-label>From Date</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="FromDate" required readonly>
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div> 
+                        <!-- <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                            <mat-form-field>
+                                <mat-label>Company</mat-label>
+                                <input matInput placeholder="Enter Emp Company" formControlName="Emp_Company">
+                            </mat-form-field>
+                        </div> -->
+                        <div class="col-md-4 col-sm-4 col-xm-4 col-lg-4">
+                            <mat-form-field>
+                                <mat-label>To Date</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="ToDate" required readonly>
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div> 
+                       
+                       
+                        <div class="clearfix"></div>
+                        @if (error != '') {
+                        <mat-error style="color: red;">{{error}}</mat-error>
+                        }
+                    </div>
+                </form>
+                <button mat-raised-button color="warn" [disabled]="!leaveRequestForm.valid" (click)="leaveRequest()">Submit</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    }

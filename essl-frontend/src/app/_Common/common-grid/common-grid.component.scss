@@ -1,0 +1,6 @@
+.ag-theme-quartz .inactive-row {
+    opacity: 0.5; /* Lower the row opacity */
+    pointer-events: none; /* Optional: Disable row interaction */
+    background-color: #f5f5f5; /* Optional: Highlight inactive row */
+  }
+  

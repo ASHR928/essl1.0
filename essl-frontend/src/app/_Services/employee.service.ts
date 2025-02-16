@@ -143,4 +143,28 @@ export class EmployeeService {
       })
     );
   }
+  disableEmployee(empId: number) {
+    return this.http.put(`${Url.localUrl}employees/disableemployee/${empId}`, {
+      Is_Active:0
+    }).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error.message);
+        return this.err.asObservable();
+      })
+    );
+  }
+  
+  reactivateEmployee(empId: number) {
+    return this.http.put(`${Url.localUrl}employees/reactiveemployee/${empId}`, {
+      Is_Active:1
+    }).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error.message);
+        return this.err.asObservable();
+      })
+    );
+  }
+  
 }
