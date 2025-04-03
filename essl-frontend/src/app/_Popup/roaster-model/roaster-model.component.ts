@@ -10,18 +10,16 @@ import { CommonService } from '../../_Resolver/common.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'roaster-model',
-  standalone: true,
-  imports: [
-    HttpModule,
-    AgGridAngular,
-    CommonModule,
-    CommonGridComponent,
-
-    MaterialModule
-  ],
-  templateUrl: './roaster-model.component.html',
-  styleUrl: './roaster-model.component.scss'
+    selector: 'roaster-model',
+    imports: [
+        HttpModule,
+        AgGridAngular,
+        CommonModule,
+        CommonGridComponent,
+        MaterialModule
+    ],
+    templateUrl: './roaster-model.component.html',
+    styleUrl: './roaster-model.component.scss'
 })
 export class RoasterModelComponent implements OnInit {
   rowData: any[] = [];

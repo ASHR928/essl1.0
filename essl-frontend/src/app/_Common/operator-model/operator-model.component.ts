@@ -6,15 +6,14 @@ import { RoasterModelComponent } from '../../_Popup/roaster-model/roaster-model.
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-operator-model',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    HttpModule,
-    RoasterModelComponent
-  ],
-  templateUrl: './operator-model.component.html',
-  styleUrl: './operator-model.component.scss'
+    selector: 'app-operator-model',
+    imports: [
+        MaterialModule,
+        HttpModule,
+        RoasterModelComponent
+    ],
+    templateUrl: './operator-model.component.html',
+    styleUrl: './operator-model.component.scss'
 })
 export class OperatorModelComponent implements OnInit {
   type: any = {};

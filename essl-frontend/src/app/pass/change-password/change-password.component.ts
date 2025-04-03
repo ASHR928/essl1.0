@@ -8,16 +8,14 @@ import { LoginService } from '../../_Services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-change-password',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    HttpModule,
-    ServicesModule
-
-  ],
-  templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.scss'
+    selector: 'app-change-password',
+    imports: [
+        MaterialModule,
+        HttpModule,
+        ServicesModule
+    ],
+    templateUrl: './change-password.component.html',
+    styleUrl: './change-password.component.scss'
 })
 export class ChangePasswordComponent implements OnInit {
 

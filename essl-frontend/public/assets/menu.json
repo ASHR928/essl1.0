@@ -49,6 +49,38 @@
         "redirect": "signup"
     },
     {
+        "id": 8,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Request Notification",
+        "redirect": "notifications"
+    },
+    
+    {
+        "id": 9,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Roster Notification",
+        "redirect": "rosternotification"
+    },
+    {
+        "id": 10,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Shift List",
+        "redirect": "shiftlist"
+    },
+    {
+        "id": 11,
+        "loginType": "1",
+        "title": "Admin",
+        "name": "Reports",
+        "redirect": "reports"
+    },
+  
+    
+    
+    {
         "id": 1,
         "loginType": "2",
         "title": "Admin",
@@ -97,6 +129,7 @@
         "name": "Add New User",
         "redirect": "signup"
     },
+    
     {
         "id": 1,
         "loginType": "3",
@@ -117,5 +150,37 @@
         "title": "Admin",
         "name": "Time & Attendance",
         "redirect": "attpunchlog"
+    },
+    {
+        "id": 6,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Dispute Request",
+        "redirect": "disputerequest"
+    },
+   
+    {
+        "id": 8,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Request Notification",
+        "redirect": "notifications"
+    },
+    {
+        "id": 9,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Leave Request",
+        "redirect": "leaverequest"
+    },
+    {
+        "id": 10,
+        "loginType": "3",
+        "title": "Admin",
+        "name": "Dispute Status",
+        "redirect": "disputereqnotif"
     }
+   
+  
+    
 ]

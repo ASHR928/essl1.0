@@ -1,0 +1,92 @@
+.container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    text-align: center;
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+  
+  .leave-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  
+    th, td {
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+    }
+  
+    th {
+      background-color: #f4f4f4;
+    }
+  
+    .pending {
+      color: orange;
+    }
+  
+    .approved {
+      color: green;
+    }
+  
+    .rejected {
+      color: red;
+    }
+  
+    .action-dropdown {
+      padding: 5px;
+      margin-right: 10px;
+    }
+  
+    .submit-btn {
+      padding: 5px 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+  
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+//   .confirm-button {
+//     background-color: #4caf50; /* Green */
+//     color: white;
+//     border: none;
+//    align-items: center;
+//     font-size: 10px;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     transition: background-color 0.3s ease, transform 0.2s ease;
+//   }
+  
+  .confirm-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+  
+  .confirm-button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+    transform: scale(1); /* Reset scale */
+  }
+  
+//   select {
+//     padding: 8px 12px;
+//     border-radius: 4px;
+//     border: 1px solid #ccc;
+//     font-size: 14px;
+//     outline: none;
+//     transition: border-color 0.3s ease;
+//   }
+  
+  select:focus {
+    border-color: #4caf50; /* Green border on focus */
+  }
+  
+  

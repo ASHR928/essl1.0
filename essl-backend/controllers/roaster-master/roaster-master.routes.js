@@ -5,7 +5,7 @@ const upload = require('../upload/upload');
 
 
 const router = express.Router();
-const { getAllRosters, getRosterByEmpId, createRoster, updateRoster, deleteRoster, bulkInsertRoaster, swapRosters } = require('../roaster-master/roaster-master.controller');
+const { getAllRosters, getRosterByEmpId, createRoster, updateRoster, deleteRoster, bulkInsertRoaster, swapRosters,approveorRejectRoster,requestAddRoster } = require('../roaster-master/roaster-master.controller');
 
 
 // Route to get all roster entries
@@ -27,6 +27,8 @@ router.post('/bulk-insert', upload.single('file'), bulkInsertRoaster);
 
 // Route to swap rosters between two employees by their Emp_IDs
 router.put('/swap/:empId1/:empId2', swapRosters);
+router.post('/request',requestAddRoster)
+router.put('/request/:rosterId',approveorRejectRoster)
 
 
 module.exports = router

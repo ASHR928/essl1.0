@@ -7,16 +7,15 @@ import { HttpModule } from '../_Http/http/http.module';
 import { AttendancepunchlogService } from '../_Services/attendancepunchlog.service';
 
 @Component({
-  selector: 'app-attendance-punch-log',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    AgGridAngular,
-    ServicesModule,
-    HttpModule
-  ],
-  templateUrl: './attendance-punch-log.component.html',
-  styleUrl: './attendance-punch-log.component.scss'
+    selector: 'app-attendance-punch-log',
+    imports: [
+        MaterialModule,
+        AgGridAngular,
+        ServicesModule,
+        HttpModule
+    ],
+    templateUrl: './attendance-punch-log.component.html',
+    styleUrl: './attendance-punch-log.component.scss'
 })
 export class AttendancePunchLogComponent implements OnInit {
   gridApi!: GridApi;
@@ -53,6 +52,7 @@ export class AttendancePunchLogComponent implements OnInit {
       //       return response.Emp_Company_ID = data.Emp_ID
       //     });
       //   } else {
+      console.log(res);
       res.sort((a: any, b: any) => {
         if (a.Emp_Company_ID < b.Emp_Company_ID) {
           return -1;

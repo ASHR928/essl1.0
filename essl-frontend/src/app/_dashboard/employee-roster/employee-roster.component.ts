@@ -8,15 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MessagesService } from '../../_Toastr/messages.service';
 
 @Component({
-  selector: 'app-employee-roster',
-  standalone: true,
-  imports: [
-    CommonGridComponent,
-    ButtonsComponent,
-    ServicesModule
-  ],
-  templateUrl: './employee-roster.component.html',
-  styleUrl: './employee-roster.component.scss'
+    selector: 'app-employee-roster',
+    imports: [
+        CommonGridComponent,
+        ButtonsComponent,
+        ServicesModule
+    ],
+    templateUrl: './employee-roster.component.html',
+    styleUrl: './employee-roster.component.scss'
 })
 export class EmployeeRosterComponent implements OnInit {
   rowData: any[] = [];

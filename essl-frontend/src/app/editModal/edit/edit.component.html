@@ -5,3 +5,11 @@
     <i class="bi bi-trash"></i>
 </a>
 
+<a #disable id="DISABLE" color="" style="margin-left: 20px; cursor: pointer;" 
+   *ngIf="params?.data?.Is_Active === true" (click)="Disable()">
+    <i class="bi bi-person-x"></i>
+</a>
+<a #reactivate id="REACTIVATE" color="primary" style="margin-left: 20px; cursor: pointer;" 
+   *ngIf="params?.data?.Is_Active === false" (click)="Reactivate()">
+    <i  class="bi bi-person-check"></i>
+</a>

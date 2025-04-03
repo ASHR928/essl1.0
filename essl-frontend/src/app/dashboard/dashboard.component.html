@@ -23,13 +23,17 @@
                     <mat-menu #menu="matMenu">
                         <span style="color: white; font-size: 0.8rem;"></span>
                         <button mat-menu-item (click)="logout()">Logout</button>
+                        <span style="color: white; font-size: 0.8rem;"></span>
+                        <button mat-menu-item (click)="changePassword()">Change Password</button>
                     </mat-menu>
+
                 </span>
             </div>
         </mat-toolbar>
         <mat-nav-list>
             @for (menu of MenuList; track $index) {
-                <a mat-list-item id="{{menu.id}}" mat-list-item [routerLink]="['/', 'dashboard', menu.redirect]" [queryParams]="{ type: menu.loginType, unique: menu.id }"> <span>{{ menu.name }}</span></a>
+            <a mat-list-item id="{{menu.id}}" mat-list-item [routerLink]="['/', 'dashboard', menu.redirect]"
+                [queryParams]="{ type: menu.loginType, unique: menu.id }"> <span>{{ menu.name }}</span></a>
             }
             <!-- <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'dashboard', 'admin']"> <span>Admin</span></a>
             <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'dashboard', 'emplist']"> <span>Employee List</span></a>
@@ -52,6 +56,7 @@
                     <a (click)="logout()" style="color: white !important; cursor: pointer;">Logout</a>
                 </mat-menu>
             </div>
+            <app-session-timer></app-session-timer>
         </mat-toolbar>
 
         <!-- Your main content goes here -->

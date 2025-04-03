@@ -17,17 +17,16 @@ import { MaterialModule } from '../../_Material/material/material.module';
 
 
 @Component({
-  selector: 'fullscreen',
-  standalone: true,
-  imports: [
-    FullCalendarModule,
-    CommonModule,
-    MaterialModule,
-    DatePipe
-  ],
-  providers: [DatePipe],
-  templateUrl: './fullscreen.component.html',
-  styleUrl: './fullscreen.component.scss'
+    selector: 'fullscreen',
+    imports: [
+        FullCalendarModule,
+        CommonModule,
+        MaterialModule,
+        DatePipe
+    ],
+    providers: [DatePipe],
+    templateUrl: './fullscreen.component.html',
+    styleUrl: './fullscreen.component.scss'
 })
 export class FullscreenComponent implements OnInit {
   @ViewChild('fullCalendar') calendarComponent!: FullCalendarComponent;
@@ -89,7 +88,9 @@ export class FullscreenComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    console.log(this.commonService.isEdit)
     if (this.commonService.isEdit != 'true') {
+      console.log(this.commonService.commonData)
       let empId = this.commonService.commonData.Emp_Company_ID;
       let attendanceLogs: any = [];
       // Fetch attendance logs by employee ID
@@ -107,6 +108,7 @@ export class FullscreenComponent implements OnInit {
 
         // Call getEmpDetailsById only after processing attendance logs
         this.employeeSerive.getEmpDetailsById(empId).subscribe((empData: any) => {
+          
           const weekOff1 = empData[0].Weekly_Off1;
           const weekOff2 = empData[0].Weekly_Off2;
           console.log(empData);

@@ -1,0 +1,4 @@
+<div class="session-timer" [ngClass]="{'warning': minutes < 5}">
+    <span class="timer-label">Session Time:</span>
+    <span class="timer-value">{{ minutes }}:{{ seconds | number:'2.0-0' }}</span>
+  </div>

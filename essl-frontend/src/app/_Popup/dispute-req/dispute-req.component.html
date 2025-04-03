@@ -1,0 +1,52 @@
+<div class='dispute-modal-container'>
+    <div class="modal-header">
+      <h2>Attendance Dispute Request</h2>
+      <mat-icon class="close-icon" (click)="closeDialog()">close</mat-icon>
+    </div>
+  
+    <div class="modal-content">
+      <form [formGroup]="disputeForm">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Employee ID</mat-label>
+          <input matInput formControlName="EmployeeId" readonly>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Attendance Date</mat-label>
+          <input matInput [value]="formattedAttendanceDate" readonly>
+        </mat-form-field>
+        
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Current Status</mat-label>
+          <input matInput formControlName="Current_status" readonly >
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Requested Status</mat-label>
+          <mat-select formControlName="Requested_status" required>
+            @for (status of statusOptions; track status.key) {
+              <mat-option [value]="status.key">{{status.value}}</mat-option>
+            }
+          </mat-select>
+          @if (disputeForm.get('Requested_status')?.hasError('required') && disputeForm.get('Requested_status')?.touched) {
+            <mat-error>Requested status is required</mat-error>
+          }
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Reason for Dispute</mat-label>
+          <textarea matInput formControlName="Reason" rows="3" required></textarea>
+          @if (disputeForm.get('Reason')?.hasError('required') && disputeForm.get('Reason')?.touched) {
+            <mat-error>Reason is required</mat-error>
+          }
+        </mat-form-field>
+      </form>
+    </div>
+  
+    <div class="modal-actions">
+      <button mat-button (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="submitDispute()" [disabled]="!disputeForm.valid">
+        Submit Request
+      </button>
+    </div>
+  </div>

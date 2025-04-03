@@ -8,17 +8,16 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-dialog',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MaterialModule,
-    HttpModule,
-    DatePipe
-  ],
-  providers: [provideNativeDateAdapter(), DatePipe],
-  templateUrl: './edit-dialog.component.html',
-  styleUrl: './edit-dialog.component.scss'
+    selector: 'app-edit-dialog',
+    imports: [
+        FormsModule,
+        MaterialModule,
+        HttpModule,
+        DatePipe
+    ],
+    providers: [provideNativeDateAdapter(), DatePipe],
+    templateUrl: './edit-dialog.component.html',
+    styleUrl: './edit-dialog.component.scss'
 })
 export class EditDialogComponent {
 

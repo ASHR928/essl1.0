@@ -1,5 +1,22 @@
-<h3>Upload Roster</h3><br>
+<!-- <h3>Upload Roster</h3><br>
 <file-upload [maxSize]="5" [allowedFileTypes]="['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']" (FilesDetails)="getData($event)"></file-upload>
 <div style="text-align: center;">
     <button mat-flat-button color="primary" (click)="upload()">Upload File</button>
+</div> -->
+<h3>Upload Roster</h3><br>
+
+
+<file-upload 
+  [maxSize]="5" 
+  [allowedFileTypes]="['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']" 
+  (FilesDetails)="getData($event)">
+</file-upload>
+
+<div style="text-align: center;">
+  <button mat-flat-button color="primary" (click)="upload()">Upload File</button>
+</div>
+
+<div>
+    <h3>Roster Request</h3><br>
+<common-grid   [rowData]="rowData" [colDefs]="colDefs" [pagination]="true" [pageSize]="20" [allrows]="allrows"></common-grid>
 </div>

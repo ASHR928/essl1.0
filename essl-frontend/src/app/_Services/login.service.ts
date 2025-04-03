@@ -61,6 +61,16 @@ export class LoginService {
     );
   }
 
+  updatePassword(obj: any) {
+    return this.http.put(Url.LocalUrl + 'login/updatePassword', obj).pipe(
+      retry(3),
+      catchError(error => {
+        this.err.next(error);
+        return this.err.asObservable();
+      })
+    );
+  }
+
   sendEmail(obj: any) {
     return this.http.post(Url.LocalUrl + 'mailer/sendmail', obj).pipe(
       retry(3),

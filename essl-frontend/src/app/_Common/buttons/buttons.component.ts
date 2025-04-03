@@ -7,15 +7,14 @@ import { CommonModule } from '@angular/common';
 import { ButtonService } from '../../_Resolver/button.service';
 
 @Component({
-  selector: 'buttons',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    ServicesModule,
-    CommonModule
-  ],
-  templateUrl: './buttons.component.html',
-  styleUrl: './buttons.component.scss'
+    selector: 'buttons',
+    imports: [
+        MaterialModule,
+        ServicesModule,
+        CommonModule
+    ],
+    templateUrl: './buttons.component.html',
+    styleUrl: './buttons.component.scss'
 })
 export class ButtonsComponent implements ICellRendererAngularComp {
   @ViewChild('delete') deleteRef?: ElementRef;

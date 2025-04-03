@@ -8,16 +8,15 @@ import { LoginService } from '../_Services/login.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    HttpModule,
-    ServicesModule,
-    DatePipe
-  ],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+    selector: 'app-signup',
+    imports: [
+        MaterialModule,
+        HttpModule,
+        ServicesModule,
+        DatePipe
+    ],
+    templateUrl: './signup.component.html',
+    styleUrl: './signup.component.scss'
 })
 export class SignupComponent implements OnInit {
   error: any;

@@ -5,6 +5,7 @@ const router = express.Router();
 router.post('/loginstatus', Users.Login);
 router.post('/signup', Users.insertUsersDetails)
 router.patch('/delete', Users.DeleteUser)
+router.put('/updatePassword', Users.updatePassword)
 // app.get('/client/:_id', client.GetClientListById);
 
 module.exports = router;

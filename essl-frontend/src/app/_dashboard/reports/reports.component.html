@@ -1,0 +1,17 @@
+
+<div class="col-md-12 col-lg-12 col-sm-12-col-xm-12 row">
+    <button (click)="downloadPDF()">Download PDF</button>
+    <mat-form-field style="width: 100%;" class="float-right">
+        <mat-label>Filter</mat-label>
+        <input style="width: 100%;" #filterValue (input)="onFilterChange(filterValue.value)" matInput placeholder="Enter 3 or more chars to filter" name="search">
+    </mat-form-field>
+    <div *ngIf="loading" class="loader-container">
+        <mat-progress-bar mode="buffer" [value]="progressValue" [bufferValue]="bufferValue"></mat-progress-bar>
+        <p>Loading data, please wait...</p>
+      </div>
+      
+    <ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs" class="ag-theme-quartz" [pagination]="true" [paginationPageSize]="20"
+    (gridReady)="onGridReady($event)"
+    style="height: 670px;">
+    </ag-grid-angular>
+</div>

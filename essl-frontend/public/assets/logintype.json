@@ -10,5 +10,13 @@
     {
         "loginType": 3,
         "title": "Employee"
+    },
+    {
+        "loginType": 4,
+        "title": "Team Leader"
+    },
+    {
+        "loginType": 5,
+        "title": "Manager"
     }
 ]

@@ -4,14 +4,13 @@ import { MaterialModule } from '../../_Material/material/material.module';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-calendar',
-  standalone: true,
-  imports: [
-    DatePipe,
-    MaterialModule
-  ],
-  templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.scss'
+    selector: 'app-calendar',
+    imports: [
+        DatePipe,
+        MaterialModule
+    ],
+    templateUrl: './calendar.component.html',
+    styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent {
   currentDate: Date = new Date();

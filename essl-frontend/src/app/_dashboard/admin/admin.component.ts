@@ -7,16 +7,15 @@ import { CurrencyPipe } from '@angular/common';
 import { EmployeeService } from '../../_Services/employee.service';
 
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [
-    CommonGridComponent,
-    ServicesModule,
-    ButtonsComponent,
-    CurrencyPipe
-  ],
-  templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss'
+    selector: 'app-admin',
+    imports: [
+        CommonGridComponent,
+        ServicesModule,
+        ButtonsComponent,
+        CurrencyPipe
+    ],
+    templateUrl: './admin.component.html',
+    styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
 

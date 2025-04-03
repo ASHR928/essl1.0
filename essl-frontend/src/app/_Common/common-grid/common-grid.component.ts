@@ -10,19 +10,19 @@ import { HttpModule } from '../../_Http/http/http.module';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'common-grid',
-  standalone: true,
-  imports: [
-    AgGridAngular,
-    CommonModule,
-    HttpModule
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-    NO_ERRORS_SCHEMA
-  ],
-  templateUrl: './common-grid.component.html',
-  styleUrl: './common-grid.component.scss'
+    selector: 'common-grid',
+    standalone:true,
+    imports: [
+        AgGridAngular,
+        CommonModule,
+        HttpModule
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ],
+    templateUrl: './common-grid.component.html',
+    styleUrl: './common-grid.component.scss'
 })
 export class CommonGridComponent implements OnInit {
   constructor(private messageService: MessagesService, private commonService: CommonService, 
@@ -31,7 +31,7 @@ export class CommonGridComponent implements OnInit {
   gridApi!: GridApi;
   @Input('rowData') rowData: any = [];
   @Input('colDefs') colDefs: any;
-  @Input('height') height: string = "300px";
+  @Input('height') height: string = "700px";
   @Input('pagination') pagination: boolean = false;
   @Input('pageSize') pageSize: number = 20;
   @Input('pageSizeSelector') pageSizeSelector: any = [20, 30, 40];
@@ -42,10 +42,20 @@ export class CommonGridComponent implements OnInit {
   @Input('showPopup') showPopup = false;
   @Input('heightWidth') heightWidth = { height: '0px', width: '0px' };
   @Input() userType = 0;
+  
   @Input() setUserType = 1;
   @Output('loadData') loadData = new EventEmitter<String>();
   @Input() redirectPage: any = { redirectFlag: false, redirect: [], queryParams: {} };
   defaultRow: any;
+  rowClassRules = {
+    'inactive-row': (params: any) => {
+      console.log('RowClassRules applied:', params); // Debugging
+      return params.data?.Is_Active === false;
+    },
+  };
+  
+  
+
 
   ngOnInit(): void {
     this.defaultRow = this.allrows;
@@ -70,7 +80,11 @@ export class CommonGridComponent implements OnInit {
 
   onGridReady(params: { api: GridApi }): void {
     this.gridApi = params.api;
+    console.log('Row Data:', this.rowData);
+    this.gridApi.refreshCells({ force: true });
   }
+
+  
 
   openPopup(data: any) {
     this.commonService.commonData = data.data;

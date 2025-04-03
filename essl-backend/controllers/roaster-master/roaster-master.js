@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require('sequelize');
 const db = require('../../sequelizeconn');
 
-const RosterMaster = db.define('Roster_Master', {
+const RosterMaster = db.define('ROSTER_MASTER', {
   RM_ID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -32,7 +32,10 @@ const RosterMaster = db.define('Roster_Master', {
     type: Sequelize.DATE,
     allowNull: true,
     defaultValue: Sequelize.DATE.NOW,
-
+  },
+  Status: {
+    type: DataTypes.STRING,
+    defaultValue: 'Pending',
   },
   Start_Date: {
     type: Sequelize.DATE,
@@ -48,7 +51,9 @@ const RosterMaster = db.define('Roster_Master', {
   },
 }, {
   tableName: 'ROSTER_MASTER',
-  timestamps: false, 
+  timestamps: false,
 });
+
+// Define the association with EMPLOYEE_MASTER
 
 module.exports = RosterMaster;
