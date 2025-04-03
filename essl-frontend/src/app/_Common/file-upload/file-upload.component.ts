@@ -4,15 +4,15 @@ import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
 import { MaterialModule } from '../../_Material/material/material.module';
 
 @Component({
-  selector: 'file-upload',
-  standalone: true,
-  imports: [
-    NgxFileDropModule,
-    MaterialModule,
-    HttpModule
-  ],
-  templateUrl: './file-upload.component.html',
-  styleUrl: './file-upload.component.scss'
+    selector: 'file-upload',
+    standalone:true,
+    imports: [
+        NgxFileDropModule,
+        MaterialModule,
+        HttpModule
+    ],
+    templateUrl: './file-upload.component.html',
+    styleUrl: './file-upload.component.scss'
 })
 export class FileUploadComponent {
   constructor() { }

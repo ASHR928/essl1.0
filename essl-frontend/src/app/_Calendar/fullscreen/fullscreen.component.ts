@@ -17,17 +17,16 @@ import { MaterialModule } from '../../_Material/material/material.module';
 
 
 @Component({
-  selector: 'fullscreen',
-  standalone: true,
-  imports: [
-    FullCalendarModule,
-    CommonModule,
-    MaterialModule,
-    DatePipe
-  ],
-  providers: [DatePipe],
-  templateUrl: './fullscreen.component.html',
-  styleUrl: './fullscreen.component.scss'
+    selector: 'fullscreen',
+    imports: [
+        FullCalendarModule,
+        CommonModule,
+        MaterialModule,
+        DatePipe
+    ],
+    providers: [DatePipe],
+    templateUrl: './fullscreen.component.html',
+    styleUrl: './fullscreen.component.scss'
 })
 export class FullscreenComponent implements OnInit {
   @ViewChild('fullCalendar') calendarComponent!: FullCalendarComponent;

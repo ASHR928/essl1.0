@@ -144,7 +144,7 @@ export class EmployeeService {
     );
   }
   disableEmployee(empId: number) {
-    return this.http.put(`${Url.localUrl}employees/disableemployee/${empId}`, {
+    return this.http.put(`${Url.LocalUrl}employees/disableemployee/${empId}`, {
       Is_Active:0
     }).pipe(
       retry(3),
@@ -156,7 +156,7 @@ export class EmployeeService {
   }
   
   reactivateEmployee(empId: number) {
-    return this.http.put(`${Url.localUrl}employees/reactiveemployee/${empId}`, {
+    return this.http.put(`${Url.LocalUrl}employees/reactiveemployee/${empId}`, {
       Is_Active:1
     }).pipe(
       retry(3),

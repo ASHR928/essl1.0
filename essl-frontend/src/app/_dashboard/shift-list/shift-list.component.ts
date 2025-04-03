@@ -9,11 +9,11 @@ import { ServicesModule } from '../../_Modules/services/services.module';
 
 
 @Component({
-  selector: 'app-shift-list',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, CommonGridComponent,MaterialModule,ServicesModule],
-  templateUrl: './shift-list.component.html',
-  styleUrl: './shift-list.component.scss'
+    selector: 'app-shift-list',
+    
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, CommonGridComponent, MaterialModule, ServicesModule],
+    templateUrl: './shift-list.component.html',
+    styleUrl: './shift-list.component.scss'
 })
 export class ShiftListComponent implements OnInit {
   shiftForm!:FormGroup;
@@ -41,7 +41,7 @@ export class ShiftListComponent implements OnInit {
 
   constructor(private shiftService: ShiftMasterService, private fb:FormBuilder, private messageService: MessagesService) {
     this.shiftForm=this.fb.group({
-      Shift_ID:[''],
+     
       Shift_StartTime:['',Validators.required],
       Shift_EndTime:['',Validators.required],
       Is_Approved:[true,Validators.required],
@@ -82,7 +82,7 @@ export class ShiftListComponent implements OnInit {
 
   resetForm():void{
     this.shiftForm.reset({
-      Shift_ID: "",
+      
       Shift_StartTime: "",
       Shift_EndTime: "",
       Is_Approved: true,

@@ -2,15 +2,49 @@ const AttendanceLog = require('../attendance-logs/attendance-logs');
 const db = require('../../sequelizeconn')
 var Sequelize = require("sequelize");
 
-// Get all attendance logs
+ // Ensure this points to your database connection
+
 exports.getAllAttendanceLogs = async (req, res) => {
   try {
-    const attendanceLogs = await AttendanceLog.findAll();
+    console.log("API Hit: /api/attendance-logs");
+    
+    const query = `
+      SELECT 
+      
+        a.AttendanceDate, 
+        a.EmployeeId, 
+        a.InTime, 
+        a.OutTime, 
+        a.Duration, 
+        a.PunchRecords,
+        a.LateBy, 
+        a.EarlyBy, 
+        a.ShiftId,
+        a.Status, 
+        e.EmployeeCode, 
+        e.EmployeeName
+      FROM AttendanceLogs AS a
+      INNER JOIN employees AS e ON a.EmployeeId = e.EmployeeId
+    `;
+
+    const attendanceLogs = await db.query(query, {
+      type: Sequelize.QueryTypes.SELECT,
+    });
+
+    if (!attendanceLogs || attendanceLogs.length === 0) {
+      console.log("No Attendance Logs Found");
+      return res.status(404).json({ message: "No attendance logs found" });
+    }
+
+    console.log("Fetched Attendance Logs:", attendanceLogs.length);
     res.json(attendanceLogs);
   } catch (error) {
+    console.error("Error fetching logs:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 // Get a specific attendance log by ID
 exports.getAttendanceLogById = async (req, res) => {
@@ -30,6 +64,7 @@ exports.getAttendanceLogById = async (req, res) => {
 
 // Get a specific attendance log joining two tables
 exports.getAttendanceLogByEmployeeCode = async (req, res) => {
+  console.log(req.params,"chekcsjndbfudf")
   try {
     const { empId } = req.params;
 

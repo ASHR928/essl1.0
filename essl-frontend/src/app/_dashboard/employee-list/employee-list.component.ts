@@ -14,16 +14,16 @@ import { MessagesService } from '../../_Toastr/messages.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-employee-list',
-  standalone: true,
-  imports: [
-    CommonGridComponent,
-    ServicesModule,
-    CommonModule,
-    ButtonsComponent
-  ],
-  templateUrl: './employee-list.component.html',
-  styleUrl: './employee-list.component.scss'
+    selector: 'app-employee-list',
+    standalone: true,
+    imports: [
+        CommonGridComponent,
+        ServicesModule,
+        CommonModule,
+        ButtonsComponent
+    ],
+    templateUrl: './employee-list.component.html',
+    styleUrl: './employee-list.component.scss'
 })
 export class EmployeeListComponent implements OnInit {
   rowData: any[] = [];
@@ -74,7 +74,7 @@ export class EmployeeListComponent implements OnInit {
     ];
 
     // Add Action column only if paramType is 3 (admin)
-    if (paramType === '1') {
+    if (paramType === '1' || paramType === "2") {
       this.colDefs.push({
         field: 'Action',
         cellRenderer: EditComponent,
@@ -109,7 +109,7 @@ export class EmployeeListComponent implements OnInit {
   // }
   populateEmployeeList() {
     this.route.queryParams.subscribe((params: any) => {
-      if (params.type == 3) {
+      if (params.type == 3 ) {
         // Fetch employee by ID (for admin)
         this.employeeService.getEmployeeById(localStorage.getItem('employee_id')).subscribe((res: any) => {
           this.rowData = res.map((emp: any) => ({

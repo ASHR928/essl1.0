@@ -8,16 +8,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
-  selector: 'app-dispute-req',
-  standalone: true,
-  imports: [  DatePipe,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MaterialModule],
-    providers:[DatePipe],
-  templateUrl: './dispute-req.component.html',
-  styleUrl: './dispute-req.component.scss'
+    selector: 'app-dispute-req',
+    imports: [DatePipe,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MaterialModule],
+    providers: [DatePipe],
+    templateUrl: './dispute-req.component.html',
+    styleUrl: './dispute-req.component.scss'
 })
 export class DisputeReqComponent implements OnInit {
   disputeForm!: FormGroup;

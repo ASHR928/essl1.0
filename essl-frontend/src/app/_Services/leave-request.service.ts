@@ -13,7 +13,7 @@ export class LeaveRequestService {
   constructor(private http: HttpClient) { }
 
   createLeaveRequest(obj:any){
- return this.http.post(Url.localUrl + "leaverequest", obj ).pipe(
+ return this.http.post(Url.LocalUrl + "leaverequest", obj ).pipe(
   retry(3),
   catchError(error => {
     this.err.next(error);
@@ -23,7 +23,7 @@ export class LeaveRequestService {
  )
   }
   approveLeaveRequest(obj:any,empId:any){
-    return this.http.put(`${Url.localUrl}leaverequest/${empId}`,obj).pipe(
+    return this.http.put(`${Url.LocalUrl}leaverequest/${empId}`,obj).pipe(
       retry(3),
       catchError(error =>{
         this.err.next(error);
@@ -33,7 +33,7 @@ export class LeaveRequestService {
   }
 
   fetchAllRequest() {
-    return this.http.get(`${Url.localUrl}leaverequest/allrequests`).pipe(
+    return this.http.get(`${Url.LocalUrl}leaverequest/allrequests`).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);
@@ -42,7 +42,7 @@ export class LeaveRequestService {
     );
   }
   fetchEmployeeRequest(employeeId:any) {
-    return this.http.get(`${Url.localUrl}leaverequest/emprequest/${employeeId}`).pipe(
+    return this.http.get(`${Url.LocalUrl}leaverequest/emprequest/${employeeId}`).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);

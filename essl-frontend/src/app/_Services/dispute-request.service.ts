@@ -15,7 +15,7 @@ export class DisputeRequestService {
   constructor(private http: HttpClient) { }
 
   createDisputeRequest(obj:any){
- return this.http.post(Url.localUrl + "disputes", obj ).pipe(
+ return this.http.post(Url.LocalUrl + "disputes", obj ).pipe(
   retry(3),
   catchError(error => {
     this.err.next(error);
@@ -25,7 +25,7 @@ export class DisputeRequestService {
  )
   }
   updateDisputeStatus(id: string, status: string, managerId: any) {
-    const url = `${Url.localUrl}disputes/${id}`;
+    const url = `${Url.LocalUrl}disputes/${id}`;
     const body = { Status: status, Manager_id: managerId };
 
     return this.http.put(url, body).pipe(
@@ -38,7 +38,7 @@ export class DisputeRequestService {
   }
 
   getPendingRequests(managerId: string) {
-    const url = `${Url.localUrl}disputes/pendingrequests`;
+    const url = `${Url.LocalUrl}disputes/pendingrequests`;
     const body = { Manager_id: managerId };
 
     return this.http.post(url, body).pipe(
@@ -52,7 +52,7 @@ export class DisputeRequestService {
 
 
   getPendingRequestById(employeeId: string) {
-    const url = `${Url.localUrl}disputes/pendingrequestsId/${employeeId}`; // Replace with your API endpoint
+    const url = `${Url.LocalUrl}disputes/pendingrequestsId/${employeeId}`; // Replace with your API endpoint
 
     return this.http.get(url).pipe(
       retry(3), // Retry the request up to 3 times in case of failure

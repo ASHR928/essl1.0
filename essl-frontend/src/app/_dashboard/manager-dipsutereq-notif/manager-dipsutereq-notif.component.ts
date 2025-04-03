@@ -6,12 +6,10 @@ import { ColDef, GridApi, CellClickedEvent,ICellRendererParams } from 'ag-grid-c
 
 import { provideAnimations } from '@angular/platform-browser/animations';
 @Component({
-  selector: 'app-manager-dipsutereq-notif',
-  standalone: true,
-  imports: [CommonGridComponent],
-  templateUrl: './manager-dipsutereq-notif.component.html',
-  styleUrl: './manager-dipsutereq-notif.component.scss',
- 
+    selector: 'app-manager-dipsutereq-notif',
+    imports: [CommonGridComponent],
+    templateUrl: './manager-dipsutereq-notif.component.html',
+    styleUrl: './manager-dipsutereq-notif.component.scss'
 })
 export class ManagerDipsutereqNotifComponent {
   

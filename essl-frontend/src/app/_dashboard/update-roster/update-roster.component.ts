@@ -9,17 +9,17 @@ import { FormsModule } from '@angular/forms';
 import { CommonGridComponent } from '../../_Common/common-grid/common-grid.component';
 import { HttpResponse } from '@angular/common/http';
 @Component({
-  selector: 'app-update-roster',
-  standalone: true,
-  imports: [
-    FileUploadComponent,
-    CommonGridComponent,
-    ServicesModule,
-    MaterialModule,
-    FormsModule
-  ],
-  templateUrl: './update-roster.component.html',
-  styleUrl: './update-roster.component.scss'
+    selector: 'app-update-roster',
+    standalone:true,
+    imports: [
+        FileUploadComponent,
+        CommonGridComponent,
+        ServicesModule,
+        MaterialModule,
+        FormsModule
+    ],
+    templateUrl: './update-roster.component.html',
+    styleUrl: './update-roster.component.scss'
 })
 export class UpdateRosterComponent {
   globalData: any;

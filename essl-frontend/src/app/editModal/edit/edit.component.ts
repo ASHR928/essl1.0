@@ -6,14 +6,13 @@ import { CommonService } from '../../_Resolver/common.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'gridbutton',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    CommonModule
-  ],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.scss'
+    selector: 'gridbutton',
+    imports: [
+        MaterialModule,
+        CommonModule
+    ],
+    templateUrl: './edit.component.html',
+    styleUrl: './edit.component.scss'
 })
 export class EditComponent implements ICellRendererAngularComp {
   @ViewChild('delete') deleteRef?: ElementRef;

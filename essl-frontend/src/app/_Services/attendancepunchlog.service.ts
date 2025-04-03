@@ -21,7 +21,7 @@ export class AttendancepunchlogService {
     );
   }
   getAllAttendanceLogs() {
-    return this.http.get(`${Url.localUrl}attendance/attendanceLogs`).pipe(
+    return this.http.get(`${Url.LocalUrl}attendance/attendanceLogs`).pipe(
       retry(3), // Retry the request up to 3 times on failure
       catchError((error) => {
         this.err.next(error.message); // Emit the error message to subscribers

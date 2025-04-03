@@ -21,7 +21,7 @@ export class ShiftMasterService {
   constructor(private http: HttpClient) { }
   
   getAllShifts(){
-    return this.http.get(`${Url.localUrl}shifts/allShifts`).pipe(
+    return this.http.get(`${Url.LocalUrl}shifts/allShifts`).pipe(
       retry(3),
       catchError(error=>{
         this.err.next(error);
@@ -31,7 +31,7 @@ export class ShiftMasterService {
   }
   createShift(shift:Shift){
     return this.http.post(
-      `${Url.localUrl}shifts/createShift`,shift).pipe(
+      `${Url.LocalUrl}shifts/createShift`,shift).pipe(
         retry(3),
         catchError(error=>{
           this.err.next(error);

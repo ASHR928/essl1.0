@@ -6,18 +6,18 @@ import { MessagesService } from '../_Toastr/messages.service';
 import { ServicesModule } from '../_Modules/services/services.module';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { EmployeeService } from '../_Services/employee.service';
-
+import { SessionTimerComponent } from '../_Popup/session-timer/session-timer.component';
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    RouterModule,
-    NgxBootstrapIconsModule,
-    ServicesModule
-  ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+    selector: 'app-dashboard',
+    imports: [
+        MaterialModule,
+        RouterModule,
+        NgxBootstrapIconsModule,
+        ServicesModule,
+        SessionTimerComponent
+    ],
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   userName: string = '';

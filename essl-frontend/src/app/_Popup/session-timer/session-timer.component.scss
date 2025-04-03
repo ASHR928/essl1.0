@@ -1,0 +1,24 @@
+.session-timer {
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f5f5f5;
+    margin: 8px;
+  }
+  .timer-label {
+    font-size: 14px;
+    color: #666;
+  }
+  .timer-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  .warning {
+    background-color: #fff3e0;
+    .timer-value {
+      color: #f44336;
+    }
+  }

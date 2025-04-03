@@ -1,4 +1,4 @@
-const { DataTypes,Sequelize } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const db = require('../../sequelizeconn');
 
 const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
@@ -10,6 +10,7 @@ const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
   Emp_Company_ID: {
     type: DataTypes.STRING,
     allowNull: true,
+    unique: true, // Add unique constraint for foreign key reference
   },
   Emp_Name: {
     type: DataTypes.STRING,
@@ -76,5 +77,8 @@ const EmployeeMaster = db.define('EMPLOYEE_MASTER', {
   tableName: 'EMPLOYEE_MASTER',
   timestamps: false,
 });
+
+// Define the association with ROSTER_MASTER
+
 
 module.exports = EmployeeMaster;

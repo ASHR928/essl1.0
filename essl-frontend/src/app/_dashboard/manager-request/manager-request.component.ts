@@ -13,17 +13,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-manager-request',
-  standalone: true,
-  imports: [
-    CommonGridComponent,
-    ServicesModule,
-    CommonModule,
-    FormsModule,
-    ButtonsComponent
-  ],
-  templateUrl: './manager-request.component.html',
-  styleUrl: './manager-request.component.scss'
+    selector: 'app-manager-request',
+    imports: [
+        CommonGridComponent,
+        ServicesModule,
+        CommonModule,
+        FormsModule,
+        ButtonsComponent
+    ],
+    templateUrl: './manager-request.component.html',
+    styleUrl: './manager-request.component.scss'
 })
 export class ManagerRequestComponent implements OnInit {
   queryParams = { 

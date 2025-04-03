@@ -158,3 +158,58 @@ exports.swapRosters = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+exports.requestAddRoster = async (req, res) => {
+  try {
+
+    const { Emp_ID, Weekly_Off1, Weekly_Off2, Shift_ID, Start_Date,Role_ID, End_Date } = req.body;
+
+    if (Role_ID !== '3') {
+      return res.status(403).json({ error: 'Only Admiin can request to add a roster' });
+    }
+
+    const newRoster = await RosterMaster.create({
+      Emp_ID,
+      Weekly_Off1,
+      Weekly_Off2,
+      Shift_ID,
+      Start_Date,
+      End_Date,
+      // Requested_By: userId, // TL's ID
+      Status: 'Pending', // Default status
+    });
+
+    res.status(201).json({
+      message: 'Roster request submitted successfully',
+      roster: newRoster,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.approveorRejectRoster = async (req,res)=>{
+  try {
+    const {rosterId} = req.params;
+    const {status,Role_ID} = req.body
+
+    if(Role_ID !== 3){
+      return res.status(403).json({ error: 'Only Admin can approve or reject roster requests' });
+    }
+    const roster = await RosterMaster.findOne({ where: { RM_ID: rosterId } });
+    if (!roster) {
+      return res.status(404).json({ error: 'Roster request not found' });
+    }
+    if (roster.Status !== 'Pending') {
+      console.log('No roster found with RM_ID:', rosterId);
+      return res.status(400).json({ error: 'Roster request is already processed' });
+    }
+    roster.Status = status;
+    await roster.save();
+    res.status(200).json({
+      message: `Roster request created successfully`,
+      roster,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}

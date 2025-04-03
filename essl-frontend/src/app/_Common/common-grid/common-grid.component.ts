@@ -10,19 +10,19 @@ import { HttpModule } from '../../_Http/http/http.module';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'common-grid',
-  standalone: true,
-  imports: [
-    AgGridAngular,
-    CommonModule,
-    HttpModule
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-    NO_ERRORS_SCHEMA
-  ],
-  templateUrl: './common-grid.component.html',
-  styleUrl: './common-grid.component.scss'
+    selector: 'common-grid',
+    standalone:true,
+    imports: [
+        AgGridAngular,
+        CommonModule,
+        HttpModule
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ],
+    templateUrl: './common-grid.component.html',
+    styleUrl: './common-grid.component.scss'
 })
 export class CommonGridComponent implements OnInit {
   constructor(private messageService: MessagesService, private commonService: CommonService, 

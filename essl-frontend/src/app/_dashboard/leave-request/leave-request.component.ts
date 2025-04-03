@@ -7,17 +7,15 @@ import { DatePipe } from '@angular/common';
 import { LeaveRequestService } from '../../_Services/leave-request.service';
 
 @Component({
-  selector: 'app-leave-request',
-  standalone: true,
-  
-  imports: [
-    MaterialModule,
-    HttpModule,
-    ServicesModule,
-    DatePipe
-  ],
-  templateUrl: './leave-request.component.html',
-  styleUrl: './leave-request.component.scss'
+    selector: 'app-leave-request',
+    imports: [
+        MaterialModule,
+        HttpModule,
+        ServicesModule,
+        DatePipe
+    ],
+    templateUrl: './leave-request.component.html',
+    styleUrl: './leave-request.component.scss'
 })
 export class LeaveRequestComponent {
   error: any;

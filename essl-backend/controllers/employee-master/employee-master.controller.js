@@ -3,6 +3,8 @@ const XLSX = require('xlsx');
 const mssql = require('mssql');
 const db = require('../../sequelizeconn')
 var Sequelize = require("sequelize");
+const RosterMaster = require("../roaster-master/roaster-master")
+const ShiftMaster = require("../shift-master/shift-master")
 
 
 exports.getTotalUniqueTeamNames = async (req, res) => {
@@ -79,21 +81,79 @@ exports.getAllEmployees = async (req, res) => {
 };
 
 // Get an employee by ID
+// exports.getEmployeeById = async (req, res) => {
+//   try {
+//     const { empId } = req.params;
+//     const employee = await EmployeeMaster.findOne({ where: { Emp_Company_ID: empId } });
+
+//     if (!employee) {
+//       return res.status(404).json({ error: 'Employee not found' });
+//     }
+
+//     res.status(200).json(employee);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 exports.getEmployeeById = async (req, res) => {
   try {
     const { empId } = req.params;
-    const employee = await EmployeeMaster.findOne({ where: { Emp_Company_ID: empId } });
 
-    if (!employee) {
+    // Define the raw SQL query
+    const query = `
+      SELECT 
+        EM.Emp_Company_ID,
+        EM.Emp_Name,
+        EM.Emp_email,
+        EM.Emp_Department_Name,
+        EM.Emp_Contact_No ,
+        EM.Emp_Designation ,
+        EM.Is_Active,
+        SM.Shift_StartTime,
+        SM.Shift_EndTime
+      FROM 
+        EMPLOYEE_MASTER EM
+      INNER JOIN 
+        ROSTER_MASTER RM ON EM.Emp_Company_ID = RM.Emp_ID
+      INNER JOIN 
+        SHIFT_MASTER SM ON RM.Shift_ID = SM.Shift_ID
+      WHERE 
+        EM.Emp_Company_ID = :empId;
+    `;
+
+    // Execute the raw SQL query
+    const results = await db.query(query, {
+      replacements: { empId }, // Pass the employee ID as a parameter
+      type: Sequelize.QueryTypes.SELECT,
+    });
+ 
+
+    // Check if employee data was found
+    if (results.length === 0) {
       return res.status(404).json({ error: 'Employee not found' });
     }
 
-    res.status(200).json(employee);
+    // Format the response
+    const response = {
+      Emp_Company_ID: results[0].Emp_Company_ID,
+      Employee_Name: results[0].Emp_Name,
+      Emp_email: results[0].Emp_email,
+      Emp_Department_Name: results[0].Emp_Department_Name,
+      Emp_Contact_No: results[0].Emp_Contact_No,
+      Emp_Designation: results[0].Emp_Designation,
+      Is_Active: results[0].Is_Active,
+      Shift_Timings: results.map((row) => ({
+        Shift_StartTime: row.Shift_StartTime,
+        Shift_EndTime: row.Shift_EndTime,
+      })),
+    };
+
+    console.log(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 // Create a new employee
 exports.createEmployee = async (req, res) => {
   console.log(req.body);
@@ -361,4 +421,53 @@ exports.deleteEmployee = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+// disable the employee
+exports.disableEmployee = async (req,res) =>{
+  try {
+    const { empId } = req.params;
 
+    const updateSql = `
+    UPDATE EMPLOYEE_MASTER 
+    SET Is_Active = @Is_Active, Updated_At = @Updated_At
+    WHERE Emp_Company_ID = @Emp_Company_ID
+  `;
+    const request = new mssql.Request();
+    request.input('Emp_Company_ID', mssql.NChar, empId);
+    request.input('Is_Active', mssql.Bit, false);
+    request.input('Updated_At', mssql.DateTime, new Date());
+
+    await request.query(updateSql);
+
+    res.status(200).json({
+      message: 'Employee disabled successfully',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+}
+// activate a employee
+exports.reactivateEmployee = async (req, res) => {
+  try {
+    const { empId } = req.params;
+
+    const updateSql = `
+    UPDATE EMPLOYEE_MASTER 
+    SET Is_Active = @Is_Active, Updated_At = @Updated_At
+    WHERE Emp_Company_ID = @Emp_Company_ID
+  `;
+    const request = new mssql.Request();
+    request.input('Emp_Company_ID', mssql.NChar, empId);
+    request.input('Is_Active', mssql.Bit, true);
+    request.input('Updated_At', mssql.DateTime, new Date());
+
+    await request.query(updateSql);
+
+    res.status(200).json({
+      message: 'Employee reactivated successfully',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+};

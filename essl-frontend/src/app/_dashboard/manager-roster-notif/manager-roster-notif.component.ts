@@ -6,11 +6,10 @@ import { RosterRequestService } from '../../_Services/roster-request.service';
 import { HttpResponse } from '@angular/common/http';
 import { MaterialModule } from '../../_Material/material/material.module';
 @Component({
-  selector: 'app-manager-roster-notif',
-  standalone: true,
-  imports: [CommonGridComponent, MaterialModule, ServicesModule],
-  templateUrl: './manager-roster-notif.component.html',
-  styleUrl: './manager-roster-notif.component.scss'
+    selector: 'app-manager-roster-notif',
+    imports: [CommonGridComponent, MaterialModule, ServicesModule],
+    templateUrl: './manager-roster-notif.component.html',
+    styleUrl: './manager-roster-notif.component.scss'
 })
 export class ManagerRosterNotifComponent {
   globalData: any;

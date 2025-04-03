@@ -7,16 +7,15 @@ import { HttpModule } from '../_Http/http/http.module';
 import { ServicesModule } from '../_Modules/services/services.module';
 
 @Component({
-  selector: 'app-app-log',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    AgGridAngular,
-    HttpModule,
-    ServicesModule
-  ],
-  templateUrl: './app-log.component.html',
-  styleUrl: './app-log.component.scss'
+    selector: 'app-app-log',
+    imports: [
+        MaterialModule,
+        AgGridAngular,
+        HttpModule,
+        ServicesModule
+    ],
+    templateUrl: './app-log.component.html',
+    styleUrl: './app-log.component.scss'
 })
 export class AppLogComponent implements OnInit {
   gridApi!: GridApi;

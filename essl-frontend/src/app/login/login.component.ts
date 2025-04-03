@@ -8,17 +8,17 @@ import { MessagesService } from '../_Toastr/messages.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { LoginService } from '../_Services/login.service';
 import { UserTypeListService } from '../_Services/user-type-list.service';
+import { SessionService } from '../_Services/session.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    HttpModule,
-    ServicesModule
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    imports: [
+        MaterialModule,
+        HttpModule,
+        ServicesModule
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
   url: string = '';
@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
   userType: any = [];
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private messageService: MessagesService,
-    private router: Router, private loginService: LoginService, private userTypeListService: UserTypeListService) { }
+    private router: Router, private loginService: LoginService, private userTypeListService: UserTypeListService,
+    private sessionService: SessionService) { }
 
   ngOnInit(): void {
     this.userTypeListService.getUserTypeList().subscribe((res: any) => {
@@ -60,21 +61,28 @@ export class LoginComponent implements OnInit {
 
     const obj = { Emp_ID: userName, Role: userType, pwd: pwd };
 
-    this.loginService.login(obj).subscribe((response: any) => {
-      console.log(response);
-      
-      if (response.sqlMessage == undefined) {
-        response[0].userType = this.selectedType;
-        localStorage.setItem('token', JSON.stringify(response));
-        localStorage.setItem('userType', userType);
-        localStorage.setItem('username', response[0].Emp_Name);
-        localStorage.setItem('employee_id', response[0].Emp_ID);
-        this.router.navigate(['/', 'dashboard', 'admin'], { queryParams: { type: userType, unique: 1 } });
-      } else {
-        this.error = response.sqlMessage;
+    this.loginService.login(obj).subscribe({
+      next: (response: any) => {
+        if (response.sqlMessage == undefined) {
+          response[0].userType = this.selectedType;
+          localStorage.setItem('token', JSON.stringify(response));
+          localStorage.setItem('userType', userType);
+          localStorage.setItem('username', response[0].Emp_Name);
+          localStorage.setItem('employee_id', response[0].Emp_ID);
+          
+          // Initialize session management after successful login
+          this.sessionService.initializeSession();
+          
+          this.router.navigate(['/', 'dashboard', 'admin'], { 
+            queryParams: { type: userType, unique: 1 } 
+          });
+        } else {
+          this.error = response.sqlMessage;
+        }
+      },
+      error: (error) => {
+        this.messageService.errorMsg(error);
       }
-    }, error => {
-      this.messageService.errorMsg(error);
     });
   }
 }

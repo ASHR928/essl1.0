@@ -17,7 +17,7 @@ export class RosterRequestService {
 
 
  getAllRosterRequests() {
-    return this.http.get(`${Url.localUrl}rosterrequest/requests`).pipe(
+    return this.http.get(`${Url.LocalUrl}rosterrequest/requests`).pipe(
       retry(3),
       catchError(error => {
         this.err.next(error);
@@ -29,7 +29,7 @@ export class RosterRequestService {
   // Approve a roster request
   approveRosterRequest(requestId: string, managerId: any,status:any,comment:any) {
     return this.http.put(
-      `${Url.localUrl}rosterrequest/approve/${requestId}`,
+      `${Url.LocalUrl}rosterrequest/approve/${requestId}`,
       { managerId,status,comment }
     ).pipe(
       retry(3),
@@ -43,7 +43,7 @@ export class RosterRequestService {
   // Create new roster request with file upload
   createRosterRequest(tlId: string, fileBase64: string, ) {
     return this.http.post(
-      `${Url.localUrl}rosterrequest/create/${tlId}`,
+      `${Url.LocalUrl}rosterrequest/create/${tlId}`,
       { file: fileBase64 }
     ).pipe(
       retry(3),
@@ -57,7 +57,7 @@ export class RosterRequestService {
   // Bulk insert approved roster data
   bulkInsertRosterMaster(requestId: string) {
     return this.http.post(
-      `${Url.localUrl}rosterrequest/bulkinsert/${requestId}`,
+      `${Url.LocalUrl}rosterrequest/bulkinsert/${requestId}`,
       {}
     ).pipe(
       retry(3),
@@ -71,7 +71,7 @@ export class RosterRequestService {
   // Download roster file
   downloadRosterFile(requestId: any): Observable<HttpResponse<Blob>> {
     return this.http.get<Blob>(
-      `${Url.localUrl}rosterrequest/download/${requestId}`,
+      `${Url.LocalUrl}rosterrequest/download/${requestId}`,
       {
         observe: 'response',
         responseType: 'blob' as 'json' // Special handling for Blob response

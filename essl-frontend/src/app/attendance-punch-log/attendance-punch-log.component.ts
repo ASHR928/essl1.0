@@ -7,16 +7,15 @@ import { HttpModule } from '../_Http/http/http.module';
 import { AttendancepunchlogService } from '../_Services/attendancepunchlog.service';
 
 @Component({
-  selector: 'app-attendance-punch-log',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    AgGridAngular,
-    ServicesModule,
-    HttpModule
-  ],
-  templateUrl: './attendance-punch-log.component.html',
-  styleUrl: './attendance-punch-log.component.scss'
+    selector: 'app-attendance-punch-log',
+    imports: [
+        MaterialModule,
+        AgGridAngular,
+        ServicesModule,
+        HttpModule
+    ],
+    templateUrl: './attendance-punch-log.component.html',
+    styleUrl: './attendance-punch-log.component.scss'
 })
 export class AttendancePunchLogComponent implements OnInit {
   gridApi!: GridApi;

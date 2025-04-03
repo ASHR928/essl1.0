@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
     "helmet": "^7.1.0",
     "mongoose": "^8.4.4",
     "mssql": "^11.0.1",

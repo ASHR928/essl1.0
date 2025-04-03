@@ -17,18 +17,18 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MaterialModule } from '../../_Material/material/material.module';
 import { DisputeRequestService } from '../../_Services/dispute-request.service';
 @Component({
-  selector: 'app-dispute-request',
-  standalone: true,
-  imports: [
-    FullCalendarModule,
-    CommonModule,
-    MaterialModule,
-    MatSnackBarModule,
-    DatePipe
-  ],
-  providers: [DatePipe],
-  templateUrl: './dispute-request.component.html',
-  styleUrl: './dispute-request.component.scss'
+    selector: 'app-dispute-request',
+    standalone:true,
+    imports: [
+        FullCalendarModule,
+        CommonModule,
+        MaterialModule,
+        MatSnackBarModule,
+        DatePipe
+    ],
+    providers: [DatePipe],
+    templateUrl: './dispute-request.component.html',
+    styleUrl: './dispute-request.component.scss'
 })
 export class DisputeRequestComponent implements OnInit {
   @ViewChild('fullCalendar') calendarComponent!: FullCalendarComponent;

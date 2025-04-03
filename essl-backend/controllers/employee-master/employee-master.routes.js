@@ -32,6 +32,8 @@ router.put('/:empId', Employees.updateEmployee);
 router.delete('/:empId', Employees.deleteEmployee);
 
 router.post('/bulk-insert', upload.single('file'), Employees.bulkInsertEmployees);
+router.put("/disableemployee/:empId",Employees.disableEmployee)
+router.put("/reactiveemployee/:empId",Employees.reactivateEmployee)
 
 
 module.exports = router

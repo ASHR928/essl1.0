@@ -9,15 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { DisputeRequestService } from '../../_Services/dispute-request.service'; 
 
 @Component({
-  selector: 'app-dispute-req-notif',
-  standalone: true,
-  imports: [CommonGridComponent,
-    ServicesModule,
-    CommonModule,
-    FormsModule,
-    ButtonsComponent],
-  templateUrl: './dispute-req-notif.component.html',
-  styleUrl: './dispute-req-notif.component.scss'
+    selector: 'app-dispute-req-notif',
+    imports: [CommonGridComponent,
+        ServicesModule,
+        CommonModule,
+        FormsModule,
+        ButtonsComponent],
+    templateUrl: './dispute-req-notif.component.html',
+    styleUrl: './dispute-req-notif.component.scss'
 })
 export class DisputeReqNotifComponent implements OnInit {
   queryParams = { 
